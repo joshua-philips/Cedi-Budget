@@ -6,6 +6,9 @@ ThemeData light = ThemeData(
   primarySwatch: Colors.red,
   accentColor: Colors.redAccent,
   scaffoldBackgroundColor: Colors.white,
+  appBarTheme: AppBarTheme(
+    color: Colors.red[700],
+  ),
   pageTransitionsTheme: PageTransitionsTheme(
     builders: {
       TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),

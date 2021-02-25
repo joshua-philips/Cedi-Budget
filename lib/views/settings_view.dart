@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/services/theme_provider.dart';
 import 'package:groceries_budget_app/views/about_view.dart';
 import 'package:provider/provider.dart';
+import 'package:groceries_budget_app/services/auth_service.dart';
+import 'package:groceries_budget_app/my_provider.dart';
 
 class SettingsView extends StatefulWidget {
   @override
@@ -26,8 +28,9 @@ class _SettingsViewState extends State<SettingsView> {
                 leading: notifier.darkTheme
                     ? Icon(Icons.wb_sunny)
                     : Icon(Icons.nights_stay),
+                subtitle: Text('App will restart'),
                 title: Text(
-                  '${notifier.darkTheme ? 'Switch to Light Mode' : 'Switch to Dark Mode'}',
+                  '${notifier.darkTheme ? 'Switch to light mode' : 'Switch to dark mode'}',
                 ),
                 trailing: Switch(
                   value: notifier.darkTheme,
@@ -43,7 +46,7 @@ class _SettingsViewState extends State<SettingsView> {
             child: InkWell(
               onTap: () {},
               child: ListTile(
-                title: Text('My Account'),
+                title: Text('My account'),
                 // TODO: Get email from firebase
                 subtitle: Text('philipsjoshua96@gmail.com'),
                 leading: Icon(Icons.account_circle),
@@ -62,6 +65,27 @@ class _SettingsViewState extends State<SettingsView> {
                 title: Text('About'),
                 subtitle: Text('www.organisationname.com'),
                 leading: Icon(Icons.info),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Center(
+              child: FlatButton(
+                child: Text(
+                  'Logout',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+                minWidth: 0,
+                padding: EdgeInsets.only(left: 8),
+                onPressed: () async {
+                  try {
+                    await MyProvider.of(context).auth.signOut().then((value) =>
+                        Navigator.of(context).pushReplacementNamed('/home'));
+                  } catch (e) {
+                    print(e);
+                  }
+                },
               ),
             ),
           ),
