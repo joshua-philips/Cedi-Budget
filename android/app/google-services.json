@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "648489740712",
+    "project_id": "groceries-budget-4ff28",
+    "storage_bucket": "groceries-budget-4ff28.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648489740712:android:f1b99bd00039ddf634559d",
+        "android_client_info": {
+          "package_name": "com.foodex.groceries_budget_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648489740712-t4pv1smildv29oiraqar09mucv2gcjpa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodex.groceries_budget_app",
+            "certificate_hash": "58bc69e5529d8527bd720f811981015557837a60"
+          }
+        },
+        {
+          "client_id": "648489740712-bcdg0jq1qqkrdqie5d7nuljspc3dhte1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBo3kbnoqltLZOkCIS5UVL4togX8j2e_lQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648489740712-bcdg0jq1qqkrdqie5d7nuljspc3dhte1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
