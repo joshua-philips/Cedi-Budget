@@ -5,6 +5,7 @@ class AboutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).appBarTheme.color,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -15,17 +16,20 @@ class AboutView extends StatelessWidget {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        child: Text(
-                          lorem,
-                          textAlign: TextAlign.center,
+                  Container(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          child: Text(
+                            lorem,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),

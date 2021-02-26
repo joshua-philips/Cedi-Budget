@@ -1,22 +1,17 @@
-import 'package:auth_buttons/auth_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:groceries_budget_app/widgets/auth_text_formfield.dart';
-import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/my_provider.dart';
+import 'package:groceries_budget_app/widgets/auth_text_formfield.dart';
 
-import 'password_reset_view.dart';
-
-class SignInView extends StatefulWidget {
+class PasswordResetView extends StatefulWidget {
   @override
-  _SignInViewState createState() => _SignInViewState();
+  _PasswordResetViewState createState() => _PasswordResetViewState();
 }
 
-class _SignInViewState extends State<SignInView> {
+class _PasswordResetViewState extends State<PasswordResetView> {
   final formKey = new GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +34,7 @@ class _SignInViewState extends State<SignInView> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
-                    'Log in to your account',
+                    'Password Reset',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 25,
@@ -49,7 +44,7 @@ class _SignInViewState extends State<SignInView> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                    top: 50,
+                    top: 80,
                     right: 10,
                     left: 10,
                   ),
@@ -62,13 +57,7 @@ class _SignInViewState extends State<SignInView> {
                           validator: (val) =>
                               !val.contains('@') ? 'Invalid Email' : null,
                           hintText: 'Email',
-                        ),
-                        AuthTextFormField(
-                          controller: _passwordController,
-                          validator: (val) =>
-                              val.length < 6 ? '6 or more characters' : null,
-                          hintText: 'Password',
-                          obscureText: true,
+                          autofocus: true,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 30),
@@ -86,7 +75,7 @@ class _SignInViewState extends State<SignInView> {
                                 bottom: 10,
                               ),
                               child: Text(
-                                'Login',
+                                'Submit',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -97,18 +86,12 @@ class _SignInViewState extends State<SignInView> {
                             color: Colors.white,
                             onPressed: () async {
                               if (formKey.currentState.validate()) {
-                                print('clicked');
                                 showLoadingSnackBar(_scaffoldKey);
-                                String returnedString = await signIn();
-                                if (returnedString != 'Success') {
-                                  showErrorSnackBar(
-                                      _scaffoldKey, returnedString);
-                                } else {
-                                  Navigator.popUntil(context,
-                                      (_) => !Navigator.canPop(context));
-                                  Navigator.of(context)
-                                      .pushReplacementNamed('/home');
-                                }
+                                String returnedString = await sendResetEmail();
+
+                                // Not an error here just message
+                                showMessageSnackBar(
+                                    _scaffoldKey, returnedString);
                               }
                             },
                           ),
@@ -116,38 +99,6 @@ class _SignInViewState extends State<SignInView> {
                       ],
                     ),
                   ),
-                ),
-                FlatButton(
-                  onPressed: () {
-                    Route route = MaterialPageRoute(
-                        builder: (context) => PasswordResetView());
-                    Navigator.of(context).push(route);
-                  },
-                  child: Text(
-                    'Forgotten Password?',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  ),
-                  minWidth: 0,
-                  padding: EdgeInsets.only(left: 8),
-                  textColor: Colors.white,
-                ),
-                SizedBox(height: 40),
-                Divider(
-                  color: Colors.redAccent,
-                ),
-                SizedBox(height: 20),
-                GoogleAuthButton(
-                  borderRadius: 20,
-                  onPressed: () async {
-                    String returnedString = await googleSignIn();
-                    if (returnedString != 'Success') {
-                      showErrorSnackBar(_scaffoldKey, returnedString);
-                    } else {
-                      Navigator.popUntil(
-                          context, (_) => !Navigator.canPop(context));
-                      Navigator.of(context).pushReplacementNamed('/home');
-                    }
-                  },
                 ),
               ],
             ),
@@ -157,15 +108,14 @@ class _SignInViewState extends State<SignInView> {
     );
   }
 
-  Future<String> googleSignIn() async {
+  Future<String> sendResetEmail() async {
     final auth = MyProvider.of(context).auth;
 
     try {
-      await auth.signInWithGoogle();
-      return 'Success';
+      await auth.sendPasswordResetEmail(_emailController.text.trim());
+      return 'Password reset email sent';
     } catch (e) {
-      print(e);
-      return (e.message);
+      return e.message;
     }
   }
 
@@ -184,29 +134,16 @@ class _SignInViewState extends State<SignInView> {
     );
   }
 
-  void showErrorSnackBar(GlobalKey<ScaffoldState> scaffoldKey, String error) {
+  void showMessageSnackBar(
+      GlobalKey<ScaffoldState> scaffoldKey, String message) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
         backgroundColor: Colors.black,
         content: Text(
-          error,
+          message,
           style: TextStyle(color: Colors.white),
         ),
       ),
     );
-  }
-
-  Future<String> signIn() async {
-    final AuthService auth = MyProvider.of(context).auth;
-
-    try {
-      await auth.signInWithEmailAndPassword(
-          _emailController.text.trim(), _passwordController.text);
-
-      return 'Success';
-    } catch (e) {
-      print(e.message);
-      return e.message.toString();
-    }
   }
 }

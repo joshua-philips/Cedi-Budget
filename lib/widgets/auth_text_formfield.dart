@@ -5,12 +5,14 @@ class AuthTextFormField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final FormFieldValidator<String> validator;
+  final bool autofocus;
 
   AuthTextFormField({
     @required this.controller,
     this.validator,
     this.hintText,
     this.obscureText,
+    this.autofocus,
   });
 
   @override
@@ -20,7 +22,8 @@ class AuthTextFormField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         style: TextStyle(color: Colors.white),
-        cursorColor: Colors.black,
+        cursorColor: Colors.redAccent,
+        autofocus: autofocus != null ? autofocus : false,
         obscureText: obscureText != null ? obscureText : false,
         decoration: InputDecoration(
           hintText: hintText ?? '',

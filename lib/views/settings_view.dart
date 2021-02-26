@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/services/theme_provider.dart';
 import 'package:groceries_budget_app/views/about_view.dart';
 import 'package:provider/provider.dart';
-import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 
 class SettingsView extends StatefulWidget {
@@ -80,8 +79,7 @@ class _SettingsViewState extends State<SettingsView> {
                 padding: EdgeInsets.only(left: 8),
                 onPressed: () async {
                   try {
-                    await MyProvider.of(context).auth.signOut().then((value) =>
-                        Navigator.of(context).pushReplacementNamed('/home'));
+                    await MyProvider.of(context).auth.signOut();
                   } catch (e) {
                     print(e);
                   }

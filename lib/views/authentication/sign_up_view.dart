@@ -1,3 +1,4 @@
+import 'package:auth_buttons/auth_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
@@ -48,7 +49,7 @@ class _SignUpViewState extends State<SignUpView> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                    top: 80,
+                    top: 40,
                     right: 10,
                     left: 10,
                   ),
@@ -116,6 +117,25 @@ class _SignUpViewState extends State<SignUpView> {
                             },
                           ),
                         ),
+                        SizedBox(height: 40),
+                        Divider(
+                          color: Colors.redAccent,
+                        ),
+                        SizedBox(height: 20),
+                        GoogleAuthButton(
+                          borderRadius: 20,
+                          onPressed: () async {
+                            String returnedString = await googleSignIn();
+                            if (returnedString != 'Success') {
+                              showErrorSnackBar(_scaffoldKey, returnedString);
+                            } else {
+                              Navigator.popUntil(
+                                  context, (_) => !Navigator.canPop(context));
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/home');
+                            }
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -126,6 +146,18 @@ class _SignUpViewState extends State<SignUpView> {
         ),
       ),
     );
+  }
+
+  Future<String> googleSignIn() async {
+    final auth = MyProvider.of(context).auth;
+
+    try {
+      await auth.signInWithGoogle();
+      return 'Success';
+    } catch (e) {
+      print(e);
+      return (e.message);
+    }
   }
 
   void showLoadingSnackBar(GlobalKey<ScaffoldState> scaffoldKey) {

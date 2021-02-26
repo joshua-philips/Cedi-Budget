@@ -9,19 +9,13 @@ import 'views/authentication/firstview.dart';
 import 'views/authentication/sign_in_view.dart';
 import 'views/authentication/sign_up_view.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyProvider(
@@ -59,7 +53,6 @@ class HomeController extends StatelessWidget {
           return signedIn ? NavigationView() : FirstView();
         }
         return Scaffold(
-          backgroundColor: Colors.red[900],
           body: Center(
             child: CircularProgressIndicator(),
           ),
