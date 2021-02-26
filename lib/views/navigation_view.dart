@@ -20,6 +20,15 @@ class _NavigationViewState extends State<NavigationView> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Groceries Budget'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {},
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentNavigationIndex,

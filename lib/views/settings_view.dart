@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/services/theme_provider.dart';
 import 'package:groceries_budget_app/views/about_view.dart';
 import 'package:provider/provider.dart';
 import 'package:groceries_budget_app/my_provider.dart';
+import 'my_account_view.dart';
 
 class SettingsView extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class _SettingsViewState extends State<SettingsView> {
 
   @override
   Widget build(BuildContext context) {
+    AuthService auth = MyProvider.of(context).auth;
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,11 +46,14 @@ class _SettingsViewState extends State<SettingsView> {
           ),
           Card(
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Route route =
+                    MaterialPageRoute(builder: (context) => MyAccountView());
+                Navigator.of(context).push(route);
+              },
               child: ListTile(
                 title: Text('My account'),
-                // TODO: Get email from firebase
-                subtitle: Text('philipsjoshua96@gmail.com'),
+                subtitle: Text('${auth.getCurrentUser().email}'),
                 leading: Icon(Icons.account_circle),
               ),
             ),
@@ -71,6 +77,7 @@ class _SettingsViewState extends State<SettingsView> {
             padding: const EdgeInsets.only(top: 10),
             child: Center(
               child: FlatButton(
+                textColor: Colors.blue,
                 child: Text(
                   'Logout',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
@@ -79,7 +86,7 @@ class _SettingsViewState extends State<SettingsView> {
                 padding: EdgeInsets.only(left: 8),
                 onPressed: () async {
                   try {
-                    await MyProvider.of(context).auth.signOut();
+                    await auth.signOut();
                   } catch (e) {
                     print(e);
                   }

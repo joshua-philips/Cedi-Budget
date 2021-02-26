@@ -80,8 +80,8 @@ class _SignInViewState extends State<SignInView> {
                             highlightElevation: 0,
                             child: Padding(
                               padding: const EdgeInsets.only(
-                                left: 50,
-                                right: 50,
+                                left: 82,
+                                right: 82,
                                 top: 10,
                                 bottom: 10,
                               ),
@@ -137,7 +137,7 @@ class _SignInViewState extends State<SignInView> {
                 ),
                 SizedBox(height: 20),
                 GoogleAuthButton(
-                  borderRadius: 20,
+                  borderRadius: 30,
                   onPressed: () async {
                     String returnedString = await googleSignIn();
                     if (returnedString != 'Success') {

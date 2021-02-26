@@ -61,4 +61,18 @@ class AuthService {
 
     return (await _firebaseAuth.signInWithCredential(credential)).user.uid;
   }
+
+  /// Get profile image from third party (google)
+  String getProfileImageUrl() {
+    return _firebaseAuth.currentUser.photoURL;
+  }
+
+  /// Update User's information
+  Future<void> updateUserInfo(String name, String newPassword) async {
+    if (name != null || name != '') {
+      await _firebaseAuth.currentUser.updateProfile(displayName: name);
+    }
+
+    return await _firebaseAuth.currentUser.updatePassword(newPassword);
+  }
 }

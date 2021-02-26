@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 ThemeData light = ThemeData(
   brightness: Brightness.light,
   primarySwatch: Colors.red,
+  primaryColor: Colors.red[700],
   accentColor: Colors.redAccent,
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: AppBarTheme(
