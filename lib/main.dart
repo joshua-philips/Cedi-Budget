@@ -8,7 +8,7 @@ import 'services/auth_service.dart';
 import 'views/authentication/firstview.dart';
 import 'views/authentication/sign_in_view.dart';
 import 'views/authentication/sign_up_view.dart';
-// import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,9 +61,9 @@ class HomeController extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.red[900],
           body: Center(
-            child: CircularProgressIndicator(), // TODO:Use Spinkit Instead
+            child: CircularProgressIndicator(),
           ),
-        ); // Loading Screen
+        );
       },
     );
   }

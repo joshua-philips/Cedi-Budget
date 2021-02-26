@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:groceries_budget_app/widgets/auth_text_formfield.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/my_provider.dart';
@@ -124,10 +125,11 @@ class _SignInViewState extends State<SignInView> {
   void showLoadingSnackBar(GlobalKey<ScaffoldState> scaffoldKey) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
+        duration: Duration(seconds: 3),
         content: Padding(
           padding: EdgeInsets.only(bottom: 15),
-          child: CircularProgressIndicator( // TODO:Use Spinkit Instead
-            strokeWidth: 10,
+          child: SpinKitWave(
+            color: Colors.white,
           ),
         ),
         backgroundColor: Colors.transparent,
@@ -136,13 +138,15 @@ class _SignInViewState extends State<SignInView> {
   }
 
   void showErrorSnackBar(GlobalKey<ScaffoldState> scaffoldKey, String error) {
-    scaffoldKey.currentState.showSnackBar(SnackBar(
-      backgroundColor: Colors.black,
-      content: Text(
-        error,
-        style: TextStyle(color: Colors.white),
+    scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.black,
+        content: Text(
+          error,
+          style: TextStyle(color: Colors.white),
+        ),
       ),
-    ));
+    );
   }
 
   Future<String> signIn() async {

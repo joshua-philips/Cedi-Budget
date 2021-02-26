@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/widgets/auth_text_formfield.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SignUpView extends StatefulWidget {
   @override
@@ -130,10 +131,11 @@ class _SignUpViewState extends State<SignUpView> {
   void showLoadingSnackBar(GlobalKey<ScaffoldState> scaffoldKey) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
+        duration: Duration(seconds: 3),
         content: Padding(
           padding: EdgeInsets.only(bottom: 15),
-          child: CircularProgressIndicator( // TODO:Use Spinkit Instead
-            strokeWidth: 10,
+          child: SpinKitWave(
+            color: Colors.white,
           ),
         ),
         backgroundColor: Colors.transparent,
