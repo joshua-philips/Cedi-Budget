@@ -175,7 +175,6 @@ class _UpdateUserInfoViewState extends State<UpdateUserInfoView> {
       SnackBar(
         content: Text(
           message,
-          style: TextStyle(color: Colors.white),
         ),
       ),
     );
