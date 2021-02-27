@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:groceries_budget_app/services/database_service.dart';
 import 'package:groceries_budget_app/services/theme_provider.dart';
 import 'package:groceries_budget_app/views/navigation_view.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MyProvider(
       auth: AuthService(),
+      database: DatabaseService(
+        uid: AuthService().getCurrentUID(),
+      ),
       child: ChangeNotifierProvider(
         create: (_) => ThemeNotifier(),
         child: Consumer<ThemeNotifier>(

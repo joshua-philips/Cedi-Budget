@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
+import 'package:groceries_budget_app/views/my_account_view.dart';
 
 class UpdateUserInfoView extends StatefulWidget {
   @override
@@ -120,8 +121,14 @@ class _UpdateUserInfoViewState extends State<UpdateUserInfoView> {
                                           if (returnedString == 'Success') {
                                             showMessageSnackBar(
                                                 _scaffoldKey, returnedString);
-                                            Navigator.of(context).pop();
-                                            Navigator.of(context).pop();
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MyAccountView(),
+                                              ),
+                                            );
                                           } else {
                                             showMessageSnackBar(
                                                 _scaffoldKey, returnedString);

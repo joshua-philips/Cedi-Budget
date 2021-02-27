@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:groceries_budget_app/models/budget.dart';
+import 'package:groceries_budget_app/views/new_groceries_budget/date_view.dart';
 import 'budget_history_view.dart';
 import 'home_view.dart';
 import 'settings_view.dart';
@@ -9,6 +11,7 @@ class NavigationView extends StatefulWidget {
 }
 
 class _NavigationViewState extends State<NavigationView> {
+  final Budget budget = Budget.noArgument();
   int _currentNavigationIndex = 0;
   final List<Widget> _children = [
     HomeView(),
@@ -25,12 +28,20 @@ class _NavigationViewState extends State<NavigationView> {
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
               icon: Icon(Icons.add),
-              onPressed: () {},
+              onPressed: () {
+                Route route = MaterialPageRoute(
+                  builder: (context) => NewBudgetDateView(
+                    budget: budget,
+                  ),
+                );
+                Navigator.push(context, route);
+              },
             ),
           ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Theme.of(context).accentColor,
         currentIndex: _currentNavigationIndex,
         items: [
           BottomNavigationBarItem(

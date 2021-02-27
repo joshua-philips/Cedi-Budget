@@ -7,6 +7,7 @@ import 'update_user_info_view.dart';
 class MyAccountView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final AuthService auth = MyProvider.of(context).auth;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -27,7 +28,7 @@ class MyAccountView extends StatelessWidget {
                         child: Column(
                           children: [
                             SizedBox(height: 10),
-                            displayUserInformation(context),
+                            displayUserInformation(context, auth),
                             Padding(
                               padding: const EdgeInsets.only(top: 20),
                               child: Center(
@@ -66,8 +67,7 @@ class MyAccountView extends StatelessWidget {
     );
   }
 
-  Widget displayUserInformation(context) {
-    final AuthService auth = MyProvider.of(context).auth;
+  Widget displayUserInformation(context, AuthService auth) {
     return Padding(
       padding: const EdgeInsets.only(top: 15),
       child: Column(
@@ -89,10 +89,9 @@ class MyAccountView extends StatelessWidget {
   }
 
   Widget displayName(AuthService auth) {
-    String displayName = auth.getCurrentUser().displayName;
-    if (displayName != null) {
+    if (auth.getCurrentUser().displayName != null) {
       return Text(
-        displayName,
+        auth.getCurrentUser().displayName,
         style: TextStyle(fontSize: 20),
       );
     } else {
@@ -101,10 +100,8 @@ class MyAccountView extends StatelessWidget {
   }
 
   Widget displayPhoneNumber(AuthService auth) {
-    String phoneNumber = auth.getCurrentUser().phoneNumber;
-
-    if (phoneNumber != null) {
-      return Text(phoneNumber);
+    if (auth.getCurrentUser().phoneNumber != null) {
+      return Text(auth.getCurrentUser().phoneNumber);
     } else {
       return Text('Phone number not available');
     }
