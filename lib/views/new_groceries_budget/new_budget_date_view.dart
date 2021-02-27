@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
+import 'package:groceries_budget_app/views/new_groceries_budget/new_budget_amount_view.dart';
 import 'package:intl/intl.dart';
 
 class NewBudgetDateView extends StatefulWidget {
   final Budget budget;
 
-  NewBudgetDateView({Key key, this.budget}) : super(key: key);
+  NewBudgetDateView({Key key, @required this.budget}) : super(key: key);
 
   @override
   _NewBudgetDateViewState createState() => _NewBudgetDateViewState();
@@ -109,7 +110,10 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
           onPressed: () {
             widget.budget.startDate = _startDate;
             widget.budget.endDate = _endDate;
-            // TODO: Route to page Budget List of ItemsView
+            Route route = MaterialPageRoute(
+              builder: (context) => NewBudgetAmountView(budget: widget.budget),
+            );
+            Navigator.of(context).push(route);
           },
         ),
       ],
