@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
-import 'package:groceries_budget_app/views/my_account_view.dart';
+import 'package:groceries_budget_app/views/my_account/my_account_view.dart';
+import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 
 class UpdateUserAccountInfoView extends StatefulWidget {
   @override
@@ -33,6 +34,7 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
             title: Text('Update My Account'),
             backgroundColor: Theme.of(context).appBarTheme.color,
             floating: true,
+            actions: [AppBarHomeButton()],
           ),
           SliverList(
             delegate: SliverChildListDelegate(

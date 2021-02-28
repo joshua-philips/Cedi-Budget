@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:groceries_budget_app/models/budget.dart';
+import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 import 'package:intl/intl.dart';
 
 import '../../my_provider.dart';
@@ -18,6 +19,7 @@ class NewBudgetSummaryView extends StatelessWidget {
         slivers: [
           SliverAppBar(
             title: Text('New Budget'),
+            actions: [AppBarHomeButton()],
             pinned: true,
           ),
           SliverList(

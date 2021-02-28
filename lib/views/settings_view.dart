@@ -4,7 +4,7 @@ import 'package:groceries_budget_app/services/theme_provider.dart';
 import 'package:groceries_budget_app/views/about_view.dart';
 import 'package:provider/provider.dart';
 import 'package:groceries_budget_app/my_provider.dart';
-import 'my_account_view.dart';
+import 'my_account/my_account_view.dart';
 
 class SettingsView extends StatefulWidget {
   @override

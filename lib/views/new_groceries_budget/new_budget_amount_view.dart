@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/views/new_groceries_budget/new_budget_summary_view.dart';
+import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 import 'package:groceries_budget_app/widgets/divider_with_text.dart';
 import 'package:groceries_budget_app/widgets/item_text_field.dart';
 import 'package:groceries_budget_app/widgets/money_text_field.dart';
@@ -166,6 +167,7 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
         slivers: [
           SliverAppBar(
             title: Text('New Budget - Amount/Items'),
+            actions: [AppBarHomeButton()],
             pinned: true,
           ),
           SliverList(

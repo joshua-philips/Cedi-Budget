@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Budget {
   DateTime startDate;
   DateTime endDate;
@@ -35,5 +37,15 @@ class Budget {
     };
   }
 
-  
+  /// Creating a Trip object from a firebase snapshot
+  Budget.fromSnapshot(DocumentSnapshot snapshot)
+      : startDate = snapshot.data()['startDate'],
+        endDate = snapshot.data()['endDate'],
+        amount = snapshot.data()['amount'],
+        notes = snapshot.data()['notes'],
+        items = snapshot.data()['notes'],
+        amountUsed = snapshot.data()['amountUsed'],
+        amountSaved = snapshot.data()['amountSaved'],
+        hasItems = snapshot.data()['hasItems'],
+        documentId = snapshot.id;
 }

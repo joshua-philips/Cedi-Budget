@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 
-import 'update_user_account_info_view.dart';
+import '../my_account/update_user_account_info_view.dart';
 
 class MyAccountView extends StatelessWidget {
   @override
