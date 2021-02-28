@@ -38,14 +38,14 @@ class Budget {
   }
 
   /// Creating a Trip object from a firebase snapshot
-  Budget.fromSnapshot(DocumentSnapshot snapshot)
-      : startDate = snapshot.data()['startDate'],
-        endDate = snapshot.data()['endDate'],
-        amount = snapshot.data()['amount'],
-        notes = snapshot.data()['notes'],
-        items = snapshot.data()['notes'],
-        amountUsed = snapshot.data()['amountUsed'],
-        amountSaved = snapshot.data()['amountSaved'],
-        hasItems = snapshot.data()['hasItems'],
-        documentId = snapshot.id;
+  Budget.fromSnapshot(DocumentSnapshot documentSnapshot)
+      : startDate = documentSnapshot.data()['startDate'].toDate(),
+        endDate = documentSnapshot.data()['endDate'].toDate(),
+        amount = documentSnapshot.data()['amount'].toDouble(),
+        notes = documentSnapshot.data()['notes'],
+        items = Map<String, double>.from(documentSnapshot.data()['items']),
+        amountUsed = documentSnapshot.data()['amountUsed'],
+        amountSaved = documentSnapshot.data()['amountSaved'],
+        hasItems = documentSnapshot.data()['hasItems'],
+        documentId = documentSnapshot.id;
 }

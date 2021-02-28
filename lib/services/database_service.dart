@@ -12,4 +12,16 @@ class DatabaseService {
         .collection('budgets')
         .add(budget.toJson());
   }
+
+  
+
+  /// Stream of users budget data in database sorted by endDate
+  Stream<QuerySnapshot> getUsersBudgetStreamSnapshot(String uid) async* {
+    yield* _firestore
+        .collection('userData')
+        .doc(uid)
+        .collection('budgets')
+        .orderBy('endDate')
+        .snapshots();
+  }
 }

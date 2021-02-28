@@ -26,7 +26,7 @@ class MoneyTextField extends StatelessWidget {
           helperText: helperText,
           labelText: 'Price',
         ),
-        keyboardType: TextInputType.numberWithOptions(decimal: false),
+        keyboardType: TextInputType.numberWithOptions(decimal: true),
         inputFormatters: [
           FilteringTextInputFormatter.digitsOnly,
         ],
