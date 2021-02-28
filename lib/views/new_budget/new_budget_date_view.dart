@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
-import 'package:groceries_budget_app/views/new_groceries_budget/new_budget_amount_view.dart';
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 import 'package:intl/intl.dart';
+
+import 'new_budget_amount_view.dart';
 
 class NewBudgetDateView extends StatefulWidget {
   final Budget budget;

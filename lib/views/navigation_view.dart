@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
-import 'package:groceries_budget_app/views/new_groceries_budget/new_budget_date_view.dart';
 import 'budget_history_view.dart';
 import 'home_view.dart';
+import 'new_budget/new_budget_date_view.dart';
 import 'settings_view.dart';
 
 class NavigationView extends StatefulWidget {

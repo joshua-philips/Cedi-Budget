@@ -165,6 +165,7 @@ class NewBudgetSummaryView extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: 0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
             children: [
