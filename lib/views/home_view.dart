@@ -12,10 +12,16 @@ class HomeView extends StatelessWidget {
             MyProvider.of(context).database.getUsersBudgetStreamSnapshot(uid),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
-            if (snapshot.hasData) {
+            if (snapshot.data.docs.length != 0) {
               return buildBudgetList(context, snapshot);
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text(snapshot.error.toString()),
+              );
             } else {
-              return Text('No data. Add your new budget');
+              return Center(
+                child: Text('No data. Add your new budget'),
+              );
             }
           } else {
             return Center(

@@ -13,15 +13,23 @@ class DatabaseService {
         .add(budget.toJson());
   }
 
-  
-
   /// Stream of users budget data in database sorted by endDate
   Stream<QuerySnapshot> getUsersBudgetStreamSnapshot(String uid) async* {
     yield* _firestore
         .collection('userData')
         .doc(uid)
         .collection('budgets')
-        .orderBy('endDate')
+        .orderBy('endDate', descending: true)
+        .snapshots();
+  }
+
+  /// Stream of past budgets
+  Stream<QuerySnapshot> getPastBudgetsStream(String uid) async* {
+    yield* _firestore
+        .collection('userData')
+        .doc(uid)
+        .collection('budgets')
+        .where('endDate', isLessThanOrEqualTo: DateTime.now())
         .snapshots();
   }
 }
