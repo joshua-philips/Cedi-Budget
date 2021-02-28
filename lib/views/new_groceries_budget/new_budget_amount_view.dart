@@ -71,7 +71,10 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
     List<Widget> fields = [];
     if (_amountState == amountType.simple) {
       _switchButtonText = 'Build Budget';
-      fields.add(Text('Enter the total budget'));
+      fields.add(Padding(
+        padding: const EdgeInsets.only(top: 15),
+        child: Text('Enter your total budget for the period'),
+      ));
       fields.add(
         MoneyTextField(
           controller: _amountController,
@@ -80,7 +83,10 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
         ),
       );
     } else {
-      fields.add(Text('Enter cost of each item'));
+      fields.add(Padding(
+        padding: const EdgeInsets.only(top: 15),
+        child: Text('Enter cost of each item'),
+      ));
       fields.add(
         ItemTextField(controller: _item1),
       );
@@ -122,30 +128,32 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
   Map<String, double> changeItemsToMap() {
     Map<String, double> budgetItemsAndPrices = {};
 
-    if (_item1.text != '' && _itemPrice1.text != '') {
-      budgetItemsAndPrices
-          .addAll({_item1.text: double.parse(_itemPrice1.text)});
-      widget.budget.hasItems = true;
-    }
-    if (_item2.text != '' && _itemPrice2.text != '') {
-      budgetItemsAndPrices
-          .addAll({_item2.text: double.parse(_itemPrice2.text)});
-      widget.budget.hasItems = true;
-    }
-    if (_item3.text != '' && _itemPrice3.text != '') {
-      budgetItemsAndPrices
-          .addAll({_item3.text: double.parse(_itemPrice3.text)});
-      widget.budget.hasItems = true;
-    }
-    if (_item4.text != '' && _itemPrice4.text != '') {
-      budgetItemsAndPrices
-          .addAll({_item4.text: double.parse(_itemPrice4.text)});
-      widget.budget.hasItems = true;
-    }
-    if (_item5.text != '' && _itemPrice5.text != '') {
-      budgetItemsAndPrices
-          .addAll({_item5.text: double.parse(_itemPrice5.text)});
-      widget.budget.hasItems = true;
+    if (_amountState == amountType.complex) {
+      if (_item1.text != '' && _itemPrice1.text != '') {
+        budgetItemsAndPrices
+            .addAll({_item1.text: double.parse(_itemPrice1.text)});
+        widget.budget.hasItems = true;
+      }
+      if (_item2.text != '' && _itemPrice2.text != '') {
+        budgetItemsAndPrices
+            .addAll({_item2.text: double.parse(_itemPrice2.text)});
+        widget.budget.hasItems = true;
+      }
+      if (_item3.text != '' && _itemPrice3.text != '') {
+        budgetItemsAndPrices
+            .addAll({_item3.text: double.parse(_itemPrice3.text)});
+        widget.budget.hasItems = true;
+      }
+      if (_item4.text != '' && _itemPrice4.text != '') {
+        budgetItemsAndPrices
+            .addAll({_item4.text: double.parse(_itemPrice4.text)});
+        widget.budget.hasItems = true;
+      }
+      if (_item5.text != '' && _itemPrice5.text != '') {
+        budgetItemsAndPrices
+            .addAll({_item5.text: double.parse(_itemPrice5.text)});
+        widget.budget.hasItems = true;
+      }
     }
 
     return budgetItemsAndPrices;
@@ -158,7 +166,7 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
         slivers: [
           SliverAppBar(
             title: Text('New Budget - Amount/Items'),
-            floating: true,
+            pinned: true,
           ),
           SliverList(
             delegate: SliverChildListDelegate(
@@ -168,7 +176,7 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
                       [
                         FlatButton(
                           child: Text(
-                            'Continue',
+                            'Continue to summary',
                             style: TextStyle(fontSize: 25, color: Colors.blue),
                           ),
                           onPressed: () {

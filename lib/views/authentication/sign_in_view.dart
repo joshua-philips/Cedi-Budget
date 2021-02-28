@@ -100,6 +100,7 @@ class _SignInViewState extends State<SignInView> {
                                 print('clicked');
                                 showLoadingSnackBar(_scaffoldKey);
                                 String returnedString = await signIn();
+                                _scaffoldKey.currentState.hideCurrentSnackBar();
                                 if (returnedString != 'Success') {
                                   showErrorSnackBar(
                                       _scaffoldKey, returnedString);
@@ -172,7 +173,7 @@ class _SignInViewState extends State<SignInView> {
   void showLoadingSnackBar(GlobalKey<ScaffoldState> scaffoldKey) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        duration: Duration(seconds: 3),
+        duration: Duration(days: 1),
         content: Padding(
           padding: EdgeInsets.only(bottom: 15),
           child: SpinKitWave(

@@ -21,7 +21,7 @@ class ItemTextField extends StatelessWidget {
         controller: controller,
         maxLines: 1,
         decoration: InputDecoration(
-          prefix: Text('Item'),
+          prefix: Text('Item: '),
           helperText: helperText,
           labelText: 'Item',
         ),

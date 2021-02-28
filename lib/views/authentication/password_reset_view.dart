@@ -88,8 +88,7 @@ class _PasswordResetViewState extends State<PasswordResetView> {
                               if (formKey.currentState.validate()) {
                                 showLoadingSnackBar(_scaffoldKey);
                                 String returnedString = await sendResetEmail();
-
-                                // Not an error here just message
+                                _scaffoldKey.currentState.hideCurrentSnackBar();
                                 showMessageSnackBar(
                                     _scaffoldKey, returnedString);
                               }
@@ -122,7 +121,7 @@ class _PasswordResetViewState extends State<PasswordResetView> {
   void showLoadingSnackBar(GlobalKey<ScaffoldState> scaffoldKey) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        duration: Duration(seconds: 3),
+        duration: Duration(days: 1),
         content: Padding(
           padding: EdgeInsets.only(bottom: 15),
           child: SpinKitWave(

@@ -104,6 +104,8 @@ class _SignUpViewState extends State<SignUpView> {
                                 print('clicked');
                                 showLoadingSnackBar(_scaffoldKey);
                                 String returnedString = await signUp();
+                                _scaffoldKey.currentState.hideCurrentSnackBar();
+
                                 if (returnedString != 'Success') {
                                   showErrorSnackBar(
                                       _scaffoldKey, returnedString);
@@ -163,7 +165,7 @@ class _SignUpViewState extends State<SignUpView> {
   void showLoadingSnackBar(GlobalKey<ScaffoldState> scaffoldKey) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        duration: Duration(seconds: 3),
+        duration: Duration(days: 1),
         content: Padding(
           padding: EdgeInsets.only(bottom: 15),
           child: SpinKitWave(

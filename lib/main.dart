@@ -21,9 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MyProvider(
       auth: AuthService(),
-      database: DatabaseService(
-        uid: AuthService().getCurrentUID(),
-      ),
+      database: DatabaseService(),
       child: ChangeNotifierProvider(
         create: (_) => ThemeNotifier(),
         child: Consumer<ThemeNotifier>(

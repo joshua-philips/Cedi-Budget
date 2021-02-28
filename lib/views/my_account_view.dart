@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 
-import 'update_user_info_view.dart';
+import 'update_user_account_info_view.dart';
 
 class MyAccountView extends StatelessWidget {
   @override
@@ -46,7 +46,7 @@ class MyAccountView extends StatelessWidget {
                                   onPressed: () {
                                     Route route = MaterialPageRoute(
                                       builder: (context) =>
-                                          UpdateUserInfoView(),
+                                          UpdateUserAccountInfoView(),
                                     );
                                     Navigator.push(context, route);
                                   },

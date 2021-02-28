@@ -4,12 +4,13 @@ import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/views/my_account_view.dart';
 
-class UpdateUserInfoView extends StatefulWidget {
+class UpdateUserAccountInfoView extends StatefulWidget {
   @override
-  _UpdateUserInfoViewState createState() => _UpdateUserInfoViewState();
+  _UpdateUserAccountInfoViewState createState() =>
+      _UpdateUserAccountInfoViewState();
 }
 
-class _UpdateUserInfoViewState extends State<UpdateUserInfoView> {
+class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = new GlobalKey<FormState>();
   TextEditingController _newPasswordController = TextEditingController();
@@ -118,6 +119,8 @@ class _UpdateUserInfoViewState extends State<UpdateUserInfoView> {
                                           showLoadingSnackBar(_scaffoldKey);
                                           String returnedString =
                                               await changeUserInfo();
+                                          _scaffoldKey.currentState
+                                              .hideCurrentSnackBar();
                                           if (returnedString == 'Success') {
                                             showMessageSnackBar(
                                                 _scaffoldKey, returnedString);
@@ -157,11 +160,11 @@ class _UpdateUserInfoViewState extends State<UpdateUserInfoView> {
   void showLoadingSnackBar(GlobalKey<ScaffoldState> scaffoldKey) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        duration: Duration(seconds: 3),
+        duration: Duration(days: 1),
         content: Padding(
           padding: EdgeInsets.only(bottom: 15),
           child: SpinKitWave(
-            color: Colors.red,
+            color: Colors.white,
           ),
         ),
         backgroundColor: Colors.transparent,
