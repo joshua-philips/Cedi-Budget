@@ -120,27 +120,35 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
   /// Convert textfield items in complex mode.
   /// Also determines if Budget variable hasItems is true/false
   Map<String, double> changeItemsToMap() {
-    if (_item1.text == '' &&
-        _item2.text == '' &&
-        _item3.text == '' &&
-        _item4.text == '' &&
-        _item5.text == '') {
-      widget.budget.hasItems = false;
-    } else {
+    Map<String, double> budgetItemsAndPrices = {};
+
+    if (_item1.text != '' && _itemPrice1.text != '') {
+      budgetItemsAndPrices
+          .addAll({_item1.text: double.parse(_itemPrice1.text)});
       widget.budget.hasItems = true;
     }
-    return {
-      (_item1.text != '' ? _item1.text : null):
-          (_itemPrice1.text != '' ? double.parse(_itemPrice1.text) : 0.0),
-      (_item2.text != '' ? _item2.text : null):
-          (_itemPrice2.text != '' ? double.parse(_itemPrice2.text) : 0.0),
-      (_item3.text != '' ? _item3.text : null):
-          (_itemPrice3.text != '' ? double.parse(_itemPrice3.text) : 0.0),
-      (_item4.text != '' ? _item4.text : null):
-          (_itemPrice4.text != '' ? double.parse(_itemPrice4.text) : 0.0),
-      (_item5.text != '' ? _item5.text : null):
-          (_itemPrice5.text != '' ? double.parse(_itemPrice5.text) : 0.0),
-    };
+    if (_item2.text != '' && _itemPrice2.text != '') {
+      budgetItemsAndPrices
+          .addAll({_item2.text: double.parse(_itemPrice2.text)});
+      widget.budget.hasItems = true;
+    }
+    if (_item3.text != '' && _itemPrice3.text != '') {
+      budgetItemsAndPrices
+          .addAll({_item3.text: double.parse(_itemPrice3.text)});
+      widget.budget.hasItems = true;
+    }
+    if (_item4.text != '' && _itemPrice4.text != '') {
+      budgetItemsAndPrices
+          .addAll({_item4.text: double.parse(_itemPrice4.text)});
+      widget.budget.hasItems = true;
+    }
+    if (_item5.text != '' && _itemPrice5.text != '') {
+      budgetItemsAndPrices
+          .addAll({_item5.text: double.parse(_itemPrice5.text)});
+      widget.budget.hasItems = true;
+    }
+
+    return budgetItemsAndPrices;
   }
 
   @override
@@ -168,8 +176,9 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
                             widget.budget.items = changeItemsToMap();
 
                             Route route = MaterialPageRoute(
-                                builder: (context) => NewBudgetSummaryView(
-                                    budget: widget.budget));
+                              builder: (context) =>
+                                  NewBudgetSummaryView(budget: widget.budget),
+                            );
                             Navigator.push(context, route);
                           },
                         ),
