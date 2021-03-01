@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:intl/intl.dart';

@@ -32,4 +32,14 @@ class DatabaseService {
         .where('endDate', isLessThanOrEqualTo: DateTime.now())
         .snapshots();
   }
+
+  /// Update notes
+  Future updateNotes(String uid, String newNotes, Budget budget) async {
+    await _firestore
+        .collection('userData')
+        .doc(uid)
+        .collection('budgets')
+        .doc(budget.documentId)
+        .update({'notes': newNotes});
+  }
 }

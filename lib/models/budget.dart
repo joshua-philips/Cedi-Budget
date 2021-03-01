@@ -48,4 +48,9 @@ class Budget {
         amountSaved = documentSnapshot.data()['amountSaved'],
         hasItems = documentSnapshot.data()['hasItems'],
         documentId = documentSnapshot.id;
+
+  /// Total days of the budget
+  int getTotalDaysofBudget() {
+    return endDate.difference(startDate).inDays;
+  }
 }

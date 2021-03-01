@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
+import 'package:groceries_budget_app/widgets/items_card_list.dart';
 import 'package:groceries_budget_app/widgets/selected_dates.dart';
-import 'package:intl/intl.dart';
 
 import '../../my_provider.dart';
 
@@ -27,7 +27,7 @@ class NewBudgetSummaryView extends StatelessWidget {
             delegate: SliverChildListDelegate([
               SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  padding: const EdgeInsets.only(left: 5, right: 5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
@@ -44,7 +44,9 @@ class NewBudgetSummaryView extends StatelessWidget {
                       ListTile(title: buildSelectedDates(context, budget)),
                       Divider(),
                       SizedBox(height: 15),
-                      budget.hasItems ? buildItemsList(context) : Container(),
+                      budget.hasItems
+                          ? buildItemsCardList(context, budget)
+                          : Container(),
                       SizedBox(height: 20),
                       ListTile(
                         title: Text(
@@ -139,26 +141,5 @@ class NewBudgetSummaryView extends StatelessWidget {
         style: TextStyle(color: Colors.white),
       ),
     ));
-  }
-
-  Widget buildItemsList(BuildContext context) {
-    List<String> items = budget.items.keys.toList();
-    List<double> prices = budget.items.values.toList();
-    return ListView.builder(
-      shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        return Card(
-          child: ListTile(
-            title: Text(items[index]),
-            trailing: Text(
-              'GH¢' + prices[index].toStringAsFixed(0),
-            ),
-          ),
-        );
-      },
-    );
   }
 }

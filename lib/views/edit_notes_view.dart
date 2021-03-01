@@ -1,0 +1,157 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:groceries_budget_app/models/budget.dart';
+import 'package:groceries_budget_app/views/budget_details_view.dart';
+
+import '../my_provider.dart';
+
+class EditNotesView extends StatefulWidget {
+  final Budget budget;
+
+  const EditNotesView({Key key, this.budget}) : super(key: key);
+  @override
+  _EditNotesViewState createState() => _EditNotesViewState();
+}
+
+class _EditNotesViewState extends State<EditNotesView> {
+  final TextEditingController _notesController = TextEditingController();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _notesController.text =
+        widget.budget.notes != null ? widget.budget.notes : '';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _scaffoldKey,
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.height,
+        child: SafeArea(
+          child: Column(
+            children: [
+              buildHeading(context),
+              buildNotesText(),
+              buildSubmitButton(context),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildHeading(context) {
+    // Using Material to prevent problems with the Hero transition
+    return Padding(
+      padding: const EdgeInsets.only(left: 30, top: 10),
+      child: Row(
+        children: [
+          Text(
+            'Edit Budget Notes',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          FlatButton(
+            child: Icon(Icons.close, size: 30),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildNotesText() {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: TextFormField(
+        maxLines: null,
+        controller: _notesController,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+        ),
+        autofocus: true,
+      ),
+    );
+  }
+
+  Widget buildSubmitButton(context) {
+    return RaisedButton(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 30,
+          right: 30,
+          top: 10,
+          bottom: 10,
+        ),
+        child: Text(
+          'Save',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      textColor: Colors.white,
+      color: Theme.of(context).accentColor,
+      onPressed: () async {
+        showLoadingSnackBar(_scaffoldKey);
+        widget.budget.notes = _notesController.text;
+
+        final uid = MyProvider.of(context).auth.getCurrentUID();
+        try {
+          await MyProvider.of(context)
+              .database
+              .updateNotes(uid, _notesController.text, widget.budget);
+          _scaffoldKey.currentState.hideCurrentSnackBar();
+        } catch (e) {
+          print(e.message);
+          _scaffoldKey.currentState.hideCurrentSnackBar();
+          showErrorSnackBar(_scaffoldKey, e.message);
+        }
+        Route route = MaterialPageRoute(
+          builder: (context) => BudgetDetailsView(
+            budget: widget.budget,
+          ),
+        );
+        // Pop twice and then push the Detail Trip View to refresh
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+        Navigator.push(context, route);
+      },
+    );
+  }
+
+  void showLoadingSnackBar(GlobalKey<ScaffoldState> scaffoldKey) {
+    scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        duration: Duration(days: 1),
+        content: Padding(
+          padding: EdgeInsets.only(bottom: 15),
+          child: SpinKitWave(
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+      ),
+    );
+  }
+
+  void showErrorSnackBar(GlobalKey<ScaffoldState> scaffoldKey, String error) {
+    scaffoldKey.currentState.showSnackBar(SnackBar(
+      backgroundColor: Colors.black,
+      content: Text(
+        error,
+        style: TextStyle(color: Colors.white),
+      ),
+    ));
+  }
+}
