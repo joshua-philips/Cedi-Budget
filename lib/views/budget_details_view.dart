@@ -73,11 +73,11 @@ class BudgetDetailsView extends StatelessWidget {
                       : Container(),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: totalBudgetCard(),
+                    child: totalBudgetCard(context),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: totalDaysCard(),
+                    child: totalDaysCard(context),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
@@ -95,20 +95,23 @@ class BudgetDetailsView extends StatelessWidget {
     );
   }
 
-  Widget totalBudgetCard() {
+  Widget totalBudgetCard(BuildContext context) {
     return Card(
+      color: Theme.of(context).brightness != Brightness.dark
+          ? Colors.green[400]
+          : Theme.of(context).cardColor,
       child: ListTile(
         title: Text(
           'Total:',
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 30,
             fontWeight: FontWeight.bold,
           ),
         ),
         trailing: Text(
           'GH¢' + budget.amount.toStringAsFixed(0),
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 30,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -116,8 +119,11 @@ class BudgetDetailsView extends StatelessWidget {
     );
   }
 
-  Widget totalDaysCard() {
+  Widget totalDaysCard(BuildContext context) {
     return Card(
+      color: Theme.of(context).brightness != Brightness.dark
+          ? Colors.blue[400]
+          : Theme.of(context).cardColor,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -128,7 +134,10 @@ class BudgetDetailsView extends StatelessWidget {
                 'This is a ${budget.getTotalDaysofBudget().toString()} day budget',
                 maxLines: 3,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 40),
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ],
@@ -137,8 +146,11 @@ class BudgetDetailsView extends StatelessWidget {
     );
   }
 
-  Widget notesCard(context) {
+  Widget notesCard(BuildContext context) {
     return Card(
+      color: Theme.of(context).brightness != Brightness.dark
+          ? Colors.amberAccent
+          : Theme.of(context).cardColor,
       child: InkWell(
         child: Column(
           children: [
@@ -149,7 +161,10 @@ class BudgetDetailsView extends StatelessWidget {
                 children: [
                   Text(
                     'Trip Notes',
-                    style: TextStyle(fontSize: 24),
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
@@ -173,21 +188,48 @@ class BudgetDetailsView extends StatelessWidget {
     if (budget.notes == null || budget.notes == '') {
       return [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(
+            top: 5,
+            left: 10,
+            right: 10,
+            bottom: 10,
+          ),
           child: Icon(Icons.add_circle_outline),
         ),
-        Text(
-          'Click to add notes',
-          style: TextStyle(),
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 5,
+            right: 10,
+            bottom: 10,
+          ),
+          child: Text(
+            'Click to add notes',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
       ];
     } else {
       return [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            budget.notes,
-            style: TextStyle(),
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 5,
+              left: 10,
+              right: 10,
+              bottom: 10,
+            ),
+            child: AutoSizeText(
+              budget.notes,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontStyle: FontStyle.italic,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
         ),
       ];

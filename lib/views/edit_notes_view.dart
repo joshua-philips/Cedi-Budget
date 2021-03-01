@@ -28,16 +28,16 @@ class _EditNotesViewState extends State<EditNotesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.height,
-        child: SafeArea(
-          child: Column(
-            children: [
-              buildHeading(context),
-              buildNotesText(),
-              buildSubmitButton(context),
-            ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              children: [
+                buildHeading(context),
+                buildNotesText(),
+                buildSubmitButton(context),
+              ],
+            ),
           ),
         ),
       ),
@@ -49,13 +49,23 @@ class _EditNotesViewState extends State<EditNotesView> {
     return Padding(
       padding: const EdgeInsets.only(left: 30, top: 10),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
             'Edit Budget Notes',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           FlatButton(
-            child: Icon(Icons.close, size: 30),
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Theme.of(context).iconTheme.color,
+                  width: 2,
+                ),
+              ),
+              child: Icon(Icons.close, size: 20),
+            ),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -110,7 +120,7 @@ class _EditNotesViewState extends State<EditNotesView> {
         try {
           await MyProvider.of(context)
               .database
-              .updateNotes(uid, _notesController.text, widget.budget);
+              .updateNotes(uid, _notesController.text.trim(), widget.budget);
           _scaffoldKey.currentState.hideCurrentSnackBar();
         } catch (e) {
           print(e.message);
