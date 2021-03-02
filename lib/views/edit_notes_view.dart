@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/views/budget_details_view.dart';
+import 'package:groceries_budget_app/widgets/snackbar.dart';
 
 import '../my_provider.dart';
 
@@ -125,7 +126,7 @@ class _EditNotesViewState extends State<EditNotesView> {
         } catch (e) {
           print(e.message);
           _scaffoldKey.currentState.hideCurrentSnackBar();
-          showErrorSnackBar(_scaffoldKey, e.message);
+          showMessageSnackBar(_scaffoldKey, e.message);
         }
         Route route = MaterialPageRoute(
           builder: (context) => BudgetDetailsView(
@@ -138,30 +139,5 @@ class _EditNotesViewState extends State<EditNotesView> {
         Navigator.push(context, route);
       },
     );
-  }
-
-  void showLoadingSnackBar(GlobalKey<ScaffoldState> scaffoldKey) {
-    scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        duration: Duration(days: 1),
-        content: Padding(
-          padding: EdgeInsets.only(bottom: 15),
-          child: SpinKitWave(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-      ),
-    );
-  }
-
-  void showErrorSnackBar(GlobalKey<ScaffoldState> scaffoldKey, String error) {
-    scaffoldKey.currentState.showSnackBar(SnackBar(
-      backgroundColor: Colors.black,
-      content: Text(
-        error,
-        style: TextStyle(color: Colors.white),
-      ),
-    ));
   }
 }

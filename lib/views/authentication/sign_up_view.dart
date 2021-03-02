@@ -4,6 +4,7 @@ import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/widgets/auth_text_formfield.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:groceries_budget_app/widgets/snackbar.dart';
 
 class SignUpView extends StatefulWidget {
   @override
@@ -107,7 +108,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 _scaffoldKey.currentState.hideCurrentSnackBar();
 
                                 if (returnedString != 'Success') {
-                                  showErrorSnackBar(
+                                  showMessageSnackBar(
                                       _scaffoldKey, returnedString);
                                 } else {
                                   Navigator.popUntil(context,
@@ -129,7 +130,7 @@ class _SignUpViewState extends State<SignUpView> {
                           onPressed: () async {
                             String returnedString = await googleSignIn();
                             if (returnedString != 'Success') {
-                              showErrorSnackBar(_scaffoldKey, returnedString);
+                              showMessageSnackBar(_scaffoldKey, returnedString);
                             } else {
                               Navigator.popUntil(
                                   context, (_) => !Navigator.canPop(context));
@@ -160,31 +161,6 @@ class _SignUpViewState extends State<SignUpView> {
       print(e);
       return (e.message);
     }
-  }
-
-  void showLoadingSnackBar(GlobalKey<ScaffoldState> scaffoldKey) {
-    scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        duration: Duration(days: 1),
-        content: Padding(
-          padding: EdgeInsets.only(bottom: 15),
-          child: SpinKitWave(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-      ),
-    );
-  }
-
-  void showErrorSnackBar(GlobalKey<ScaffoldState> scaffoldKey, String error) {
-    scaffoldKey.currentState.showSnackBar(SnackBar(
-      backgroundColor: Colors.black,
-      content: Text(
-        error,
-        style: TextStyle(color: Colors.white),
-      ),
-    ));
   }
 
   Future<String> signUp() async {

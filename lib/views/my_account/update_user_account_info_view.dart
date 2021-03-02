@@ -4,6 +4,7 @@ import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/views/my_account/my_account_view.dart';
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
+import 'package:groceries_budget_app/widgets/snackbar.dart';
 
 class UpdateUserAccountInfoView extends StatefulWidget {
   @override
@@ -155,32 +156,6 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  void showLoadingSnackBar(GlobalKey<ScaffoldState> scaffoldKey) {
-    scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        duration: Duration(days: 1),
-        content: Padding(
-          padding: EdgeInsets.only(bottom: 15),
-          child: SpinKitWave(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-      ),
-    );
-  }
-
-  void showMessageSnackBar(
-      GlobalKey<ScaffoldState> scaffoldKey, String message) {
-    scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        content: Text(
-          message,
-        ),
       ),
     );
   }

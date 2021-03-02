@@ -4,6 +4,7 @@ import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 import 'package:groceries_budget_app/widgets/items_card_list.dart';
 import 'package:groceries_budget_app/widgets/selected_dates.dart';
+import 'package:groceries_budget_app/widgets/snackbar.dart';
 
 import '../../my_provider.dart';
 
@@ -48,19 +49,24 @@ class NewBudgetSummaryView extends StatelessWidget {
                           ? buildItemsCardList(context, budget)
                           : Container(),
                       SizedBox(height: 20),
-                      ListTile(
-                        title: Text(
-                          'Total:',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                      Card(
+                        color: Theme.of(context).brightness != Brightness.dark
+                            ? Colors.green[400]
+                            : Theme.of(context).cardColor,
+                        child: ListTile(
+                          title: Text(
+                            'Total:',
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        trailing: Text(
-                          'GH¢' + budget.amount.toStringAsFixed(0),
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                          trailing: Text(
+                            'GH¢' + budget.amount.toStringAsFixed(0),
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -102,7 +108,7 @@ class NewBudgetSummaryView extends StatelessWidget {
                           } catch (e) {
                             print(e);
                             _scaffoldKey.currentState.hideCurrentSnackBar();
-                            showErrorSnackBar(_scaffoldKey, e.message);
+                            showMessageSnackBar(_scaffoldKey, e.message);
                           }
                         },
                       ),
@@ -116,30 +122,5 @@ class NewBudgetSummaryView extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void showLoadingSnackBar(GlobalKey<ScaffoldState> scaffoldKey) {
-    scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        duration: Duration(days: 1),
-        content: Padding(
-          padding: EdgeInsets.only(bottom: 15),
-          child: SpinKitWave(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-      ),
-    );
-  }
-
-  void showErrorSnackBar(GlobalKey<ScaffoldState> scaffoldKey, String error) {
-    scaffoldKey.currentState.showSnackBar(SnackBar(
-      backgroundColor: Colors.black,
-      content: Text(
-        error,
-        style: TextStyle(color: Colors.white),
-      ),
-    ));
   }
 }

@@ -42,4 +42,14 @@ class DatabaseService {
         .doc(budget.documentId)
         .update({'notes': newNotes});
   }
+
+  /// Delete an entire budget
+  Future deleteBudget(String uid, Budget budget) async {
+    await _firestore
+        .collection('userData')
+        .doc(uid)
+        .collection('budgets')
+        .doc(budget.documentId)
+        .delete();
+  }
 }

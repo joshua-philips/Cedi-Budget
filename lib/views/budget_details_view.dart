@@ -160,7 +160,7 @@ class BudgetDetailsView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Trip Notes',
+                    'Budget Notes',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
