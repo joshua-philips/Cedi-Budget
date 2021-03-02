@@ -167,7 +167,7 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: Text('New Budget - Amount/Items'),
+            title: Text('Amount/Items'),
             actions: [AppBarHomeButton()],
             pinned: true,
           ),
