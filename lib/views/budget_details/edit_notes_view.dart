@@ -85,6 +85,7 @@ class _EditNotesViewState extends State<EditNotesView> {
           border: OutlineInputBorder(),
         ),
         autofocus: true,
+        textCapitalization: TextCapitalization.sentences,
       ),
     );
   }

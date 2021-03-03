@@ -134,22 +134,27 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
       if (_item1.text != '' && _itemPrice1.text != '') {
         budgetItemsAndPrices
             .addAll({_item1.text: double.parse(_itemPrice1.text)});
+        widget.budget.hasItems = true;
       }
       if (_item2.text != '' && _itemPrice2.text != '') {
         budgetItemsAndPrices
             .addAll({_item2.text: double.parse(_itemPrice2.text)});
+        widget.budget.hasItems = true;
       }
       if (_item3.text != '' && _itemPrice3.text != '') {
         budgetItemsAndPrices
             .addAll({_item3.text: double.parse(_itemPrice3.text)});
+        widget.budget.hasItems = true;
       }
       if (_item4.text != '' && _itemPrice4.text != '') {
         budgetItemsAndPrices
             .addAll({_item4.text: double.parse(_itemPrice4.text)});
+        widget.budget.hasItems = true;
       }
       if (_item5.text != '' && _itemPrice5.text != '') {
         budgetItemsAndPrices
             .addAll({_item5.text: double.parse(_itemPrice5.text)});
+        widget.budget.hasItems = true;
       }
     }
 
@@ -178,13 +183,6 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
                             style: TextStyle(fontSize: 25, color: Colors.blue),
                           ),
                           onPressed: () {
-                            setState(() {
-                              if (_amountState == amountType.complex) {
-                                widget.budget.hasItems = true;
-                              } else {
-                                widget.budget.hasItems = false;
-                              }
-                            });
                             widget.budget.amount = _amountTotal.toDouble();
                             widget.budget.items = changeItemsToMap();
 
