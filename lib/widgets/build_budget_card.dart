@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
-import 'package:groceries_budget_app/views/budget_details_view.dart';
+import 'package:groceries_budget_app/views/budget_details/budget_details_view.dart';
 import 'package:groceries_budget_app/widgets/selected_dates.dart';
 
 Widget buildBudgetCard(BuildContext context, DocumentSnapshot document) {
@@ -31,7 +31,10 @@ Widget buildBudgetCard(BuildContext context, DocumentSnapshot document) {
                 children: [
                   AutoSizeText(
                     'GH¢' + budget.amount.toStringAsFixed(2),
-                    style: TextStyle(fontSize: 35),
+                    style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),

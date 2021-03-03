@@ -1,12 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
+import 'package:groceries_budget_app/widgets/calculator_widget.dart';
 import 'package:groceries_budget_app/widgets/items_card_list.dart';
 import 'package:groceries_budget_app/widgets/large_selected_dates.dart';
 import 'package:groceries_budget_app/widgets/selected_dates.dart';
 
-import '../my_provider.dart';
-import 'edit_notes_view.dart';
+import '../../my_provider.dart';
+import '../budget_details/edit_notes_view.dart';
 
 class BudgetDetailsView extends StatelessWidget {
   final Budget budget;
@@ -40,7 +41,9 @@ class BudgetDetailsView extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 10.0),
                   child: IconButton(
                     icon: Icon(Icons.edit),
-                    onPressed: () {},
+                    onPressed: () {
+                      // TODO: New Edit Details View to edit items/prices/dates
+                    },
                   ),
                 ),
               ],
@@ -85,6 +88,10 @@ class BudgetDetailsView extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
+                    child: CalculatorWidget(budget: budget),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8),
                     child: notesCard(context),
                   ),
                   Padding(
@@ -109,10 +116,14 @@ class BudgetDetailsView extends StatelessWidget {
       icon: Icon(
         Icons.delete,
         size: 30,
+        color: Colors.red,
       ),
       label: Text(
         'Delete budget',
-        style: TextStyle(fontSize: 20),
+        style: TextStyle(
+          fontSize: 20,
+          color: Colors.red,
+        ),
       ),
       onPressed: () {
         showDialog(
@@ -123,7 +134,12 @@ class BudgetDetailsView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.only(
+                  top: 10,
+                  bottom: 10,
+                  left: 10,
+                  right: 10,
+                ),
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                 ),
@@ -133,11 +149,12 @@ class BudgetDetailsView extends StatelessWidget {
                     Text(
                       'Delete this budget',
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold,
+                        color: Colors.red,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 5),
                     Text(
                       'Are you sure you want to delete this budget? Deleted items cannot be retieved.',
                       textAlign: TextAlign.center,
@@ -332,4 +349,5 @@ class BudgetDetailsView extends StatelessWidget {
         ),
       ];
     }
-  }}
+  }
+}

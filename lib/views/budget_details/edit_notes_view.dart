@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
-import 'package:groceries_budget_app/views/budget_details_view.dart';
+import 'package:groceries_budget_app/views/budget_details/budget_details_view.dart';
 import 'package:groceries_budget_app/widgets/snackbar.dart';
 
-import '../my_provider.dart';
+import '../../my_provider.dart';
 
 class EditNotesView extends StatefulWidget {
   final Budget budget;

@@ -25,10 +25,10 @@ Widget buildSelectedDates(BuildContext context, Budget budget) {
           ],
         ),
         Container(
-          padding: EdgeInsets.only(left: 10, right: 10),
+          padding: EdgeInsets.only(left: 10, right: 10, bottom: 0, top: 15),
           child: Icon(
             Icons.arrow_forward,
-            size: 35,
+            size: 30,
             color: Theme.of(context).accentColor,
           ),
         ),

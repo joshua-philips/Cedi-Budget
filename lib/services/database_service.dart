@@ -52,4 +52,24 @@ class DatabaseService {
         .doc(budget.documentId)
         .delete();
   }
+
+  /// Update amount used
+  Future updateAmountUsed(String uid, Budget budget) async {
+    await _firestore
+        .collection('userData')
+        .doc(uid)
+        .collection('budgets')
+        .doc(budget.documentId)
+        .update({'amountUsed': budget.amountUsed});
+  }
+
+  /// Update amount saved
+  Future updateAmountSaved(String uid, Budget budget) async {
+    await _firestore
+        .collection('userData')
+        .doc(uid)
+        .collection('budgets')
+        .doc(budget.documentId)
+        .update({'amountSaved': budget.amountSaved});
+  }
 }
