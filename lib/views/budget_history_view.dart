@@ -34,11 +34,14 @@ class BudgetHistoryView extends StatelessWidget {
   }
 
   Widget buildBudgetList(BuildContext context, AsyncSnapshot snapshot) {
-    return ListView.builder(
-      itemCount: snapshot.data.docs.length,
-      itemBuilder: (context, int index) {
-        return buildBudgetCard(context, snapshot.data.docs[index]);
-      },
+    return Scrollbar(
+      thickness: 2,
+      child: ListView.builder(
+        itemCount: snapshot.data.docs.length,
+        itemBuilder: (context, int index) {
+          return buildBudgetCard(context, snapshot.data.docs[index]);
+        },
+      ),
     );
   }
 }

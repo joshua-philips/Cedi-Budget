@@ -26,6 +26,7 @@ class ItemTextField extends StatelessWidget {
           labelText: 'Item',
         ),
         autofocus: autofocus != null ? autofocus : false,
+        textInputAction: TextInputAction.next,
       ),
     );
   }

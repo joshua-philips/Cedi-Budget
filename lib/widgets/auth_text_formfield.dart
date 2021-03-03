@@ -25,6 +25,7 @@ class AuthTextFormField extends StatelessWidget {
         cursorColor: Colors.redAccent,
         autofocus: autofocus != null ? autofocus : false,
         obscureText: obscureText != null ? obscureText : false,
+        textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           hintText: hintText ?? '',
           hintStyle: TextStyle(color: Colors.white),
