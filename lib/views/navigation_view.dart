@@ -27,6 +27,7 @@ class _NavigationViewState extends State<NavigationView> {
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
+              tooltip: 'Add New Budget',
               icon: Icon(Icons.add),
               onPressed: () {
                 Route route = MaterialPageRoute(

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
+import 'package:groceries_budget_app/views/budget_details/edit_budget_amount.dart';
 import 'package:groceries_budget_app/widgets/calculator_widget.dart';
 import 'package:groceries_budget_app/widgets/items_card_list.dart';
 import 'package:groceries_budget_app/widgets/large_selected_dates.dart';
@@ -46,9 +47,14 @@ class BudgetDetailsView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 10.0),
                   child: IconButton(
+                    tooltip: 'Edit Items & Total',
                     icon: Icon(Icons.edit),
                     onPressed: () {
-                      // TODO: New Edit Details View to edit items/prices/dates
+                      Route route = MaterialPageRoute(
+                        builder: (context) =>
+                            EditBudgetAmountView(budget: budget),
+                      );
+                      Navigator.push(context, route);
                     },
                   ),
                 ),

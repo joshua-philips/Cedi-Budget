@@ -85,4 +85,18 @@ class DatabaseService {
       'endDate': budget.endDate,
     });
   }
+
+  /// Update total amount and items
+  Future updateAmountAndItems(String uid, Budget budget) async {
+    await _firestore
+        .collection('userData')
+        .doc(uid)
+        .collection('budgets')
+        .doc(budget.documentId)
+        .update({
+      'hasItems': budget.hasItems,
+      'items': budget.items,
+      'amount': budget.amount,
+    });
+  }
 }
