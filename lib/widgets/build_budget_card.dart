@@ -11,9 +11,9 @@ Widget buildBudgetCard(BuildContext context, DocumentSnapshot document) {
   return Container(
     padding: EdgeInsets.only(top: 10, left: 10, right: 10),
     child: Card(
-      // shape: RoundedRectangleBorder(
-      //   borderRadius: BorderRadius.circular(10),
-      // ),
+      color: Theme.of(context).brightness == Brightness.light
+          ? Colors.red[100]
+          : Theme.of(context).cardColor,
       child: InkWell(
         child: Column(
           children: [
@@ -34,9 +34,6 @@ Widget buildBudgetCard(BuildContext context, DocumentSnapshot document) {
                     style: TextStyle(
                       fontSize: 35,
                       fontWeight: FontWeight.w500,
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.green[900]
-                          : Theme.of(context).textTheme.bodyText2.color,
                     ),
                   ),
                 ],

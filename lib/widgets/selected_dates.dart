@@ -3,9 +3,7 @@ import 'package:groceries_budget_app/models/budget.dart';
 import 'package:intl/intl.dart';
 
 Widget buildSelectedDates(BuildContext context, Budget budget) {
-  Color dateColor = Theme.of(context).brightness == Brightness.light
-      ? Colors.green[900]
-      : Theme.of(context).textTheme.bodyText2.color;
+  Color dateColor = Theme.of(context).textTheme.bodyText2.color;
   return Padding(
     padding: EdgeInsets.only(top: 0),
     child: Row(
@@ -36,7 +34,9 @@ Widget buildSelectedDates(BuildContext context, Budget budget) {
           child: Icon(
             Icons.arrow_forward,
             size: 30,
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).brightness == Brightness.light
+                ? Colors.green[800]
+                : Theme.of(context).accentColor,
           ),
         ),
         Column(

@@ -30,7 +30,7 @@ class _SettingsViewState extends State<SettingsView> {
                 leading: notifier.darkTheme
                     ? Icon(Icons.wb_sunny)
                     : Icon(Icons.nights_stay),
-                subtitle: Text('App will restart'),
+                subtitle: Text('App will reload'),
                 title: Text(
                   '${notifier.darkTheme ? 'Switch to light mode' : 'Switch to dark mode'}',
                 ),
