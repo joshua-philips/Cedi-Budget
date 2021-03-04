@@ -20,7 +20,12 @@ class BudgetHistoryView extends StatelessWidget {
               );
             } else {
               return Center(
-                child: Text('No Past Budgets'),
+                child: Text(
+                  'No Past Budgets',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
               );
             }
           } else {
