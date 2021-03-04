@@ -3,6 +3,9 @@ import 'package:groceries_budget_app/models/budget.dart';
 import 'package:intl/intl.dart';
 
 Widget buildSelectedDates(BuildContext context, Budget budget) {
+  Color dateColor = Theme.of(context).brightness == Brightness.light
+      ? Colors.green[900]
+      : Theme.of(context).textTheme.bodyText2.color;
   return Padding(
     padding: EdgeInsets.only(top: 0),
     child: Row(
@@ -10,17 +13,21 @@ Widget buildSelectedDates(BuildContext context, Budget budget) {
       children: [
         Column(
           children: [
-            Text('Start Date'),
+            Text(
+              'Start Date',
+              style: TextStyle(color: dateColor),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Text(
                 '${DateFormat('EEE, dd/MM').format(budget.startDate).toString()}',
-                style: TextStyle(fontSize: 25),
+                style: TextStyle(fontSize: 25, color: dateColor),
               ),
             ),
             Text(
               '${DateFormat('yyyy').format(budget.startDate).toString()}',
-              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 10, fontWeight: FontWeight.bold, color: dateColor),
             ),
           ],
         ),
@@ -34,17 +41,21 @@ Widget buildSelectedDates(BuildContext context, Budget budget) {
         ),
         Column(
           children: [
-            Text('End Date'),
+            Text(
+              'End Date',
+              style: TextStyle(color: dateColor),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Text(
                 '${DateFormat('EEE, dd/MM').format(budget.endDate).toString()}',
-                style: TextStyle(fontSize: 25),
+                style: TextStyle(fontSize: 25, color: dateColor),
               ),
             ),
             Text(
               '${DateFormat('yyyy').format(budget.endDate).toString()}',
-              style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 10, fontWeight: FontWeight.bold, color: dateColor),
             ),
           ],
         ),

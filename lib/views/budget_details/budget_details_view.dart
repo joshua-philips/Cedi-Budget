@@ -8,6 +8,7 @@ import 'package:groceries_budget_app/widgets/selected_dates.dart';
 
 import '../../my_provider.dart';
 import '../budget_details/edit_notes_view.dart';
+import 'edit_budget_dates.dart';
 
 class BudgetDetailsView extends StatelessWidget {
   final Budget budget;
@@ -28,11 +29,16 @@ class BudgetDetailsView extends StatelessWidget {
               pinned: true,
               expandedHeight: 350,
               flexibleSpace: FlexibleSpaceBar(
-                background: Padding(
-                  padding: const EdgeInsets.only(top: 70.0),
-                  child: buildSelectedDatesLarge(
-                    context: context,
-                    budget: budget,
+                background: Container(
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.purple[800]
+                      : Theme.of(context).appBarTheme.color,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 70.0),
+                    child: buildSelectedDatesLarge(
+                      context: context,
+                      budget: budget,
+                    ),
                   ),
                 ),
               ),
@@ -52,12 +58,21 @@ class BudgetDetailsView extends StatelessWidget {
               delegate: SliverChildListDelegate(
                 [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 8.0, top: 8, right: 8),
+                    padding: const EdgeInsets.only(left: 8.0, top: 8, right: 8),
                     child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: buildSelectedDates(context, budget),
+                      child: InkWell(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: buildSelectedDates(context, budget),
+                        ),
+                        onTap: () {
+                          Route route = MaterialPageRoute(
+                            builder: (context) => EditBudgetDatesView(
+                              budget: budget,
+                            ),
+                          );
+                          Navigator.of(context).push(route);
+                        },
                       ),
                     ),
                   ),

@@ -72,4 +72,17 @@ class DatabaseService {
         .doc(budget.documentId)
         .update({'amountSaved': budget.amountSaved});
   }
+
+  /// Update dates
+  Future updateDates(String uid, Budget budget) async {
+    await _firestore
+        .collection('userData')
+        .doc(uid)
+        .collection('budgets')
+        .doc(budget.documentId)
+        .update({
+      'startDate': budget.startDate,
+      'endDate': budget.endDate,
+    });
+  }
 }

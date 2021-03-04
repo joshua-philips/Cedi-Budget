@@ -22,7 +22,7 @@ class _NavigationViewState extends State<NavigationView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Groceries Budget'),
+        title: Text('Cedi Budget'),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10),

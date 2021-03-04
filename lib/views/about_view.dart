@@ -10,7 +10,7 @@ class AboutView extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              title: Text('Groceries Budget 1.0.0'),
+              title: Text('Cedi Budget 1.0.0'),
               floating: true,
             ),
             SliverList(

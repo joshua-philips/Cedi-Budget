@@ -21,7 +21,7 @@ class FirstView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    'Welcome to the Groceries Budget app. Let\'s start saving money now!',
+                    'Welcome to the Cedi Budget app. Let\'s start saving money now!',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 25,

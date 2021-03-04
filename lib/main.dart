@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         child: Consumer<ThemeNotifier>(
           builder: (context, notifier, child) {
             return MaterialApp(
-              title: 'Groceries Budget',
+              title: 'Cedi Budget',
               debugShowCheckedModeBanner: false,
               theme: notifier.darkTheme ? dark : light,
               home: HomeController(),

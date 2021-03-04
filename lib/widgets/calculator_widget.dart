@@ -30,124 +30,134 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        children: [
-          Container(
-            child: Padding(
-              padding: EdgeInsets.only(top: 8, bottom: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Flexible(
-                    child: Column(
-                      children: [
-                        AutoSizeText(
-                          'GH¢$_amountUsed',
-                          maxLines: 1,
-                          style: TextStyle(fontSize: 40),
-                        ),
-                        Text('Used', style: TextStyle(fontSize: 20)),
-                      ],
+      child: Container(
+        color: Theme.of(context).brightness == Brightness.light
+            ? Colors.purple[100]
+            : Theme.of(context).cardColor,
+        child: Column(
+          children: [
+            Container(
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.purple[200]
+                  : Theme.of(context).cardColor,
+              child: Padding(
+                padding: EdgeInsets.only(top: 8, bottom: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        children: [
+                          AutoSizeText(
+                            'GH¢$_amountUsed',
+                            maxLines: 1,
+                            style: TextStyle(fontSize: 40),
+                          ),
+                          Text('Used', style: TextStyle(fontSize: 20)),
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    height: 80,
-                    child: VerticalDivider(
-                      color: Theme.of(context).textTheme.bodyText2.color,
-                      thickness: 4,
+                    Container(
+                      height: 80,
+                      child: VerticalDivider(
+                        color: Theme.of(context).textTheme.bodyText2.color,
+                        thickness: 4,
+                      ),
                     ),
-                  ),
-                  Flexible(
-                    child: Column(
-                      children: [
-                        AutoSizeText(
-                          'GH¢$_amountSaved',
-                          maxLines: 1,
-                          style: TextStyle(fontSize: 40),
-                        ),
-                        Text('Saved', style: TextStyle(fontSize: 20)),
-                      ],
+                    Flexible(
+                      child: Column(
+                        children: [
+                          AutoSizeText(
+                            'GH¢$_amountSaved',
+                            maxLines: 1,
+                            style: TextStyle(fontSize: 40),
+                          ),
+                          Text('Saved', style: TextStyle(fontSize: 20)),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          Divider(),
-          Container(
-            child: Padding(
-              padding: EdgeInsets.only(left: 20, right: 50),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: MoneyTextField(
-                      controller: _moneyController,
-                      helperText: 'Add to used',
+            Theme.of(context).brightness == Brightness.light
+                ? Container()
+                : Divider(),
+            Container(
+              child: Padding(
+                padding: EdgeInsets.only(left: 20, right: 50),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: MoneyTextField(
+                        controller: _moneyController,
+                        helperText: 'Add to used',
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.add_circle),
-                    color: Colors.green,
-                    iconSize: 40,
-                    onPressed: () async {
-                      setState(() {
-                        _amountUsed =
-                            _amountUsed + int.parse(_moneyController.text);
-                        _amountSaved =
-                            _amountSaved - int.parse(_moneyController.text);
-                        widget.budget.amountSaved = _amountSaved.toDouble();
-                        widget.budget.amountUsed = _amountUsed.toDouble();
-                      });
+                    IconButton(
+                      icon: Icon(Icons.add_circle),
+                      color: Colors.green,
+                      iconSize: 40,
+                      onPressed: () async {
+                        setState(() {
+                          _amountUsed =
+                              _amountUsed + int.parse(_moneyController.text);
+                          _amountSaved =
+                              _amountSaved - int.parse(_moneyController.text);
+                          widget.budget.amountSaved = _amountSaved.toDouble();
+                          widget.budget.amountUsed = _amountUsed.toDouble();
+                        });
 
-                      final uid = MyProvider.of(context).auth.getCurrentUID();
-                      await MyProvider.of(context)
-                          .database
-                          .updateAmountUsed(uid, widget.budget);
-                      await MyProvider.of(context)
-                          .database
-                          .updateAmountSaved(uid, widget.budget);
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.remove_circle),
-                    color: Colors.red,
-                    iconSize: 40,
-                    onPressed: () async {
-                      setState(() {
-                        _amountUsed =
-                            _amountUsed - int.parse(_moneyController.text);
-                        _amountSaved =
-                            _amountSaved + int.parse(_moneyController.text);
-                        widget.budget.amountSaved = _amountSaved.toDouble();
-                        widget.budget.amountUsed = _amountUsed.toDouble();
-                      });
-                      final uid = MyProvider.of(context).auth.getCurrentUID();
-                      await MyProvider.of(context)
-                          .database
-                          .updateAmountUsed(uid, widget.budget);
-                      await MyProvider.of(context)
-                          .database
-                          .updateAmountSaved(uid, widget.budget);
-                    },
-                  ),
-                ],
+                        final uid = MyProvider.of(context).auth.getCurrentUID();
+                        await MyProvider.of(context)
+                            .database
+                            .updateAmountUsed(uid, widget.budget);
+                        await MyProvider.of(context)
+                            .database
+                            .updateAmountSaved(uid, widget.budget);
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.remove_circle),
+                      color: Colors.red,
+                      iconSize: 40,
+                      onPressed: () async {
+                        setState(() {
+                          _amountUsed =
+                              _amountUsed - int.parse(_moneyController.text);
+                          _amountSaved =
+                              _amountSaved + int.parse(_moneyController.text);
+                          widget.budget.amountSaved = _amountSaved.toDouble();
+                          widget.budget.amountUsed = _amountUsed.toDouble();
+                        });
+                        final uid = MyProvider.of(context).auth.getCurrentUID();
+                        await MyProvider.of(context)
+                            .database
+                            .updateAmountUsed(uid, widget.budget);
+                        await MyProvider.of(context)
+                            .database
+                            .updateAmountSaved(uid, widget.budget);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          Container(
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  generateAddMoneyBtn(10),
-                  generateAddMoneyBtn(20),
-                  generateAddMoneyBtn(50),
-                ],
+            Container(
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    generateAddMoneyBtn(10),
+                    generateAddMoneyBtn(20),
+                    generateAddMoneyBtn(50),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -155,7 +165,11 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
   RaisedButton generateAddMoneyBtn(int amount) {
     final uid = MyProvider.of(context).auth.getCurrentUID();
     return RaisedButton(
-      child: Text('GH¢$amount'),
+      color: Colors.green,
+      child: Text(
+        'GH¢$amount',
+        style: TextStyle(color: Colors.white),
+      ),
       onPressed: () async {
         setState(() {
           _amountUsed = _amountUsed + amount;
