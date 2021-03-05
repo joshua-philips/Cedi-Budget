@@ -99,4 +99,13 @@ class DatabaseService {
       'amount': budget.amount,
     });
   }
+
+  /// Feedback from user
+  Future uploadFeeback(String uid, String feedback) async {
+    await _firestore
+        .collection('userData')
+        .doc(uid)
+        .collection('feedback')
+        .add({'message': feedback});
+  }
 }
