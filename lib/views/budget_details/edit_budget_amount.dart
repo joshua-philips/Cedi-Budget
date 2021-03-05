@@ -231,8 +231,18 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: Text('Amount/Items'),
-            actions: [AppBarHomeButton()],
+            title: Text('Edit Amount/Items'),
+            actions: [
+              AppBarHomeButton(),
+              IconButton(
+                padding: EdgeInsets.only(right: 10),
+                tooltip: 'Finish',
+                icon: Icon(Icons.done_all),
+                onPressed: () {
+                  finish();
+                },
+              ),
+            ],
             pinned: true,
           ),
           SliverList(
@@ -246,28 +256,8 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
                             'Finish',
                             style: TextStyle(fontSize: 25, color: Colors.blue),
                           ),
-                          onPressed: () async {
-                            showLoadingSnackBar(_scaffoldKey);
-                            widget.budget.amount = _amountTotal.toDouble();
-                            widget.budget.items = changeItemsToMap();
-                            final uid =
-                                MyProvider.of(context).auth.getCurrentUID();
-                            Route route = MaterialPageRoute(
-                              builder: (context) =>
-                                  BudgetDetailsView(budget: widget.budget),
-                            );
-                            try {
-                              await MyProvider.of(context)
-                                  .database
-                                  .updateAmountAndItems(uid, widget.budget);
-                              _scaffoldKey.currentState.hideCurrentSnackBar();
-                              Navigator.popUntil(
-                                  context, (route) => route.isFirst);
-                              Navigator.push(context, route);
-                            } catch (e) {
-                              _scaffoldKey.currentState.hideCurrentSnackBar();
-                              showMessageSnackBar(_scaffoldKey, e.message);
-                            }
+                          onPressed: () {
+                            finish();
                           },
                         ),
                         DividerWithText(dividerText: 'or'),
@@ -302,5 +292,26 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
         ],
       ),
     );
+  }
+
+  finish() async {
+    showLoadingSnackBar(_scaffoldKey);
+    widget.budget.amount = _amountTotal.toDouble();
+    widget.budget.items = changeItemsToMap();
+    final uid = MyProvider.of(context).auth.getCurrentUID();
+    Route route = MaterialPageRoute(
+      builder: (context) => BudgetDetailsView(budget: widget.budget),
+    );
+    try {
+      await MyProvider.of(context)
+          .database
+          .updateAmountAndItems(uid, widget.budget);
+      _scaffoldKey.currentState.hideCurrentSnackBar();
+      Navigator.popUntil(context, (route) => route.isFirst);
+      Navigator.push(context, route);
+    } catch (e) {
+      _scaffoldKey.currentState.hideCurrentSnackBar();
+      showMessageSnackBar(_scaffoldKey, e.message);
+    }
   }
 }

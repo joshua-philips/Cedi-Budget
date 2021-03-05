@@ -168,7 +168,17 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
         slivers: [
           SliverAppBar(
             title: Text('Amount/Items'),
-            actions: [AppBarHomeButton()],
+            actions: [
+              AppBarHomeButton(),
+              IconButton(
+                padding: EdgeInsets.only(right: 10),
+                tooltip: 'Summary',
+                icon: Icon(Icons.done_all),
+                onPressed: () {
+                  continueToSummary();
+                },
+              ),
+            ],
             pinned: true,
           ),
           SliverList(
@@ -183,14 +193,7 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
                             style: TextStyle(fontSize: 25, color: Colors.blue),
                           ),
                           onPressed: () {
-                            widget.budget.amount = _amountTotal.toDouble();
-                            widget.budget.items = changeItemsToMap();
-
-                            Route route = MaterialPageRoute(
-                              builder: (context) =>
-                                  NewBudgetSummaryView(budget: widget.budget),
-                            );
-                            Navigator.push(context, route);
+                            continueToSummary();
                           },
                         ),
                         DividerWithText(dividerText: 'or'),
@@ -225,5 +228,15 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
         ],
       ),
     );
+  }
+
+  continueToSummary() {
+    widget.budget.amount = _amountTotal.toDouble();
+    widget.budget.items = changeItemsToMap();
+
+    Route route = MaterialPageRoute(
+      builder: (context) => NewBudgetSummaryView(budget: widget.budget),
+    );
+    Navigator.push(context, route);
   }
 }
