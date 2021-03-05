@@ -135,50 +135,120 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
       _switchButtonText = 'Build Budget';
       fields.add(Padding(
         padding: const EdgeInsets.only(top: 15),
-        child: Text('Enter your total budget for the period'),
+        child: Text(
+          'Enter your total budget for the period',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ));
       fields.add(
-        MoneyTextField(
-          controller: _amountController,
-          helperText: 'Total Budget',
+        Padding(
+          padding: const EdgeInsets.only(right: 50),
+          child: MoneyTextField(
+            controller: _amountController,
+            helperText: 'Total Budget',
+          ),
         ),
       );
     } else {
       fields.add(Padding(
         padding: const EdgeInsets.only(top: 15),
-        child: Text('Enter cost of each item'),
+        child: Text(
+          'Enter cost of each item',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ));
       fields.add(
-        ItemTextField(controller: _item1),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Expanded(
+              child: ItemTextField(controller: _item1),
+            ),
+            Expanded(
+              child: MoneyTextField(
+                controller: _itemPrice1,
+              ),
+            ),
+          ],
+        ),
       );
-      fields.add(MoneyTextField(
-        controller: _itemPrice1,
-      ));
       fields.add(
-        ItemTextField(controller: _item2),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Expanded(
+              child: ItemTextField(controller: _item2),
+            ),
+            Expanded(
+              child: MoneyTextField(
+                controller: _itemPrice2,
+              ),
+            ),
+          ],
+        ),
       );
-      fields.add(MoneyTextField(
-        controller: _itemPrice2,
-      ));
       fields.add(
-        ItemTextField(controller: _item3),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Expanded(
+              child: ItemTextField(controller: _item3),
+            ),
+            Expanded(
+              child: MoneyTextField(
+                controller: _itemPrice3,
+              ),
+            ),
+          ],
+        ),
       );
-      fields.add(MoneyTextField(
-        controller: _itemPrice3,
-      ));
       fields.add(
-        ItemTextField(controller: _item4),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Expanded(
+              child: ItemTextField(controller: _item4),
+            ),
+            Expanded(
+              child: MoneyTextField(
+                controller: _itemPrice4,
+              ),
+            ),
+          ],
+        ),
       );
-      fields.add(MoneyTextField(
-        controller: _itemPrice4,
-      ));
       fields.add(
-        ItemTextField(controller: _item5),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Expanded(
+              child: ItemTextField(controller: _item5),
+            ),
+            Expanded(
+              child: MoneyTextField(
+                controller: _itemPrice5,
+              ),
+            ),
+          ],
+        ),
       );
-      fields.add(MoneyTextField(
-        controller: _itemPrice5,
-      ));
-      fields.add(Text('Total: GH¢$_amountTotal'));
+
+      fields.add(
+        Padding(
+          padding: const EdgeInsets.only(top: 20, bottom: 10),
+          child: Text(
+            'Total: GH¢$_amountTotal',
+            style: TextStyle(fontSize: 25),
+          ),
+        ),
+      );
       _switchButtonText = 'Simple Budget';
     }
     return fields;
@@ -248,43 +318,48 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                Column(
-                  children: setAmountFields(_amountController) +
-                      [
-                        FlatButton(
-                          child: Text(
-                            'Finish',
-                            style: TextStyle(fontSize: 25, color: Colors.blue),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: Column(
+                    children: setAmountFields(_amountController) +
+                        [
+                          FlatButton(
+                            child: Text(
+                              'Finish',
+                              style:
+                                  TextStyle(fontSize: 25, color: Colors.blue),
+                            ),
+                            onPressed: () {
+                              finish();
+                            },
                           ),
-                          onPressed: () {
-                            finish();
-                          },
-                        ),
-                        DividerWithText(dividerText: 'or'),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10, bottom: 10),
-                          child: Center(
-                            child: FlatButton(
-                              textColor: Colors.blue,
-                              child: Text(
-                                _switchButtonText,
-                                style: TextStyle(
-                                    fontSize: 25, fontWeight: FontWeight.w600),
+                          DividerWithText(dividerText: 'or'),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10, bottom: 10),
+                            child: Center(
+                              child: FlatButton(
+                                textColor: Colors.blue,
+                                child: Text(
+                                  _switchButtonText,
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                minWidth: 0,
+                                padding: EdgeInsets.only(left: 8),
+                                onPressed: () {
+                                  setState(() {
+                                    _amountState =
+                                        _amountState == amountType.simple
+                                            ? amountType.complex
+                                            : amountType.simple;
+                                  });
+                                },
                               ),
-                              minWidth: 0,
-                              padding: EdgeInsets.only(left: 8),
-                              onPressed: () {
-                                setState(() {
-                                  _amountState =
-                                      _amountState == amountType.simple
-                                          ? amountType.complex
-                                          : amountType.simple;
-                                });
-                              },
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                  ),
                 ),
               ],
             ),

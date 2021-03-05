@@ -13,9 +13,7 @@ class ItemTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(
         top: 15.0,
-        bottom: 15,
-        right: 30,
-        left: 30,
+        bottom: 10,
       ),
       child: TextField(
         controller: controller,

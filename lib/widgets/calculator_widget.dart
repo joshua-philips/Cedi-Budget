@@ -85,13 +85,16 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
                 : Divider(),
             Container(
               child: Padding(
-                padding: EdgeInsets.only(left: 20, right: 50),
+                padding: EdgeInsets.only(left: 10, right: 50),
                 child: Row(
                   children: [
                     Expanded(
-                      child: MoneyTextField(
-                        controller: _moneyController,
-                        helperText: 'Add to used',
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: MoneyTextField(
+                          controller: _moneyController,
+                          helperText: 'Add to used',
+                        ),
                       ),
                     ),
                     IconButton(
