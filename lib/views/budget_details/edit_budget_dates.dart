@@ -4,9 +4,8 @@ import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/views/budget_details/budget_details_view.dart';
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
+import 'package:groceries_budget_app/widgets/large_selected_dates.dart';
 import 'package:groceries_budget_app/widgets/snackbar.dart';
-
-import 'package:intl/intl.dart';
 
 class EditBudgetDatesView extends StatefulWidget {
   final Budget budget;
@@ -58,61 +57,14 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                buildSelectedDates(context),
+                buildSelectedDatesLarge(
+                  context: context,
+                  budget: widget.budget,
+                ),
                 SizedBox(height: 60),
                 buildButtons(context, widget.budget),
               ],
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget buildSelectedDates(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 15),
-      child: Column(
-        children: [
-          Column(
-            children: [
-              Text('Start Date'),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  '${DateFormat('EEE, dd/MM').format(_startDate).toString()}',
-                  style: TextStyle(fontSize: 35),
-                ),
-              ),
-              Text(
-                '${DateFormat('yyyy').format(_startDate).toString()}',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 30, bottom: 30),
-            child: Icon(
-              Icons.arrow_downward,
-              size: 45,
-              color: Theme.of(context).accentColor,
-            ),
-          ),
-          Column(
-            children: [
-              Text('End Date'),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  '${DateFormat('EEE, dd/MM').format(_endDate).toString()}',
-                  style: TextStyle(fontSize: 35),
-                ),
-              ),
-              Text(
-                '${DateFormat('yyyy').format(_endDate).toString()}',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ],
           ),
         ],
       ),

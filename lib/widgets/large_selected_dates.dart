@@ -11,7 +11,6 @@ Widget buildSelectedDatesLarge({BuildContext context, Budget budget}) {
           children: [
             Text(
               'Start Date',
-              style: TextStyle(color: Colors.white),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
@@ -19,7 +18,6 @@ Widget buildSelectedDatesLarge({BuildContext context, Budget budget}) {
                 '${DateFormat('EEE, dd/MM').format(budget.startDate).toString()}',
                 style: TextStyle(
                   fontSize: 35,
-                  color: Colors.white,
                 ),
               ),
             ),
@@ -28,7 +26,6 @@ Widget buildSelectedDatesLarge({BuildContext context, Budget budget}) {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
               ),
             ),
           ],
@@ -38,14 +35,12 @@ Widget buildSelectedDatesLarge({BuildContext context, Budget budget}) {
           child: Icon(
             Icons.arrow_downward,
             size: 45,
-            color: Colors.white,
           ),
         ),
         Column(
           children: [
             Text(
               'End Date',
-              style: TextStyle(color: Colors.white),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
@@ -53,7 +48,6 @@ Widget buildSelectedDatesLarge({BuildContext context, Budget budget}) {
                 '${DateFormat('EEE, dd/MM').format(budget.endDate).toString()}',
                 style: TextStyle(
                   fontSize: 35,
-                  color: Colors.white,
                 ),
               ),
             ),
@@ -62,7 +56,6 @@ Widget buildSelectedDatesLarge({BuildContext context, Budget budget}) {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
               ),
             ),
           ],

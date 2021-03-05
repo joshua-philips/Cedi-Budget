@@ -32,7 +32,7 @@ class BudgetDetailsView extends StatelessWidget {
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   color: Theme.of(context).brightness == Brightness.light
-                      ? Colors.purple[800]
+                      ? Colors.red[200]
                       : Theme.of(context).appBarTheme.color,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 70.0),
