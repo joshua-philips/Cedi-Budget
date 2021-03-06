@@ -29,11 +29,14 @@ Widget buildBudgetCard(BuildContext context, DocumentSnapshot document) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  AutoSizeText(
-                    'GH¢' + budget.amount.toStringAsFixed(2),
-                    style: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.w500,
+                  Flexible(
+                    child: AutoSizeText(
+                      'GH¢' + budget.amount.toStringAsFixed(2),
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],

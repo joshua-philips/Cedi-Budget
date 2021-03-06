@@ -33,6 +33,18 @@ class DatabaseService {
         .snapshots();
   }
 
+  /// Get the all time amount, saved and totals of the user
+  /// from the database
+  Future<List<QueryDocumentSnapshot>> getAllBudgets(String uid) async {
+    QuerySnapshot data = await _firestore
+        .collection('userData')
+        .doc(uid)
+        .collection('budgets')
+        .get();
+
+    return data.docs;
+  }
+
   /// Update notes
   Future updateNotes(String uid, String newNotes, Budget budget) async {
     await _firestore

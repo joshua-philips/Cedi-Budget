@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
+import 'package:groceries_budget_app/views/all_time_data_view.dart';
 import 'budget_history_view.dart';
 import 'home_view.dart';
 import 'new_budget/new_budget_date_view.dart';
@@ -24,6 +25,15 @@ class _NavigationViewState extends State<NavigationView> {
       appBar: AppBar(
         title: Text('Cedi Budget'),
         actions: [
+          IconButton(
+            tooltip: 'All Time Statistics',
+            icon: Icon(Icons.analytics),
+            onPressed: () {
+              Route route =
+                  MaterialPageRoute(builder: (context) => AllTimeDataView());
+              Navigator.of(context).push(route);
+            },
+          ),
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(

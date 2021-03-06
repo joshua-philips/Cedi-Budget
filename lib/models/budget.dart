@@ -41,11 +41,11 @@ class Budget {
   Budget.fromSnapshot(DocumentSnapshot documentSnapshot)
       : startDate = documentSnapshot.data()['startDate'].toDate(),
         endDate = documentSnapshot.data()['endDate'].toDate(),
-        amount = documentSnapshot.data()['amount'].toDouble(),
+        amount = documentSnapshot.data()['amount'] ?? 0.0,
         notes = documentSnapshot.data()['notes'],
         items = Map<String, double>.from(documentSnapshot.data()['items']),
-        amountUsed = documentSnapshot.data()['amountUsed'],
-        amountSaved = documentSnapshot.data()['amountSaved'],
+        amountUsed = documentSnapshot.data()['amountUsed'] ?? 0.0,
+        amountSaved = documentSnapshot.data()['amountSaved'] ?? 0.0,
         hasItems = documentSnapshot.data()['hasItems'],
         documentId = documentSnapshot.id;
 
