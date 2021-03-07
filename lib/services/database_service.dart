@@ -19,6 +19,7 @@ class DatabaseService {
         .collection('userData')
         .doc(uid)
         .collection('budgets')
+        .where('endDate', isGreaterThanOrEqualTo: DateTime.now())
         .orderBy('endDate', descending: true)
         .snapshots();
   }
@@ -29,7 +30,7 @@ class DatabaseService {
         .collection('userData')
         .doc(uid)
         .collection('budgets')
-        .where('endDate', isLessThanOrEqualTo: DateTime.now())
+        .where('endDate', isLessThan: DateTime.now())
         .snapshots();
   }
 
