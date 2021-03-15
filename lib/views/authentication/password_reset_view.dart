@@ -61,12 +61,14 @@ class _PasswordResetViewState extends State<PasswordResetView> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 30),
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.white,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
                             ),
-                            elevation: 0,
-                            highlightElevation: 0,
                             child: Padding(
                               padding: const EdgeInsets.only(
                                 left: 50,
@@ -79,18 +81,17 @@ class _PasswordResetViewState extends State<PasswordResetView> {
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
-                            textColor: Colors.black,
-                            color: Colors.white,
                             onPressed: () async {
                               if (formKey.currentState.validate()) {
-                                showLoadingSnackBar(_scaffoldKey);
+                                showLoadingSnackBar(context);
                                 String returnedString = await sendResetEmail();
-                                _scaffoldKey.currentState.hideCurrentSnackBar();
-                                showMessageSnackBar(
-                                    _scaffoldKey, returnedString);
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+                                showMessageSnackBar(context, returnedString);
                               }
                             },
                           ),

@@ -92,12 +92,15 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 30),
-                                    child: RaisedButton(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(30),
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                        primary: Colors.red,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                        ),
                                       ),
-                                      elevation: 0,
-                                      highlightElevation: 0,
                                       child: Padding(
                                         padding: const EdgeInsets.only(
                                           left: 50,
@@ -110,22 +113,22 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
+                                            color: Colors.white,
                                           ),
                                         ),
                                       ),
-                                      textColor: Colors.white,
-                                      color: Colors.red,
                                       onPressed: () async {
                                         if (formKey.currentState.validate()) {
                                           print('clicked');
-                                          showLoadingSnackBar(_scaffoldKey);
+                                          showLoadingSnackBar(context);
                                           String returnedString =
                                               await changeUserInfo();
-                                          _scaffoldKey.currentState
+                                          ScaffoldMessenger.of(context)
                                               .hideCurrentSnackBar();
+
                                           if (returnedString == 'Success') {
                                             showMessageSnackBar(
-                                                _scaffoldKey, returnedString);
+                                                context, returnedString);
                                             Navigator.pop(context);
                                             Navigator.pop(context);
                                             Navigator.of(context).push(
@@ -136,7 +139,7 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
                                             );
                                           } else {
                                             showMessageSnackBar(
-                                                _scaffoldKey, returnedString);
+                                                context, returnedString);
                                           }
                                         }
                                       },

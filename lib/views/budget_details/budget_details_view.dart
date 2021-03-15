@@ -133,8 +133,10 @@ class BudgetDetailsView extends StatelessWidget {
   }
 
   Widget deleteBudgetButton(BuildContext context, Budget budget) {
-    return FlatButton.icon(
-      padding: EdgeInsets.only(top: 15),
+    return TextButton.icon(
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.only(top: 15),
+      ),
       icon: Icon(
         Icons.delete,
         size: 30,
@@ -188,7 +190,7 @@ class BudgetDetailsView extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        FlatButton(
+                        TextButton(
                           child: Text(
                             'Delete',
                             style: TextStyle(
@@ -207,8 +209,10 @@ class BudgetDetailsView extends StatelessWidget {
                                 .popUntil((route) => route.isFirst);
                           },
                         ),
-                        FlatButton(
-                          padding: EdgeInsets.only(right: 10),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.only(right: 10),
+                          ),
                           child: Text(
                             'Cancel',
                             style: TextStyle(

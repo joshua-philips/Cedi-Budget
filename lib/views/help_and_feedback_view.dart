@@ -72,10 +72,11 @@ class _HelpAndFeedbackState extends State<HelpAndFeedback> {
                 textCapitalization: TextCapitalization.sentences,
               ),
               SizedBox(height: 10),
-              RaisedButton(
-                child: Text('Submit'),
-                textColor: Colors.white,
-                color: Theme.of(context).accentColor,
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).accentColor,
+                ),
+                child: Text('Submit', style: TextStyle(color: Colors.white)),
                 onPressed: () async {
                   final uid = MyProvider.of(context).auth.getCurrentUID();
                   if (_feedbackController.text.trim().isNotEmpty) {
@@ -105,7 +106,7 @@ class _HelpAndFeedbackState extends State<HelpAndFeedback> {
         content: Text(
             'Your feedback and suggestions have been sent to the developers. Expect to hear from us soon'),
         actions: [
-          FlatButton(
+          TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },

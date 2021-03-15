@@ -70,11 +70,14 @@ class NewBudgetSummaryView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 30),
-                      RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Theme.of(context).accentColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          elevation: 0,
                         ),
-                        elevation: 0,
                         child: Padding(
                           padding: const EdgeInsets.only(
                             left: 30,
@@ -87,13 +90,12 @@ class NewBudgetSummaryView extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
                         ),
-                        textColor: Colors.white,
-                        color: Theme.of(context).accentColor,
                         onPressed: () async {
-                          showLoadingSnackBar(_scaffoldKey);
+                          showLoadingSnackBar(context);
                           // Save data to firebase
                           final String uid =
                               MyProvider.of(context).auth.getCurrentUID();
@@ -101,13 +103,13 @@ class NewBudgetSummaryView extends StatelessWidget {
                             await MyProvider.of(context)
                                 .database
                                 .saveBudgetToFirestore(budget, uid);
-                            _scaffoldKey.currentState.hideCurrentSnackBar();
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
                             Navigator.of(context)
                                 .popUntil((route) => route.isFirst);
                           } catch (e) {
                             print(e);
-                            _scaffoldKey.currentState.hideCurrentSnackBar();
-                            showMessageSnackBar(_scaffoldKey, e.message);
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                            showMessageSnackBar(context, e.message);
                           }
                         },
                       ),

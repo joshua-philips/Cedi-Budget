@@ -262,7 +262,7 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
                   child: Column(
                     children: setAmountFields(_amountController) +
                         [
-                          FlatButton(
+                          TextButton(
                             child: Text(
                               'Continue to summary',
                               style:
@@ -276,16 +276,19 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
                           Padding(
                             padding: const EdgeInsets.only(top: 10, bottom: 10),
                             child: Center(
-                              child: FlatButton(
-                                textColor: Colors.blue,
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.only(left: 8),
+                                  minimumSize: Size(0, 0),
+                                ),
                                 child: Text(
                                   _switchButtonText,
                                   style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w600),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.blue,
+                                  ),
                                 ),
-                                minWidth: 0,
-                                padding: EdgeInsets.only(left: 8),
                                 onPressed: () {
                                   setState(() {
                                     _amountState =

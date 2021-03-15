@@ -93,14 +93,17 @@ class _SettingsViewState extends State<SettingsView> {
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Center(
-                child: FlatButton(
-                  textColor: Colors.blue,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+
+                  padding: EdgeInsets.only(left: 8),
+                  minimumSize: Size(0,0),
+                  ),
                   child: Text(
                     'Logout',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.blue,),
                   ),
-                  minWidth: 0,
-                  padding: EdgeInsets.only(left: 8),
+                  
                   onPressed: () async {
                     try {
                       await auth.signOut();

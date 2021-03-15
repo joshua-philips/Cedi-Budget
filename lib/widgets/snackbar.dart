@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-void showLoadingSnackBar(GlobalKey<ScaffoldState> scaffoldKey) {
-  scaffoldKey.currentState.showSnackBar(
+void showLoadingSnackBar(BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       duration: Duration(days: 1),
       content: Padding(
@@ -16,8 +16,8 @@ void showLoadingSnackBar(GlobalKey<ScaffoldState> scaffoldKey) {
   );
 }
 
-void showMessageSnackBar(GlobalKey<ScaffoldState> scaffoldKey, String message) {
-  scaffoldKey.currentState.showSnackBar(
+void showMessageSnackBar(BuildContext context, String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       backgroundColor: Colors.black,
       content: Text(

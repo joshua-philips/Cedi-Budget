@@ -75,11 +75,14 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        RaisedButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.deepPurpleAccent,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
           ),
-          elevation: 0,
           child: Padding(
             padding: const EdgeInsets.only(
               left: 30,
@@ -92,21 +95,23 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
           ),
-          textColor: Colors.white,
-          color: Colors.deepPurpleAccent,
           onPressed: () async {
             await displayDateRangePicker(context);
           },
         ),
         SizedBox(height: 20),
-        RaisedButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Theme.of(context).accentColor,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
           ),
-          elevation: 0,
           child: Padding(
             padding: const EdgeInsets.only(
               left: 30,
@@ -119,13 +124,12 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
           ),
-          textColor: Colors.white,
-          color: Theme.of(context).accentColor,
           onPressed: () async {
-            showLoadingSnackBar(_scaffoldKey);
+            showLoadingSnackBar(context);
             widget.budget.startDate = _startDate;
             widget.budget.endDate = _endDate;
             final uid = MyProvider.of(context).auth.getCurrentUID();
@@ -137,12 +141,12 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
               await MyProvider.of(context)
                   .database
                   .updateDates(uid, widget.budget);
-              _scaffoldKey.currentState.hideCurrentSnackBar();
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
               Navigator.of(context).popUntil((route) => route.isFirst);
               Navigator.of(context).push(route);
             } catch (e) {
-              _scaffoldKey.currentState.hideCurrentSnackBar();
-              showMessageSnackBar(_scaffoldKey, e.message);
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              showMessageSnackBar(context, e.message);
             }
           },
         ),

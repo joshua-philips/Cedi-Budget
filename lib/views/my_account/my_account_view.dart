@@ -32,7 +32,11 @@ class MyAccountView extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 20),
                               child: Center(
-                                child: FlatButton(
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.only(left: 8),
+                                    minimumSize: Size(0, 0),
+                                  ),
                                   child: Text(
                                     'Update Account Info',
                                     style: TextStyle(
@@ -41,8 +45,6 @@ class MyAccountView extends StatelessWidget {
                                       color: Colors.blue,
                                     ),
                                   ),
-                                  minWidth: 0,
-                                  padding: EdgeInsets.only(left: 8),
                                   onPressed: () {
                                     Route route = MaterialPageRoute(
                                       builder: (context) =>

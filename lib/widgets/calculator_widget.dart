@@ -165,10 +165,12 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
     );
   }
 
-  RaisedButton generateAddMoneyBtn(int amount) {
+  ElevatedButton generateAddMoneyBtn(int amount) {
     final uid = MyProvider.of(context).auth.getCurrentUID();
-    return RaisedButton(
-      color: Colors.green,
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        primary: Colors.green,
+      ),
       child: Text(
         'GH¢$amount',
         style: TextStyle(color: Colors.white),

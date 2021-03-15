@@ -63,11 +63,14 @@ class HomeView extends StatelessWidget {
             ),
           ),
           SizedBox(height: 15),
-          RaisedButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Theme.of(context).accentColor,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
             ),
-            elevation: 0,
             child: Padding(
               padding: const EdgeInsets.only(
                 left: 20,
@@ -80,11 +83,10 @@ class HomeView extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
             ),
-            textColor: Colors.white,
-            color: Theme.of(context).accentColor,
             onPressed: () {
               Route route = MaterialPageRoute(
                 builder: (context) => NewBudgetDateView(

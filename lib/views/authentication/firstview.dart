@@ -30,17 +30,19 @@ class FirstView extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () {
                         Route route = MaterialPageRoute(
                             builder: (context) => SignUpView());
                         Navigator.of(context).push(route);
                       },
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                       ),
-                      elevation: 0,
-                      highlightElevation: 0,
                       child: Padding(
                         padding: const EdgeInsets.only(
                           left: 50,
@@ -53,11 +55,10 @@ class FirstView extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
+                            color: Colors.black,
                           ),
                         ),
                       ),
-                      textColor: Colors.black,
-                      color: Colors.white,
                     ),
                   ),
                   Padding(
@@ -73,20 +74,24 @@ class FirstView extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        FlatButton(
+                        TextButton(
                           onPressed: () {
                             Route route = MaterialPageRoute(
                                 builder: (context) => SignInView());
                             Navigator.of(context).push(route);
                           },
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.only(left: 8),
+                            minimumSize: Size(0, 0),
+                          ),
                           child: Text(
                             'Login',
                             style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w600),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
                           ),
-                          minWidth: 0,
-                          padding: EdgeInsets.only(left: 8),
-                          textColor: Colors.white,
                         ),
                       ],
                     ),

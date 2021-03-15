@@ -72,12 +72,14 @@ class _SignInViewState extends State<SignInView> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 30),
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.white,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
                             ),
-                            elevation: 0,
-                            highlightElevation: 0,
                             child: Padding(
                               padding: const EdgeInsets.only(
                                 left: 82,
@@ -90,20 +92,19 @@ class _SignInViewState extends State<SignInView> {
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
-                            textColor: Colors.black,
-                            color: Colors.white,
                             onPressed: () async {
                               if (formKey.currentState.validate()) {
                                 print('clicked');
-                                showLoadingSnackBar(_scaffoldKey);
+                                showLoadingSnackBar(context);
                                 String returnedString = await signIn();
-                                _scaffoldKey.currentState.hideCurrentSnackBar();
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
                                 if (returnedString != 'Success') {
-                                  showMessageSnackBar(
-                                      _scaffoldKey, returnedString);
+                                  showMessageSnackBar(context, returnedString);
                                 } else {
                                   Navigator.popUntil(context,
                                       (_) => !Navigator.canPop(context));
@@ -118,7 +119,7 @@ class _SignInViewState extends State<SignInView> {
                     ),
                   ),
                 ),
-                FlatButton(
+                TextButton(
                   onPressed: () {
                     Route route = MaterialPageRoute(
                         builder: (context) => PasswordResetView());
@@ -126,11 +127,12 @@ class _SignInViewState extends State<SignInView> {
                   },
                   child: Text(
                     'Forgotten Password?',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
-                  minWidth: 0,
-                  padding: EdgeInsets.only(left: 8),
-                  textColor: Colors.white,
                 ),
                 SizedBox(height: 40),
                 Divider(
@@ -142,7 +144,7 @@ class _SignInViewState extends State<SignInView> {
                   onPressed: () async {
                     String returnedString = await googleSignIn();
                     if (returnedString != 'Success') {
-                      showMessageSnackBar(_scaffoldKey, returnedString);
+                      showMessageSnackBar(context, returnedString);
                     } else {
                       Navigator.popUntil(
                           context, (_) => !Navigator.canPop(context));

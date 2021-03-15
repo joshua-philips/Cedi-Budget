@@ -323,7 +323,7 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
                   child: Column(
                     children: setAmountFields(_amountController) +
                         [
-                          FlatButton(
+                          TextButton(
                             child: Text(
                               'Finish',
                               style:
@@ -337,16 +337,18 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
                           Padding(
                             padding: const EdgeInsets.only(top: 10, bottom: 10),
                             child: Center(
-                              child: FlatButton(
-                                textColor: Colors.blue,
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.only(left: 8),
+                                  minimumSize: Size(0, 0),
+                                ),
                                 child: Text(
                                   _switchButtonText,
                                   style: TextStyle(
                                       fontSize: 25,
-                                      fontWeight: FontWeight.w600),
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.blue),
                                 ),
-                                minWidth: 0,
-                                padding: EdgeInsets.only(left: 8),
                                 onPressed: () {
                                   setState(() {
                                     _amountState =
@@ -370,7 +372,7 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
   }
 
   finish() async {
-    showLoadingSnackBar(_scaffoldKey);
+    showLoadingSnackBar(context);
     widget.budget.amount = _amountTotal.toDouble();
     widget.budget.items = changeItemsToMap();
     final uid = MyProvider.of(context).auth.getCurrentUID();
@@ -381,12 +383,12 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
       await MyProvider.of(context)
           .database
           .updateAmountAndItems(uid, widget.budget);
-      _scaffoldKey.currentState.hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
       Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.push(context, route);
     } catch (e) {
-      _scaffoldKey.currentState.hideCurrentSnackBar();
-      showMessageSnackBar(_scaffoldKey, e.message);
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      showMessageSnackBar(context, e.message);
     }
   }
 }

@@ -55,7 +55,7 @@ class _EditNotesViewState extends State<EditNotesView> {
             'Edit Budget Notes',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          FlatButton(
+          TextButton(
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
@@ -64,7 +64,11 @@ class _EditNotesViewState extends State<EditNotesView> {
                   width: 2,
                 ),
               ),
-              child: Icon(Icons.close, size: 20),
+              child: Icon(
+                Icons.close,
+                size: 20,
+                color: Theme.of(context).iconTheme.color,
+              ),
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -91,10 +95,13 @@ class _EditNotesViewState extends State<EditNotesView> {
   }
 
   Widget buildSubmitButton(context) {
-    return RaisedButton(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        primary: Theme.of(context).accentColor,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.only(
@@ -108,13 +115,12 @@ class _EditNotesViewState extends State<EditNotesView> {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
       ),
-      textColor: Colors.white,
-      color: Theme.of(context).accentColor,
       onPressed: () async {
-        showLoadingSnackBar(_scaffoldKey);
+        showLoadingSnackBar(context);
         widget.budget.notes = _notesController.text;
 
         final uid = MyProvider.of(context).auth.getCurrentUID();
@@ -122,11 +128,11 @@ class _EditNotesViewState extends State<EditNotesView> {
           await MyProvider.of(context)
               .database
               .updateNotes(uid, _notesController.text.trim(), widget.budget);
-          _scaffoldKey.currentState.hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
         } catch (e) {
           print(e.message);
-          _scaffoldKey.currentState.hideCurrentSnackBar();
-          showMessageSnackBar(_scaffoldKey, e.message);
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          showMessageSnackBar(context, e.message);
         }
         Route route = MaterialPageRoute(
           builder: (context) => BudgetDetailsView(
