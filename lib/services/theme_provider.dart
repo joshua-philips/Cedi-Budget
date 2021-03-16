@@ -4,17 +4,31 @@ import 'package:shared_preferences/shared_preferences.dart';
 ThemeData light = ThemeData(
   brightness: Brightness.light,
   primarySwatch: Colors.red,
-  primaryColor: Colors.red[700], // 0x FFD32F2F
+  primaryColor: Colors.grey[100], // 0x FFD32F2F
   accentColor: Colors.redAccent,
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: Colors.grey[100],
   appBarTheme: AppBarTheme(
-    color: Colors.red[700],
+    elevation: 0,
+    backgroundColor: Colors.grey[100],
+    iconTheme: IconThemeData(
+      color: Colors.black,
+    ),
+    textTheme: TextTheme(
+      headline6: TextStyle(
+        color: Colors.black,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   ),
   pageTransitionsTheme: PageTransitionsTheme(
     builders: {
       TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
       TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
     },
+  ),
+  cardTheme: CardTheme(
+    elevation: 0.5,
   ),
 );
 

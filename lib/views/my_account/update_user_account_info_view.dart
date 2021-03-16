@@ -203,6 +203,12 @@ class UpdateTextFormField extends StatelessWidget {
         obscureText: obscureText != null ? obscureText : false,
         decoration: InputDecoration(
           helperText: helperText ?? '',
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).accentColor,
+              width: 2,
+            ),
+          ),
         ),
         validator: validator,
       ),

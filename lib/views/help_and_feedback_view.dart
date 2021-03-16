@@ -68,6 +68,12 @@ class _HelpAndFeedbackState extends State<HelpAndFeedback> {
                   border: OutlineInputBorder(
                     borderSide: BorderSide(width: 10),
                   ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).accentColor,
+                      width: 2,
+                    ),
+                  ),
                 ),
                 textCapitalization: TextCapitalization.sentences,
               ),

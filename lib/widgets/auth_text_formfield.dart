@@ -30,6 +30,12 @@ class AuthTextFormField extends StatelessWidget {
           hintText: hintText ?? '',
           hintStyle: TextStyle(color: Colors.white),
           errorStyle: TextStyle(color: Colors.black),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).accentColor,
+              width: 2,
+            ),
+          ),
         ),
         validator: validator,
       ),

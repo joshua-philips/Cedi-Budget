@@ -20,7 +20,7 @@ class MyAccountView extends StatelessWidget {
               [
                 SafeArea(
                   child: Container(
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                    // color: Theme.of(context).scaffoldBackgroundColor,
                     height: MediaQuery.of(context).size.height,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -113,7 +113,7 @@ class MyAccountView extends StatelessWidget {
     if (auth.getProfileImageUrl() != null) {
       return CircleAvatar(
         radius: 70,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).accentColor,
         backgroundImage: NetworkImage(
           auth.getProfileImageUrl(),
         ),

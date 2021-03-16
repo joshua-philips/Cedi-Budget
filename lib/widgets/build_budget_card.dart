@@ -12,7 +12,7 @@ Widget buildBudgetCard(BuildContext context, DocumentSnapshot document) {
     padding: EdgeInsets.only(top: 10, left: 10, right: 10),
     child: Card(
       color: Theme.of(context).brightness == Brightness.light
-          ? Colors.red[100]
+          ? Colors.white
           : Theme.of(context).cardColor,
       child: InkWell(
         child: Column(

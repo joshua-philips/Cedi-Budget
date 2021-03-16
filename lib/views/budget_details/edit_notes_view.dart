@@ -86,7 +86,12 @@ class _EditNotesViewState extends State<EditNotesView> {
         maxLines: null,
         controller: _notesController,
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).accentColor,
+              width: 2,
+            ),
+          ),
         ),
         autofocus: true,
         textCapitalization: TextCapitalization.sentences,

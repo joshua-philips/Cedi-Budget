@@ -30,10 +30,10 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Theme.of(context).brightness == Brightness.light
+          ? Colors.purple[100]
+          : Theme.of(context).cardColor,
       child: Container(
-        color: Theme.of(context).brightness == Brightness.light
-            ? Colors.purple[100]
-            : Theme.of(context).cardColor,
         child: Column(
           children: [
             Container(

@@ -22,6 +22,12 @@ class ItemTextField extends StatelessWidget {
           prefix: Text('Item: '),
           helperText: helperText,
           labelText: 'Item',
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).accentColor,
+              width: 2,
+            ),
+          ),
         ),
         autofocus: autofocus != null ? autofocus : false,
         textInputAction: TextInputAction.next,

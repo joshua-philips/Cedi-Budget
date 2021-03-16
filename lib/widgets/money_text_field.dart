@@ -24,6 +24,12 @@ class MoneyTextField extends StatelessWidget {
           prefix: Text('GH¢'),
           helperText: helperText,
           labelText: 'Price',
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).accentColor,
+              width: 2,
+            ),
+          ),
         ),
         keyboardType: TextInputType.numberWithOptions(decimal: true),
         textInputAction: TextInputAction.next,

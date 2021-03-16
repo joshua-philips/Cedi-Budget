@@ -31,9 +31,7 @@ class BudgetDetailsView extends StatelessWidget {
               expandedHeight: 350,
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Colors.red[200]
-                      : Theme.of(context).appBarTheme.color,
+                  color: Theme.of(context).appBarTheme.color,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 70.0),
                     child: buildSelectedDatesLarge(
@@ -276,7 +274,7 @@ class BudgetDetailsView extends StatelessWidget {
                 maxLines: 3,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 40,
+                  fontSize: 30,
                   fontWeight: FontWeight.w600,
                 ),
               ),
