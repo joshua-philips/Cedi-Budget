@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 ThemeData light = ThemeData(
@@ -7,17 +8,20 @@ ThemeData light = ThemeData(
   primaryColor: Colors.grey[100], // 0x FFD32F2F
   accentColor: Colors.redAccent,
   scaffoldBackgroundColor: Colors.grey[100],
+  textTheme: GoogleFonts.quicksandTextTheme(),
   appBarTheme: AppBarTheme(
     elevation: 0,
     backgroundColor: Colors.grey[100],
     iconTheme: IconThemeData(
       color: Colors.black,
     ),
-    textTheme: TextTheme(
-      headline6: TextStyle(
-        color: Colors.black,
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
+    textTheme: GoogleFonts.quicksandTextTheme(
+      TextTheme(
+        headline6: TextStyle(
+          color: Colors.black,
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     ),
   ),
@@ -36,6 +40,22 @@ ThemeData dark = ThemeData(
   brightness: Brightness.dark,
   primarySwatch: Colors.red,
   accentColor: Colors.redAccent,
+  textTheme: GoogleFonts.quicksandTextTheme(
+    TextTheme(
+      bodyText2: TextStyle(color: Colors.white),
+    ),
+  ),
+  appBarTheme: AppBarTheme(
+    textTheme: GoogleFonts.quicksandTextTheme(
+      TextTheme(
+        headline6: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    ),
+  ),
   pageTransitionsTheme: PageTransitionsTheme(
     builders: {
       TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
