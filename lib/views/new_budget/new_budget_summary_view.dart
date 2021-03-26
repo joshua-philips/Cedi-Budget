@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 import 'package:groceries_budget_app/widgets/items_card_list.dart';
+import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/selected_dates.dart';
 import 'package:groceries_budget_app/widgets/snackbar.dart';
 
@@ -70,14 +71,8 @@ class NewBudgetSummaryView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 30),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Theme.of(context).accentColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          elevation: 0,
-                        ),
+                      roundedButton(
+                        color: Theme.of(context).accentColor,
                         child: Padding(
                           padding: const EdgeInsets.only(
                             left: 30,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/views/budget_details/budget_details_view.dart';
 import 'package:groceries_budget_app/widgets/snackbar.dart';
+import 'package:groceries_budget_app/widgets/rounded_button.dart';
 
 import '../../my_provider.dart';
 
@@ -100,14 +101,8 @@ class _EditNotesViewState extends State<EditNotesView> {
   }
 
   Widget buildSubmitButton(context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        primary: Theme.of(context).accentColor,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-      ),
+    return roundedButton(
+      color: Theme.of(context).accentColor,
       child: Padding(
         padding: const EdgeInsets.only(
           left: 30,

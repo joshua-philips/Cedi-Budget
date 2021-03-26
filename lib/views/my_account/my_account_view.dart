@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
+import 'package:intl/intl.dart';
+import 'package:groceries_budget_app/widgets/rounded_button.dart';
 
 import '../my_account/update_user_account_info_view.dart';
 
@@ -9,62 +11,53 @@ class MyAccountView extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthService auth = MyProvider.of(context).auth;
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            title: Text('My Account'),
-            floating: true,
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                SafeArea(
-                  child: Container(
-                    // color: Theme.of(context).scaffoldBackgroundColor,
-                    height: MediaQuery.of(context).size.height,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(height: 10),
-                            displayUserInformation(context, auth),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: Center(
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.only(left: 8),
-                                    minimumSize: Size(0, 0),
-                                  ),
-                                  child: Text(
-                                    'Update Account Info',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.blue,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Route route = MaterialPageRoute(
-                                      builder: (context) =>
-                                          UpdateUserAccountInfoView(),
-                                    );
-                                    Navigator.push(context, route);
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
+      appBar: AppBar(
+        title: Text('My Account'),
+        elevation: 0,
+      ),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 5),
+                displayUserInformation(context, auth),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: Center(
+                    child: roundedButton(
+                      color: Colors.red,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 30,
+                          right: 30,
+                          top: 10,
+                          bottom: 10,
+                        ),
+                        child: Text(
+                          'Update Account Info',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
+                      onPressed: () {
+                        Route route = MaterialPageRoute(
+                          builder: (context) => UpdateUserAccountInfoView(),
+                        );
+                        Navigator.push(context, route);
+                      },
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -79,13 +72,39 @@ class MyAccountView extends StatelessWidget {
           SizedBox(height: 10),
           displayName(auth),
           SizedBox(height: 10),
-          Text(
-            auth.getCurrentUser().email,
-            style: TextStyle(fontSize: 20),
-          ),
+          displayEmail(auth),
           SizedBox(height: 10),
           displayPhoneNumber(auth),
+          SizedBox(height: 10),
+          displayDateCreated(auth, context),
         ],
+      ),
+    );
+  }
+
+  Widget displayEmail(AuthService auth) {
+    return Text(
+      auth.getCurrentUser().email,
+      style: TextStyle(fontSize: 20),
+    );
+  }
+
+  Widget displayDateCreated(AuthService auth, BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: MediaQuery.of(context).size.height * 0.2,
+      child: Card(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('member since'),
+            SizedBox(height: 10),
+            Text(
+              '${DateFormat('EEE, MMM, dd yyyy').format(auth.getCurrentUser().metadata.creationTime)}',
+              style: TextStyle(fontSize: 35),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -105,7 +124,7 @@ class MyAccountView extends StatelessWidget {
     if (auth.getCurrentUser().phoneNumber != null) {
       return Text(auth.getCurrentUser().phoneNumber);
     } else {
-      return Text('Phone number not available');
+      return Text('');
     }
   }
 

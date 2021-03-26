@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/views/authentication/sign_up_view.dart';
 import 'package:groceries_budget_app/views/authentication/sign_in_view.dart';
+import 'package:groceries_budget_app/widgets/rounded_button.dart';
 
 class FirstView extends StatelessWidget {
   @override
@@ -30,19 +31,13 @@ class FirstView extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
-                    child: ElevatedButton(
+                    child: roundedButton(
+                      color: Colors.white,
                       onPressed: () {
                         Route route = MaterialPageRoute(
                             builder: (context) => SignUpView());
                         Navigator.of(context).push(route);
                       },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.white,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
                       child: Padding(
                         padding: const EdgeInsets.only(
                           left: 50,

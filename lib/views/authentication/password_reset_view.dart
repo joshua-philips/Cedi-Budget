@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/widgets/auth_text_formfield.dart';
+import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/snackbar.dart';
 
 class PasswordResetView extends StatefulWidget {
@@ -61,14 +62,7 @@ class _PasswordResetViewState extends State<PasswordResetView> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 30),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.white,
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                            ),
+                          child: roundedButton(
                             child: Padding(
                               padding: const EdgeInsets.only(
                                 left: 50,
@@ -94,6 +88,7 @@ class _PasswordResetViewState extends State<PasswordResetView> {
                                 showMessageSnackBar(context, returnedString);
                               }
                             },
+                            color: Colors.white,
                           ),
                         ),
                       ],

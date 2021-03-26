@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/lorem.dart';
 import 'package:groceries_budget_app/my_provider.dart';
+import 'package:groceries_budget_app/widgets/rounded_button.dart';
 
 class HelpAndFeedback extends StatefulWidget {
   @override
@@ -78,10 +79,8 @@ class _HelpAndFeedbackState extends State<HelpAndFeedback> {
                 textCapitalization: TextCapitalization.sentences,
               ),
               SizedBox(height: 10),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context).accentColor,
-                ),
+              roundedButton(
+                color: Theme.of(context).accentColor,
                 child: Text('Submit', style: TextStyle(color: Colors.white)),
                 onPressed: () async {
                   final uid = MyProvider.of(context).auth.getCurrentUID();

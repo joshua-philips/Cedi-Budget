@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/widgets/auth_text_formfield.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/my_provider.dart';
+import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/snackbar.dart';
 
 import 'password_reset_view.dart';
@@ -72,14 +73,8 @@ class _SignInViewState extends State<SignInView> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 30),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.white,
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                            ),
+                          child: roundedButton(
+                            color: Colors.white,
                             child: Padding(
                               padding: const EdgeInsets.only(
                                 left: 82,
