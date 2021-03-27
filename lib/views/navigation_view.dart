@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
-import 'package:groceries_budget_app/views/all_time_data_view.dart';
+import 'package:groceries_budget_app/my_provider.dart';
+import 'package:groceries_budget_app/views/my_account/my_account_view.dart';
+import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'budget_history_view.dart';
 import 'home_view.dart';
 import 'new_budget/new_budget_date_view.dart';
@@ -25,31 +27,112 @@ class _NavigationViewState extends State<NavigationView> {
       appBar: AppBar(
         title: Text('Cedi Budget'),
         actions: [
-          IconButton(
-            tooltip: 'All Time Statistics',
-            icon: Icon(Icons.analytics),
-            onPressed: () {
-              Route route =
-                  MaterialPageRoute(builder: (context) => AllTimeDataView());
-              Navigator.of(context).push(route);
-            },
-          ),
           Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: IconButton(
-              tooltip: 'Add New Budget',
-              icon: Icon(Icons.add),
-              onPressed: () {
-                Route route = MaterialPageRoute(
-                  builder: (context) => NewBudgetDateView(
-                    budget: budget,
+            padding: const EdgeInsets.only(right: 20),
+            child: InkWell(
+              child: Row(
+                children: [
+                  Icon(Icons.account_circle),
+                  SizedBox(width: 5),
+                  Text(
+                    '${MyProvider.of(context).auth.getCurrentUser().displayName ?? ''}',
+                    style: TextStyle(
+                      color: Theme.of(context)
+                          .appBarTheme
+                          .textTheme
+                          .headline6
+                          .color,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+              onTap: () {
+                showModalBottomSheet(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                  ),
+                  context: context,
+                  builder: (context) => Container(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          roundedButton(
+                            color: Colors.green[900],
+                            child: Text(
+                              'Account Info',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            onPressed: () {
+                              Route route = MaterialPageRoute(
+                                  builder: (context) => MyAccountView());
+                              Navigator.of(context).pop();
+                              Navigator.push(context, route);
+                            },
+                          ),
+                          roundedButton(
+                            color: Theme.of(context).accentColor,
+                            child: Text(
+                              'Logout',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            onPressed: () async {
+                              Navigator.of(context).pop();
+                              try {
+                                await MyProvider.of(context).auth.signOut();
+                              } catch (e) {
+                                print(e);
+                              }
+                            },
+                          ),
+                          SizedBox(height: 5),
+                          Divider(),
+                          SizedBox(height: 5),
+                          roundedButton(
+                            color: Colors.deepPurpleAccent,
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 );
-                Navigator.push(context, route);
               },
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 0,
+        child: Icon(Icons.add),
+        onPressed: () {
+          Route route = MaterialPageRoute(
+            builder: (context) => NewBudgetDateView(
+              budget: budget,
+            ),
+          );
+          Navigator.push(context, route);
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Theme.of(context).accentColor,

@@ -43,6 +43,7 @@ class BudgetHistoryView extends StatelessWidget {
       thickness: 2,
       child: ListView.builder(
         itemCount: snapshot.data.docs.length,
+        padding: EdgeInsets.only(top: 10, bottom: 70),
         itemBuilder: (context, int index) {
           return buildBudgetCard(context, snapshot.data.docs[index]);
         },

@@ -46,6 +46,7 @@ ThemeData dark = ThemeData(
     ),
   ),
   appBarTheme: AppBarTheme(
+    elevation: 0,
     textTheme: GoogleFonts.quicksandTextTheme(
       TextTheme(
         headline6: TextStyle(

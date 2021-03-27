@@ -34,103 +34,105 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
         backgroundColor: Theme.of(context).appBarTheme.color,
         actions: [AppBarHomeButton()],
       ),
-      body: Container(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        height: MediaQuery.of(context).size.height,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  right: 30,
-                  left: 30,
-                ),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      UpdateTextFormField(
-                        controller: _nameController,
-                        helperText: 'Name',
-                      ),
-                      UpdateTextFormField(
-                        controller: _newPasswordController,
-                        validator: (val) {
-                          if (val.length < 6) {
-                            return '6 or more characters';
-                          } else if (val != _confirmPasswordController.text) {
-                            return 'Passwords do not match';
-                          } else {
-                            return null;
-                          }
-                        },
-                        helperText: 'New Password',
-                        obscureText: true,
-                      ),
-                      UpdateTextFormField(
-                        controller: _confirmPasswordController,
-                        validator: (val) {
-                          if (val.length < 6) {
-                            return '6 or more characters';
-                          } else if (val != _newPasswordController.text) {
-                            return 'Passwords do not match';
-                          } else {
-                            return null;
-                          }
-                        },
-                        helperText: 'Confirm Password',
-                        obscureText: true,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 50),
-                        child: roundedButton(
-                          color: Colors.red,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              left: 50,
-                              right: 50,
-                              top: 10,
-                              bottom: 10,
-                            ),
-                            child: Text(
-                              'Update',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          onPressed: () async {
-                            if (formKey.currentState.validate()) {
-                              print('clicked');
-                              showLoadingSnackBar(context);
-                              String returnedString = await changeUserInfo();
-                              ScaffoldMessenger.of(context)
-                                  .hideCurrentSnackBar();
-
-                              if (returnedString == 'Success') {
-                                showMessageSnackBar(context, returnedString);
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => MyAccountView(),
-                                  ),
-                                );
-                              } else {
-                                showMessageSnackBar(context, returnedString);
-                              }
+      body: SingleChildScrollView(
+        child: Container(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          height: MediaQuery.of(context).size.height,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    right: 30,
+                    left: 30,
+                  ),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        UpdateTextFormField(
+                          controller: _nameController,
+                          helperText: 'Name',
+                        ),
+                        UpdateTextFormField(
+                          controller: _newPasswordController,
+                          validator: (val) {
+                            if (val.length < 6) {
+                              return '6 or more characters';
+                            } else if (val != _confirmPasswordController.text) {
+                              return 'Passwords do not match';
+                            } else {
+                              return null;
                             }
                           },
+                          helperText: 'New Password',
+                          obscureText: true,
                         ),
-                      ),
-                    ],
+                        UpdateTextFormField(
+                          controller: _confirmPasswordController,
+                          validator: (val) {
+                            if (val.length < 6) {
+                              return '6 or more characters';
+                            } else if (val != _newPasswordController.text) {
+                              return 'Passwords do not match';
+                            } else {
+                              return null;
+                            }
+                          },
+                          helperText: 'Confirm Password',
+                          obscureText: true,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 50),
+                          child: roundedButton(
+                            color: Colors.red,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 50,
+                                right: 50,
+                                top: 10,
+                                bottom: 10,
+                              ),
+                              child: Text(
+                                'Update',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            onPressed: () async {
+                              if (formKey.currentState.validate()) {
+                                print('clicked');
+                                showLoadingSnackBar(context);
+                                String returnedString = await changeUserInfo();
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+
+                                if (returnedString == 'Success') {
+                                  showMessageSnackBar(context, returnedString);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => MyAccountView(),
+                                    ),
+                                  );
+                                } else {
+                                  showMessageSnackBar(context, returnedString);
+                                }
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

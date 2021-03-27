@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/services/theme_provider.dart';
 import 'package:groceries_budget_app/views/about_view.dart';
+import 'package:groceries_budget_app/views/all_time_data_view.dart';
 import 'package:groceries_budget_app/views/help_and_feedback_view.dart';
 import 'package:provider/provider.dart';
 import 'package:groceries_budget_app/my_provider.dart';
@@ -23,6 +24,7 @@ class _SettingsViewState extends State<SettingsView> {
     AuthService auth = MyProvider.of(context).auth;
     return SingleChildScrollView(
       child: Container(
+        padding: EdgeInsets.only(top: 5, bottom: 70),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -90,27 +92,17 @@ class _SettingsViewState extends State<SettingsView> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Center(
-                child: TextButton(
-                  style: TextButton.styleFrom(
-
-                  padding: EdgeInsets.only(left: 8),
-                  minimumSize: Size(0,0),
-                  ),
-                  child: Text(
-                    'Logout',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.blue,),
-                  ),
-                  
-                  onPressed: () async {
-                    try {
-                      await auth.signOut();
-                    } catch (e) {
-                      print(e);
-                    }
-                  },
+            Card(
+              child: InkWell(
+                onTap: () {
+                  Route route = MaterialPageRoute(
+                      builder: (context) => AllTimeDataView());
+                  Navigator.of(context).push(route);
+                },
+                child: ListTile(
+                  title: Text('All-Time User Budget Data'),
+                  subtitle: Text('Financial statisics'),
+                  leading: Icon(Icons.analytics),
                 ),
               ),
             ),

@@ -9,7 +9,7 @@ ElevatedButton roundedButton(
       elevation: 0,
       primary: color,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(20),
       ),
     ),
     child: child,

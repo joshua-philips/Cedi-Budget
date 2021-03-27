@@ -9,7 +9,7 @@ Widget buildBudgetCard(BuildContext context, DocumentSnapshot document) {
   final Budget budget = Budget.fromSnapshot(document);
 
   return Container(
-    padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+    padding: EdgeInsets.only(bottom: 10, left: 10, right: 10),
     child: Card(
       color: Theme.of(context).brightness == Brightness.light
           ? Colors.white
