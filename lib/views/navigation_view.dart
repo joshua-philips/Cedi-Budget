@@ -67,6 +67,7 @@ class _NavigationViewState extends State<NavigationView> {
                             child: Text(
                               'Account Info',
                               style: TextStyle(
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
@@ -83,6 +84,7 @@ class _NavigationViewState extends State<NavigationView> {
                             child: Text(
                               'Logout',
                               style: TextStyle(
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
@@ -104,6 +106,7 @@ class _NavigationViewState extends State<NavigationView> {
                             child: Text(
                               'Cancel',
                               style: TextStyle(
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),

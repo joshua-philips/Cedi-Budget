@@ -81,7 +81,14 @@ class _HelpAndFeedbackState extends State<HelpAndFeedback> {
               SizedBox(height: 10),
               roundedButton(
                 color: Theme.of(context).accentColor,
-                child: Text('Submit', style: TextStyle(color: Colors.white)),
+                child: Text(
+                  'Submit',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
                 onPressed: () async {
                   final uid = MyProvider.of(context).auth.getCurrentUID();
                   if (_feedbackController.text.trim().isNotEmpty) {

@@ -113,7 +113,7 @@ class _EditNotesViewState extends State<EditNotesView> {
         child: Text(
           'Save',
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),

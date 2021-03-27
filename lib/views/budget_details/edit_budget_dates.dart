@@ -28,6 +28,7 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
     _endDate = widget.budget.endDate;
   }
 
+  // TODO: Find replacement  for date range picker
   Future displayDateRangePicker(BuildContext context) async {
     final List<DateTime> picked = await DateRangePicker.showDatePicker(
         context: context,
@@ -88,7 +89,7 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
             child: Text(
               'Change Date Range',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -111,7 +112,7 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
             child: Text(
               'Finish',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),

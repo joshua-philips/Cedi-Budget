@@ -20,6 +20,7 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
   DateTime _startDate = DateTime.now();
   DateTime _endDate = DateTime.now().add(Duration(days: 7));
 
+  // TODO: Find replacement  for date range picker
   Future displayDateRangePicker(BuildContext context) async {
     final List<DateTime> picked = await DateRangePicker.showDatePicker(
         context: context,
@@ -74,7 +75,7 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
             child: Text(
               'Change Date Range',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -97,7 +98,7 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
             child: Text(
               'Continue',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),

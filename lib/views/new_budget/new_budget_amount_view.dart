@@ -4,6 +4,7 @@ import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 import 'package:groceries_budget_app/widgets/divider_with_text.dart';
 import 'package:groceries_budget_app/widgets/item_text_field.dart';
 import 'package:groceries_budget_app/widgets/money_text_field.dart';
+import 'package:groceries_budget_app/widgets/rounded_button.dart';
 
 import 'new_budget_summary_view.dart';
 
@@ -262,11 +263,15 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
                   child: Column(
                     children: setAmountFields(_amountController) +
                         [
-                          TextButton(
+                          roundedButton(
+                            color: Theme.of(context).accentColor,
                             child: Text(
                               'Continue to summary',
-                              style:
-                                  TextStyle(fontSize: 25, color: Colors.blue),
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
                             onPressed: () {
                               continueToSummary();

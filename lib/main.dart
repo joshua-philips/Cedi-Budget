@@ -10,7 +10,6 @@ import 'views/authentication/firstview.dart';
 import 'views/authentication/sign_in_view.dart';
 import 'views/authentication/sign_up_view.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

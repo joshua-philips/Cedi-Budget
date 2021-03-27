@@ -6,6 +6,7 @@ import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 import 'package:groceries_budget_app/widgets/divider_with_text.dart';
 import 'package:groceries_budget_app/widgets/item_text_field.dart';
 import 'package:groceries_budget_app/widgets/money_text_field.dart';
+import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/snackbar.dart';
 
 enum amountType { simple, complex }
@@ -301,7 +302,7 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: Text('Edit Amount/Items'),
+            title: Text('Edit Budget'),
             actions: [
               AppBarHomeButton(),
               IconButton(
@@ -323,12 +324,16 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
                   child: Column(
                     children: setAmountFields(_amountController) +
                         [
-                          TextButton(
+                          roundedButton(
                             child: Text(
                               'Finish',
-                              style:
-                                  TextStyle(fontSize: 25, color: Colors.blue),
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
+                            color: Theme.of(context).accentColor,
                             onPressed: () {
                               finish();
                             },
@@ -345,7 +350,7 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
                                 child: Text(
                                   _switchButtonText,
                                   style: TextStyle(
-                                      fontSize: 25,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.blue),
                                 ),
