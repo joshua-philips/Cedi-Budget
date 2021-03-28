@@ -324,7 +324,7 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
                   child: Column(
                     children: setAmountFields(_amountController) +
                         [
-                          roundedButton(
+                          RoundedButton(
                             child: Text(
                               'Finish',
                               style: TextStyle(

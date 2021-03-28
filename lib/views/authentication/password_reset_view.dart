@@ -62,7 +62,7 @@ class _PasswordResetViewState extends State<PasswordResetView> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 30),
-                          child: roundedButton(
+                          child: RoundedButton(
                             child: Padding(
                               padding: const EdgeInsets.only(
                                 left: 50,

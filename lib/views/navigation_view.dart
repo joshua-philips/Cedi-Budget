@@ -62,7 +62,7 @@ class _NavigationViewState extends State<NavigationView> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          roundedButton(
+                          RoundedButton(
                             color: Colors.green[900],
                             child: Text(
                               'Account Info',
@@ -79,7 +79,7 @@ class _NavigationViewState extends State<NavigationView> {
                               Navigator.push(context, route);
                             },
                           ),
-                          roundedButton(
+                          RoundedButton(
                             color: Theme.of(context).accentColor,
                             child: Text(
                               'Logout',
@@ -101,7 +101,7 @@ class _NavigationViewState extends State<NavigationView> {
                           SizedBox(height: 5),
                           Divider(),
                           SizedBox(height: 5),
-                          roundedButton(
+                          RoundedButton(
                             color: Colors.deepPurpleAccent,
                             child: Text(
                               'Cancel',

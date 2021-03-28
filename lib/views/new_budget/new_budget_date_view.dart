@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
-import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:intl/intl.dart';
@@ -20,18 +19,22 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
   DateTime _startDate = DateTime.now();
   DateTime _endDate = DateTime.now().add(Duration(days: 7));
 
-  // TODO: Find replacement  for date range picker
+  // TODO: Date Range Picker app bar colours
   Future displayDateRangePicker(BuildContext context) async {
-    final List<DateTime> picked = await DateRangePicker.showDatePicker(
-        context: context,
-        initialFirstDate: _startDate,
-        initialLastDate: _endDate,
-        firstDate: DateTime(DateTime.now().year - 50),
-        lastDate: DateTime(DateTime.now().year + 50));
-    if (picked != null && picked.length == 2) {
+    DateTimeRange _initialDateRange = DateTimeRange(
+      start: _startDate,
+      end: _endDate,
+    );
+    DateTimeRange pickedRange = await showDateRangePicker(
+      context: context,
+      firstDate: DateTime.now().subtract(Duration(days: 365 * 50)),
+      lastDate: DateTime.now().add(Duration(days: 365 * 50)),
+      initialDateRange: _initialDateRange,
+    );
+    if (pickedRange != null) {
       setState(() {
-        _startDate = picked[0];
-        _endDate = picked[1];
+        _startDate = pickedRange.start;
+        _endDate = pickedRange.end;
       });
     }
   }
@@ -63,7 +66,7 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        roundedButton(
+        RoundedButton(
           color: Colors.deepPurpleAccent,
           child: Padding(
             padding: const EdgeInsets.only(
@@ -86,7 +89,7 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
           },
         ),
         SizedBox(height: 20),
-        roundedButton(
+        RoundedButton(
           color: Theme.of(context).accentColor,
           child: Padding(
             padding: const EdgeInsets.only(

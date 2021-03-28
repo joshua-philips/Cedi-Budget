@@ -101,7 +101,7 @@ class _EditNotesViewState extends State<EditNotesView> {
   }
 
   Widget buildSubmitButton(context) {
-    return roundedButton(
+    return RoundedButton(
       color: Theme.of(context).accentColor,
       child: Padding(
         padding: const EdgeInsets.only(

@@ -79,7 +79,7 @@ class _HelpAndFeedbackState extends State<HelpAndFeedback> {
                 textCapitalization: TextCapitalization.sentences,
               ),
               SizedBox(height: 10),
-              roundedButton(
+              RoundedButton(
                 color: Theme.of(context).accentColor,
                 child: Text(
                   'Submit',

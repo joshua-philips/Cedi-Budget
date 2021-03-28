@@ -27,7 +27,7 @@ class MyAccountView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 30),
                   child: Center(
-                    child: roundedButton(
+                    child: RoundedButton(
                       color: Colors.red,
                       child: Padding(
                         padding: const EdgeInsets.only(

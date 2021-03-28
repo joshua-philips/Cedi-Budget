@@ -71,7 +71,7 @@ class NewBudgetSummaryView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 30),
-                      roundedButton(
+                      RoundedButton(
                         color: Theme.of(context).accentColor,
                         child: Padding(
                           padding: const EdgeInsets.only(

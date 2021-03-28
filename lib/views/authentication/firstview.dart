@@ -31,7 +31,7 @@ class FirstView extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
-                    child: roundedButton(
+                    child: RoundedButton(
                       color: Colors.white,
                       onPressed: () {
                         Route route = MaterialPageRoute(

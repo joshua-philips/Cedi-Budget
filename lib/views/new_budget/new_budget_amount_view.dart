@@ -263,7 +263,7 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
                   child: Column(
                     children: setAmountFields(_amountController) +
                         [
-                          roundedButton(
+                          RoundedButton(
                             color: Theme.of(context).accentColor,
                             child: Text(
                               'Continue to summary',

@@ -73,7 +73,7 @@ class _SignInViewState extends State<SignInView> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 30),
-                          child: roundedButton(
+                          child: RoundedButton(
                             color: Colors.white,
                             child: Padding(
                               padding: const EdgeInsets.only(

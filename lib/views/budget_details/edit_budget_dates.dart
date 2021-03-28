@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
-import 'package:date_range_picker/date_range_picker.dart' as DateRangePicker;
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/views/budget_details/budget_details_view.dart';
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
@@ -28,20 +27,22 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
     _endDate = widget.budget.endDate;
   }
 
-  // TODO: Find replacement  for date range picker
+  // TODO: Date Range Picker app bar colours
   Future displayDateRangePicker(BuildContext context) async {
-    final List<DateTime> picked = await DateRangePicker.showDatePicker(
-        context: context,
-        initialFirstDate: _startDate,
-        initialLastDate: _endDate,
-        firstDate: DateTime(DateTime.now().year - 50),
-        lastDate: DateTime(DateTime.now().year + 50));
-    if (picked != null && picked.length == 2) {
+    DateTimeRange _initialDateRange = DateTimeRange(
+      start: _startDate,
+      end: _endDate,
+    );
+    DateTimeRange pickedRange = await showDateRangePicker(
+      context: context,
+      firstDate: DateTime.now().subtract(Duration(days: 365 * 50)),
+      lastDate: DateTime.now().add(Duration(days: 365 * 50)),
+      initialDateRange: _initialDateRange,
+    );
+    if (pickedRange != null) {
       setState(() {
-        _startDate = picked[0];
-        widget.budget.startDate = _startDate;
-        _endDate = picked[1];
-        widget.budget.endDate = _endDate;
+        _startDate = pickedRange.start;
+        _endDate = pickedRange.end;
       });
     }
   }
@@ -77,7 +78,7 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        roundedButton(
+        RoundedButton(
           color: Colors.deepPurpleAccent,
           child: Padding(
             padding: const EdgeInsets.only(
@@ -100,7 +101,7 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
           },
         ),
         SizedBox(height: 20),
-        roundedButton(
+        RoundedButton(
           color: Theme.of(context).accentColor,
           child: Padding(
             padding: const EdgeInsets.only(
