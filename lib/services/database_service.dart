@@ -121,4 +121,14 @@ class DatabaseService {
         .collection('feedback')
         .add({'message': feedback});
   }
+
+  /// Add ledger entery from deposit view
+  Future<void> addToLedger(String uid, Budget budget) async {
+    await _firestore
+        .collection('userData')
+        .doc(uid)
+        .collection('budgets')
+        .doc(budget.documentId)
+        .update({'ledger': budget.ledger});
+  }
 }

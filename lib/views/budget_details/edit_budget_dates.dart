@@ -43,6 +43,8 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
       setState(() {
         _startDate = pickedRange.start;
         _endDate = pickedRange.end;
+        widget.budget.startDate = _startDate;
+        widget.budget.endDate = _endDate;
       });
     }
   }

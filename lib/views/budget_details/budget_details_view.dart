@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
+import 'package:groceries_budget_app/views/budget_details/deposit_view.dart';
 import 'package:groceries_budget_app/views/budget_details/edit_budget_amount.dart';
 import 'package:groceries_budget_app/widgets/calculator_widget.dart';
 import 'package:groceries_budget_app/widgets/items_card_list.dart';
@@ -25,7 +26,7 @@ class BudgetDetailsView extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              title: Text('Budget Details'),
+              title: Text(''),
               centerTitle: true,
               pinned: true,
               expandedHeight: 350,
@@ -43,11 +44,26 @@ class BudgetDetailsView extends StatelessWidget {
               ),
               actions: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
-                  child: IconButton(
-                    tooltip: 'Edit Items & Total',
-                    icon: Icon(Icons.edit),
-                    onPressed: () {
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: InkWell(
+                    child: Row(
+                      children: [
+                        Icon(Icons.format_list_bulleted),
+                        SizedBox(width: 5),
+                        Text(
+                          'Edit Budget & Items',
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .appBarTheme
+                                .textTheme
+                                .headline6
+                                .color,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
                       Route route = MaterialPageRoute(
                         builder: (context) =>
                             EditBudgetAmountView(budget: budget),
@@ -126,6 +142,21 @@ class BudgetDetailsView extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 0,
+        child: Text(
+          '¢',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 35,
+          ),
+        ),
+        onPressed: () {
+          Route route = MaterialPageRoute(
+              builder: (context) => DepositView(budget: budget));
+          Navigator.push(context, route);
+        },
       ),
     );
   }
@@ -216,6 +247,8 @@ class BudgetDetailsView extends StatelessWidget {
                             style: TextStyle(
                               fontWeight: FontWeight.w900,
                               fontSize: 20,
+                              color:
+                                  Theme.of(context).textTheme.bodyText2.color,
                             ),
                           ),
                           onPressed: () {

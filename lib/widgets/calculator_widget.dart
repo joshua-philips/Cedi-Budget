@@ -23,8 +23,7 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
   void initState() {
     super.initState();
     _amountUsed = (widget.budget.amountUsed ?? 0.0).floor();
-    _amountSaved =
-        (widget.budget.amount - (widget.budget.amountUsed ?? 0.0)).floor();
+    _amountSaved = (widget.budget.amountSaved).floor();
   }
 
   @override

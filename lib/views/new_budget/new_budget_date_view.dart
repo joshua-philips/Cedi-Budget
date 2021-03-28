@@ -35,6 +35,8 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
       setState(() {
         _startDate = pickedRange.start;
         _endDate = pickedRange.end;
+        widget.budget.startDate = _startDate;
+        widget.budget.endDate = _endDate;
       });
     }
   }

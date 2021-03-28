@@ -8,7 +8,11 @@ ThemeData light = ThemeData(
   primaryColor: Colors.grey[100], // 0x FFD32F2F
   accentColor: Colors.redAccent,
   scaffoldBackgroundColor: Colors.grey[100],
-  textTheme: GoogleFonts.quicksandTextTheme(),
+  textTheme: GoogleFonts.quicksandTextTheme(
+    TextTheme(
+      bodyText2: TextStyle(color: Colors.black),
+    ),
+  ),
   appBarTheme: AppBarTheme(
     elevation: 0,
     backgroundColor: Colors.grey[100],
