@@ -18,16 +18,19 @@ class ItemTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         maxLines: 1,
+        style: TextStyle(color: Colors.black),
         decoration: InputDecoration(
-          prefix: Text('Item: '),
           helperText: helperText,
-          labelText: 'Item',
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).accentColor,
-              width: 2,
-            ),
+          helperStyle: TextStyle(color: Colors.black),
+          hintText: 'Item',
+          hintStyle: TextStyle(color: Colors.black),
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(5),
           ),
+          contentPadding: EdgeInsets.all(8),
         ),
         autofocus: autofocus != null ? autofocus : false,
         textInputAction: TextInputAction.next,

@@ -20,16 +20,20 @@ class MoneyTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         maxLines: 1,
+        style: TextStyle(color: Colors.black),
         decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
           prefix: Text('GH¢'),
+          prefixStyle: TextStyle(color: Colors.black),
           helperText: helperText,
-          labelText: 'Price',
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).accentColor,
-              width: 2,
-            ),
+          hintText: '0.00',
+          hintStyle: TextStyle(color: Colors.black),
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(5),
           ),
+          contentPadding: EdgeInsets.all(8),
         ),
         keyboardType: TextInputType.numberWithOptions(decimal: true),
         textInputAction: TextInputAction.next,

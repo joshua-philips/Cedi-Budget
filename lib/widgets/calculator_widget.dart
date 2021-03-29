@@ -93,6 +93,7 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
                         child: MoneyTextField(
                           controller: _moneyController,
                           helperText: 'Add to used',
+                          autofocus: false,
                         ),
                       ),
                     ),

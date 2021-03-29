@@ -21,6 +21,8 @@ class _DepositViewState extends State<DepositView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Log Amount'),
+        centerTitle: true,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
       body: Padding(
@@ -187,7 +189,7 @@ class _DepositViewState extends State<DepositView> {
                 (widget.budget.amountUsed + widget.budget.amountSaved))) {
       setState(() {
         _error =
-            "Insufficient funds Limit: GH¢${widget.budget.amount - widget.budget.amountSaved - widget.budget.amountSaved}";
+            "Insufficient funds\nLimit: GH¢${widget.budget.amount - widget.budget.amountSaved - widget.budget.amountSaved}";
       });
     } else {
       String uid = MyProvider.of(context).auth.getCurrentUID();
