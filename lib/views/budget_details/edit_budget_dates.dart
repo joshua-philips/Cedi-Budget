@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/my_provider.dart';
@@ -6,6 +7,7 @@ import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 import 'package:groceries_budget_app/widgets/large_selected_dates.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/snackbar.dart';
+import 'package:groceries_budget_app/widgets/total_days_text.dart';
 
 class EditBudgetDatesView extends StatefulWidget {
   final Budget budget;
@@ -53,25 +55,41 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            title: Text('Edit Budget - Date'),
-            actions: [AppBarHomeButton()],
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                buildSelectedDatesLarge(
-                  context: context,
-                  budget: widget.budget,
-                ),
-                SizedBox(height: 60),
-                buildButtons(context, widget.budget),
-              ],
+      body: Center(
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              title: Text('Edit Budget - Date'),
+              actions: [AppBarHomeButton()],
             ),
-          ),
-        ],
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Card(
+                    margin: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        LargeSelectedDates(
+                          budget: widget.budget,
+                        ),
+                        Divider(),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [TotalDaysText(budget: widget.budget)],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  buildButtons(context, widget.budget),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

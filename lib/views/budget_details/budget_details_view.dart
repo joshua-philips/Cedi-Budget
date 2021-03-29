@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/views/budget_details/deposit_view.dart';
 import 'package:groceries_budget_app/views/budget_details/edit_budget_amount.dart';
@@ -7,6 +8,7 @@ import 'package:groceries_budget_app/widgets/calculator_widget.dart';
 import 'package:groceries_budget_app/widgets/items_card_list.dart';
 import 'package:groceries_budget_app/widgets/large_selected_dates.dart';
 import 'package:groceries_budget_app/widgets/selected_dates.dart';
+import 'package:groceries_budget_app/widgets/total_days_text.dart';
 
 import '../../my_provider.dart';
 import '../budget_details/edit_notes_view.dart';
@@ -26,22 +28,9 @@ class BudgetDetailsView extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              title: Text(''),
-              centerTitle: true,
+              title: Text('Details'),
               pinned: true,
-              expandedHeight: 350,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Container(
-                  color: Theme.of(context).appBarTheme.color,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 70.0),
-                    child: buildSelectedDatesLarge(
-                      context: context,
-                      budget: budget,
-                    ),
-                  ),
-                ),
-              ),
+              elevation: 0,
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 20.0),
@@ -80,19 +69,40 @@ class BudgetDetailsView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, top: 8, right: 8),
                     child: Card(
-                      child: InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: buildSelectedDates(context, budget),
-                        ),
-                        onTap: () {
-                          Route route = MaterialPageRoute(
-                            builder: (context) => EditBudgetDatesView(
-                              budget: budget,
+                      child: Column(
+                        children: [
+                          LargeSelectedDates(
+                            budget: budget,
+                          ),
+                          Divider(),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 15, right: 8, bottom: 8),
+                            child: Row(
+                              children: [
+                                TotalDaysText(budget: budget),
+                                Spacer(),
+                                TextButton.icon(
+                                  icon: Icon(Icons.calendar_today_outlined),
+                                  label: Text(
+                                    'Edit Dates',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Route route = MaterialPageRoute(
+                                      builder: (context) => EditBudgetDatesView(
+                                        budget: budget,
+                                      ),
+                                    );
+                                    Navigator.of(context).push(route);
+                                  },
+                                ),
+                              ],
                             ),
-                          );
-                          Navigator.of(context).push(route);
-                        },
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -109,7 +119,7 @@ class BudgetDetailsView extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              buildItemsCardList(context, budget),
+                              ItemsCardList(budget: budget),
                             ],
                           ),
                         )
@@ -117,10 +127,6 @@ class BudgetDetailsView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
                     child: totalBudgetCard(context),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: totalDaysCard(context),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
@@ -188,10 +194,10 @@ class BudgetDetailsView extends StatelessWidget {
               ),
               child: Container(
                 padding: EdgeInsets.only(
-                  top: 10,
+                  top: 20,
+                  left: 20,
+                  right: 20,
                   bottom: 10,
-                  left: 10,
-                  right: 10,
                 ),
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
@@ -220,6 +226,9 @@ class BudgetDetailsView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         TextButton(
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.only(right: 20),
+                          ),
                           child: Text(
                             'Delete',
                             style: TextStyle(
@@ -286,33 +295,6 @@ class BudgetDetailsView extends StatelessWidget {
             fontSize: 30,
             fontWeight: FontWeight.bold,
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget totalDaysCard(BuildContext context) {
-    return Card(
-      color: Theme.of(context).brightness != Brightness.dark
-          ? Colors.blue[400]
-          : Theme.of(context).cardColor,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Flexible(
-              child: AutoSizeText(
-                'This is a ${budget.getTotalDaysofBudget().toString()} day budget',
-                maxLines: 3,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
         ),
       ),
     );

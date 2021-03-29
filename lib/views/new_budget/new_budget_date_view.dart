@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
+import 'package:groceries_budget_app/widgets/large_selected_dates.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
+import 'package:groceries_budget_app/widgets/total_days_text.dart';
 import 'package:intl/intl.dart';
 
 import 'new_budget_amount_view.dart';
@@ -44,22 +46,41 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            title: Text('New Budget - Date'),
-            actions: [AppBarHomeButton()],
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                buildSelectedDates(context),
-                SizedBox(height: 60),
-                buildButtons(context, widget.budget),
-              ],
+      body: Center(
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              title: Text('New Budget - Date'),
+              actions: [AppBarHomeButton()],
             ),
-          ),
-        ],
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Card(
+                    margin: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        LargeSelectedDates(budget: widget.budget),
+                        Divider(),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              TotalDaysText(budget: widget.budget),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  buildButtons(context, widget.budget),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -119,56 +140,6 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
           },
         ),
       ],
-    );
-  }
-
-  Widget buildSelectedDates(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 15),
-      child: Column(
-        children: [
-          Column(
-            children: [
-              Text('Start Date'),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  '${DateFormat('EEE, dd/MM').format(_startDate).toString()}',
-                  style: TextStyle(fontSize: 35),
-                ),
-              ),
-              Text(
-                '${DateFormat('yyyy').format(_startDate).toString()}',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 30, bottom: 30),
-            child: Icon(
-              Icons.arrow_downward,
-              size: 45,
-              color: Theme.of(context).accentColor,
-            ),
-          ),
-          Column(
-            children: [
-              Text('End Date'),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  '${DateFormat('EEE, dd/MM').format(_endDate).toString()}',
-                  style: TextStyle(fontSize: 35),
-                ),
-              ),
-              Text(
-                '${DateFormat('yyyy').format(_endDate).toString()}',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ],
-      ),
     );
   }
 }

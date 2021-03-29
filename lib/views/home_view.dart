@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/my_provider.dart';
-import 'package:groceries_budget_app/widgets/build_budget_card.dart';
+import 'package:groceries_budget_app/widgets/budget_card.dart';
 
 import 'new_budget/new_budget_date_view.dart';
 
@@ -43,7 +43,7 @@ class HomeView extends StatelessWidget {
         itemCount: snapshot.data.docs.length,
         padding: EdgeInsets.only(top: 10, bottom: 70),
         itemBuilder: (context, int index) {
-          return buildBudgetCard(context, snapshot.data.docs[index]);
+          return BudgetCard(documentSnapshot: snapshot.data.docs[index]);
         },
       ),
     );

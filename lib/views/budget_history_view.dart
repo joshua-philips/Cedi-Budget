@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:groceries_budget_app/widgets/build_budget_card.dart';
+import 'package:groceries_budget_app/widgets/budget_card.dart';
 
 import '../my_provider.dart';
 
@@ -45,7 +45,7 @@ class BudgetHistoryView extends StatelessWidget {
         itemCount: snapshot.data.docs.length,
         padding: EdgeInsets.only(top: 10, bottom: 70),
         itemBuilder: (context, int index) {
-          return buildBudgetCard(context, snapshot.data.docs[index]);
+          return BudgetCard(documentSnapshot: snapshot.data.docs[index]);
         },
       ),
     );

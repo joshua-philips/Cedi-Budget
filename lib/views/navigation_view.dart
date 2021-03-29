@@ -90,12 +90,12 @@ class _NavigationViewState extends State<NavigationView> {
                               ),
                             ),
                             onPressed: () async {
-                              Navigator.of(context).pop();
                               try {
                                 await MyProvider.of(context).auth.signOut();
                               } catch (e) {
                                 print(e);
                               }
+                              Navigator.of(context).pop();
                             },
                           ),
                           SizedBox(height: 5),

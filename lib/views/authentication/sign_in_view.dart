@@ -135,7 +135,7 @@ class _SignInViewState extends State<SignInView> {
                 ),
                 SizedBox(height: 20),
                 GoogleAuthButton(
-                  borderRadius: 30,
+                  borderRadius: 20,
                   onPressed: () async {
                     String returnedString = await googleSignIn();
                     if (returnedString != 'Success') {

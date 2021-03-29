@@ -15,46 +15,64 @@ class MyAccountView extends StatelessWidget {
         title: Text('My Account'),
         elevation: 0,
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 5),
-                displayUserInformation(context, auth),
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Center(
-                    child: RoundedButton(
-                      color: Colors.red,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 30,
-                          right: 30,
-                          top: 10,
-                          bottom: 10,
-                        ),
-                        child: Text(
-                          'Update Account Info',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
+      body: Center(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 5),
+                  displayUserInformation(context, auth),
+                  TextButton.icon(
+                    onPressed: () {
+                      Route route = MaterialPageRoute(
+                        builder: (context) => UpdateUserAccountInfoView(),
+                      );
+                      Navigator.push(context, route);
+                    },
+                    icon: Icon(Icons.account_circle),
+                    label: Text(
+                      'Update Account Info',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
-                      onPressed: () {
-                        Route route = MaterialPageRoute(
-                          builder: (context) => UpdateUserAccountInfoView(),
-                        );
-                        Navigator.push(context, route);
-                      },
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(height: 10),
+                  Divider(),
+                  SizedBox(height: 10),
+                  RoundedButton(
+                    color: Colors.red,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        left: 30,
+                        right: 30,
+                        top: 10,
+                        bottom: 10,
+                      ),
+                      child: Text(
+                        'Logout',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    onPressed: () async {
+                      try {
+                        await auth.signOut();
+                      } catch (e) {
+                        print(e);
+                      }
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -64,7 +82,7 @@ class MyAccountView extends StatelessWidget {
 
   Widget displayUserInformation(context, AuthService auth) {
     return Padding(
-      padding: const EdgeInsets.only(top: 15),
+      padding: const EdgeInsets.only(top: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -75,7 +93,7 @@ class MyAccountView extends StatelessWidget {
           displayEmail(auth),
           SizedBox(height: 10),
           displayPhoneNumber(auth),
-          SizedBox(height: 10),
+          SizedBox(height: 5),
           displayDateCreated(auth, context),
         ],
       ),
@@ -92,7 +110,7 @@ class MyAccountView extends StatelessWidget {
   Widget displayDateCreated(AuthService auth, BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.2,
+      height: MediaQuery.of(context).size.height * 0.17,
       child: Card(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +118,7 @@ class MyAccountView extends StatelessWidget {
             Text('member since'),
             SizedBox(height: 10),
             Text(
-              '${DateFormat('EEE, MMM, dd yyyy').format(auth.getCurrentUser().metadata.creationTime)}',
+              '${DateFormat('EEE, MMM dd, yyyy').format(auth.getCurrentUser().metadata.creationTime)}',
               style: TextStyle(fontSize: 35),
             ),
           ],

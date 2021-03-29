@@ -42,11 +42,11 @@ class NewBudgetSummaryView extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       Divider(),
-                      ListTile(title: buildSelectedDates(context, budget)),
+                      ListTile(title: SelectedDates(budget: budget)),
                       Divider(),
                       SizedBox(height: 15),
                       budget.hasItems
-                          ? buildItemsCardList(context, budget)
+                          ? ItemsCardList(budget: budget)
                           : Container(),
                       SizedBox(height: 20),
                       Card(

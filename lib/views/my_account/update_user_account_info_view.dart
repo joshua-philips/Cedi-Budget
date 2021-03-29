@@ -59,7 +59,7 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
                           controller: _newPasswordController,
                           validator: (val) {
                             if (val.length < 6) {
-                              return '6 or more characters';
+                              return 'Password must have 6 or more characters';
                             } else if (val != _confirmPasswordController.text) {
                               return 'Passwords do not match';
                             } else {
@@ -73,7 +73,7 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
                           controller: _confirmPasswordController,
                           validator: (val) {
                             if (val.length < 6) {
-                              return '6 or more characters';
+                              return 'Password must have 6 or more characters';
                             } else if (val != _newPasswordController.text) {
                               return 'Passwords do not match';
                             } else {
@@ -174,17 +174,18 @@ class UpdateTextFormField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 20),
       child: TextFormField(
+        style: TextStyle(color: Colors.black),
         controller: controller,
         cursorColor: Colors.redAccent,
         autofocus: autofocus != null ? autofocus : false,
         obscureText: obscureText != null ? obscureText : false,
         decoration: InputDecoration(
           helperText: helperText ?? '',
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).accentColor,
-              width: 2,
-            ),
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
         validator: validator,

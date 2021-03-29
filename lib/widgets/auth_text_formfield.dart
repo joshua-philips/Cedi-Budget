@@ -21,21 +21,23 @@ class AuthTextFormField extends StatelessWidget {
       padding: const EdgeInsets.only(top: 20),
       child: TextFormField(
         controller: controller,
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Colors.black),
         cursorColor: Colors.redAccent,
         autofocus: autofocus != null ? autofocus : false,
         obscureText: obscureText != null ? obscureText : false,
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          focusColor: Colors.white,
           hintText: hintText ?? '',
-          hintStyle: TextStyle(color: Colors.white),
+          hintStyle: TextStyle(color: Colors.black),
           errorStyle: TextStyle(color: Colors.black),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).accentColor,
-              width: 2,
-            ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(10),
           ),
+          contentPadding: EdgeInsets.all(8),
         ),
         validator: validator,
       ),

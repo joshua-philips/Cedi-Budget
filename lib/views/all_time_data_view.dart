@@ -48,7 +48,8 @@ class AllTimeDataView extends StatelessWidget {
           amountTotal + Budget.fromSnapshot(snapshot.data[count]).amount;
       usedTotal =
           usedTotal + Budget.fromSnapshot(snapshot.data[count]).amountUsed;
-      savedTotal = amountTotal - usedTotal;
+      savedTotal =
+          savedTotal + Budget.fromSnapshot(snapshot.data[count]).amountSaved;
     }
     return Container(
       child: Column(
