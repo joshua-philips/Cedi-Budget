@@ -5,9 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 ThemeData light = ThemeData(
   brightness: Brightness.light,
   primarySwatch: Colors.red,
-  primaryColor: Colors.grey[100], // 0x FFD32F2F
+  primaryColor: Colors.grey[200],
   accentColor: Colors.redAccent,
-  scaffoldBackgroundColor: Colors.grey[100],
+  scaffoldBackgroundColor: Colors.grey[200],
   textTheme: GoogleFonts.quicksandTextTheme(
     TextTheme(
       bodyText2: TextStyle(color: Colors.black),
@@ -15,7 +15,7 @@ ThemeData light = ThemeData(
   ),
   appBarTheme: AppBarTheme(
     elevation: 0,
-    backgroundColor: Colors.grey[100],
+    backgroundColor: Colors.grey[200],
     iconTheme: IconThemeData(
       color: Colors.black,
     ),
@@ -28,6 +28,9 @@ ThemeData light = ThemeData(
         ),
       ),
     ),
+  ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    elevation: 0,
   ),
   pageTransitionsTheme: PageTransitionsTheme(
     builders: {

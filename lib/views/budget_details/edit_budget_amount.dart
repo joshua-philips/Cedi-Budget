@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/views/budget_details/budget_details_view.dart';
-import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
-import 'package:groceries_budget_app/widgets/divider_with_text.dart';
 import 'package:groceries_budget_app/widgets/item_text_field.dart';
 import 'package:groceries_budget_app/widgets/money_text_field.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
@@ -22,7 +20,7 @@ class EditBudgetAmountView extends StatefulWidget {
 
 class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
   amountType _amountState;
-  String _switchButtonText = 'Build Budget';
+  String _switchButtonText;
   var _amountTotal;
   List<String> items;
   List<double> prices;
@@ -47,6 +45,7 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
     super.initState();
     _amountTotal = widget.budget.amount.floor();
     _amountController.text = _amountTotal.toString();
+
     initializeItemsFields();
 
     _amountController.addListener(_setTotalAmount);
@@ -58,8 +57,10 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
 
     if (widget.budget.hasItems) {
       _amountState = amountType.complex;
+      _switchButtonText = 'Simple Budget';
     } else {
       _amountState = amountType.simple;
+      _switchButtonText = 'Build Budget';
     }
   }
 
@@ -133,9 +134,8 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
   List<Widget> setAmountFields(_amountController) {
     List<Widget> fields = [];
     if (_amountState == amountType.simple) {
-      _switchButtonText = 'Build Budget';
       fields.add(Padding(
-        padding: const EdgeInsets.only(top: 15),
+        padding: const EdgeInsets.only(bottom: 20),
         child: Text(
           'Enter your total budget for the period',
           textAlign: TextAlign.center,
@@ -156,7 +156,7 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
       );
     } else {
       fields.add(Padding(
-        padding: const EdgeInsets.only(top: 15),
+        padding: const EdgeInsets.only(bottom: 10),
         child: Text(
           'Enter cost of each item',
           style: TextStyle(
@@ -250,7 +250,6 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
           ),
         ),
       );
-      _switchButtonText = 'Simple Budget';
     }
     return fields;
   }
@@ -299,79 +298,70 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            title: Text('Edit Budget'),
-            actions: [
-              AppBarHomeButton(),
-              IconButton(
-                padding: EdgeInsets.only(right: 10),
-                tooltip: 'Finish',
-                icon: Icon(Icons.done_all),
-                onPressed: () {
-                  finish();
-                },
-              ),
-            ],
-            pinned: true,
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Column(
-                    children: setAmountFields(_amountController) +
-                        [
-                          RoundedButton(
-                            child: Text(
-                              'Finish',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                            color: Theme.of(context).accentColor,
-                            onPressed: () {
-                              finish();
-                            },
-                          ),
-                          DividerWithText(dividerText: 'or'),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10, bottom: 10),
-                            child: Center(
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.only(left: 8),
-                                  minimumSize: Size(0, 0),
-                                ),
-                                child: Text(
-                                  _switchButtonText,
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.blue),
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    _amountState =
-                                        _amountState == amountType.simple
-                                            ? amountType.complex
-                                            : amountType.simple;
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                  ),
-                ),
-              ],
+      appBar: AppBar(
+        actions: [
+          TextButton.icon(
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.only(right: 25),
+            ),
+            onPressed: () {
+              setState(() {
+                _amountState = _amountState == amountType.simple
+                    ? amountType.complex
+                    : amountType.simple;
+
+                _switchButtonText = _amountState == amountType.simple
+                    ? 'Build Budget'
+                    : 'Simple Budget';
+              });
+            },
+            icon: Icon(
+              _amountState != amountType.simple
+                  ? Icons.add_circle_outline
+                  : Icons.list_rounded,
+            ),
+            label: Text(
+              _switchButtonText,
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
+          IconButton(
+            padding: EdgeInsets.only(right: 10),
+            tooltip: 'Save',
+            icon: Icon(Icons.save),
+            onPressed: () {
+              finish();
+            },
+          ),
         ],
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: SingleChildScrollView(
+            child: Container(
+              child: Column(
+                children: setAmountFields(_amountController) +
+                    [
+                      RoundedButton(
+                        child: Text(
+                          'Save',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        color: Theme.of(context).accentColor,
+                        onPressed: () {
+                          finish();
+                        },
+                      ),
+                    ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

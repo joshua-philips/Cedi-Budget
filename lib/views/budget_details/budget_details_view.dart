@@ -84,7 +84,7 @@ class BudgetDetailsView extends StatelessWidget {
                                 TextButton.icon(
                                   icon: Icon(Icons.calendar_today_outlined),
                                   label: Text(
-                                    'Edit Dates',
+                                    'Change Dates',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -181,6 +181,7 @@ class BudgetDetailsView extends StatelessWidget {
         style: TextStyle(
           fontSize: 20,
           color: Colors.red,
+          fontWeight: FontWeight.bold,
         ),
       ),
       onPressed: () {

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
-import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
-import 'package:groceries_budget_app/widgets/divider_with_text.dart';
 import 'package:groceries_budget_app/widgets/item_text_field.dart';
 import 'package:groceries_budget_app/widgets/money_text_field.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
@@ -20,7 +18,7 @@ class NewBudgetAmountView extends StatefulWidget {
 
 class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
   amountType _amountState = amountType.simple;
-  String _switchButtonText = 'Build Budget';
+  String _switchButtonText;
   var _amountTotal = 0;
 
   TextEditingController _amountController = TextEditingController();
@@ -47,6 +45,9 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
     _itemPrice3.addListener(_setTotalAmount);
     _itemPrice4.addListener(_setTotalAmount);
     _itemPrice5.addListener(_setTotalAmount);
+
+    _switchButtonText =
+        _amountState == amountType.simple ? 'Build Budget' : 'Simple Budget';
   }
 
   _setTotalAmount() {
@@ -73,10 +74,9 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
   List<Widget> setAmountFields(_amountController) {
     List<Widget> fields = [];
     if (_amountState == amountType.simple) {
-      _switchButtonText = 'Build Budget';
       fields.add(
         Padding(
-          padding: const EdgeInsets.only(top: 15),
+          padding: const EdgeInsets.only(bottom: 20),
           child: Text(
             'Enter your total budget for the period',
             textAlign: TextAlign.center,
@@ -100,7 +100,7 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
     } else {
       fields.add(
         Padding(
-          padding: const EdgeInsets.only(top: 15),
+          padding: const EdgeInsets.only(bottom: 10),
           child: Text(
             'Enter cost of each item',
             style: TextStyle(
@@ -194,7 +194,6 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
           ),
         ),
       );
-      _switchButtonText = 'Simple Budget';
     }
     return fields;
   }
@@ -238,80 +237,74 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            title: Text('Amount/Items'),
-            actions: [
-              AppBarHomeButton(),
-              IconButton(
-                padding: EdgeInsets.only(right: 10),
-                tooltip: 'Summary',
-                icon: Icon(Icons.done_all),
-                onPressed: () {
-                  continueToSummary();
-                },
-              ),
-            ],
-            pinned: true,
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Column(
-                    children: setAmountFields(_amountController) +
-                        [
-                          RoundedButton(
-                            color: Theme.of(context).accentColor,
-                            child: Text(
-                              'Continue to summary',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                            onPressed: () {
-                              continueToSummary();
-                            },
-                          ),
-                          DividerWithText(dividerText: 'or'),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10, bottom: 10),
-                            child: Center(
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.only(left: 8),
-                                  minimumSize: Size(0, 0),
-                                ),
-                                child: Text(
-                                  _switchButtonText,
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    _amountState =
-                                        _amountState == amountType.simple
-                                            ? amountType.complex
-                                            : amountType.simple;
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                  ),
-                ),
-              ],
+      appBar: AppBar(
+        title: Text(''),
+        actions: [
+          TextButton.icon(
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.only(right: 25),
+            ),
+            onPressed: () {
+              setState(() {
+                _amountState = _amountState == amountType.simple
+                    ? amountType.complex
+                    : amountType.simple;
+
+                _switchButtonText = _amountState == amountType.simple
+                    ? 'Build Budget'
+                    : 'Simple Budget';
+              });
+            },
+            icon: Icon(
+              _amountState != amountType.simple
+                  ? Icons.add_circle_outline
+                  : Icons.list_rounded,
+            ),
+            label: Text(
+              _switchButtonText,
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
+          IconButton(
+            padding: EdgeInsets.only(right: 10),
+            tooltip: 'Save',
+            icon: Icon(Icons.save),
+            onPressed: () {
+              continueToSummary();
+            },
+          ),
         ],
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: SingleChildScrollView(
+            child: Container(
+              child: Column(
+                children: setAmountFields(_amountController) +
+                    [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: RoundedButton(
+                          color: Theme.of(context).accentColor,
+                          child: Text(
+                            'Continue to summary',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          onPressed: () {
+                            continueToSummary();
+                          },
+                        ),
+                      ),
+                    ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
