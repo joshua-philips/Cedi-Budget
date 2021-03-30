@@ -4,7 +4,8 @@ import 'package:flutter/rendering.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/views/budget_details/deposit_view.dart';
 import 'package:groceries_budget_app/views/budget_details/edit_budget_amount.dart';
-import 'package:groceries_budget_app/widgets/calculator_widget.dart';
+// import 'package:groceries_budget_app/widgets/calculator_widget.dart';
+import 'package:groceries_budget_app/widgets/pie_chart.dart';
 import 'package:groceries_budget_app/widgets/items_card_list.dart';
 import 'package:groceries_budget_app/widgets/selected_dates.dart';
 import 'package:groceries_budget_app/widgets/total_budget_card.dart';
@@ -140,11 +141,14 @@ class BudgetDetailsView extends StatelessWidget {
                       },
                     ),
                   ),
-                  // TODO: Add graph and chart
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: CalculatorWidget(budget: budget),
+                    child: PieChartCard(budget: budget),
                   ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 8.0, right: 8),
+                  //   child: CalculatorWidget(budget: budget),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
                     child: notesCard(context),
@@ -293,7 +297,7 @@ class BudgetDetailsView extends StatelessWidget {
   Widget notesCard(BuildContext context) {
     return Card(
       color: Theme.of(context).brightness != Brightness.dark
-          ? Colors.amberAccent
+          ? Colors.amber[100]
           : Theme.of(context).cardColor,
       child: InkWell(
         child: Column(
