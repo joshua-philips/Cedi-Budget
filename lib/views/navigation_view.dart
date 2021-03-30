@@ -59,63 +59,65 @@ class _NavigationViewState extends State<NavigationView> {
                   builder: (context) => Container(
                     height: MediaQuery.of(context).size.height * 0.3,
                     child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RoundedButton(
-                            color: Colors.green[900],
-                            child: Text(
-                              'Account Info',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundedButton(
+                              color: Colors.green[900],
+                              child: Text(
+                                'Account Info',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                               ),
+                              onPressed: () {
+                                Route route = MaterialPageRoute(
+                                    builder: (context) => MyAccountView());
+                                Navigator.of(context).pop();
+                                Navigator.push(context, route);
+                              },
                             ),
-                            onPressed: () {
-                              Route route = MaterialPageRoute(
-                                  builder: (context) => MyAccountView());
-                              Navigator.of(context).pop();
-                              Navigator.push(context, route);
-                            },
-                          ),
-                          RoundedButton(
-                            color: Theme.of(context).accentColor,
-                            child: Text(
-                              'Logout',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                            RoundedButton(
+                              color: Theme.of(context).accentColor,
+                              child: Text(
+                                'Logout',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                               ),
+                              onPressed: () async {
+                                try {
+                                  await MyProvider.of(context).auth.signOut();
+                                } catch (e) {
+                                  print(e);
+                                }
+                                Navigator.of(context).pop();
+                              },
                             ),
-                            onPressed: () async {
-                              try {
-                                await MyProvider.of(context).auth.signOut();
-                              } catch (e) {
-                                print(e);
-                              }
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          SizedBox(height: 5),
-                          Divider(),
-                          SizedBox(height: 5),
-                          RoundedButton(
-                            color: Colors.deepPurpleAccent,
-                            child: Text(
-                              'Cancel',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                            SizedBox(height: 5),
+                            Divider(),
+                            SizedBox(height: 5),
+                            RoundedButton(
+                              color: Colors.deepPurpleAccent,
+                              child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                               ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
                             ),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

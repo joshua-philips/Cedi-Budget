@@ -6,11 +6,11 @@ ThemeData light = ThemeData(
   brightness: Brightness.light,
   primarySwatch: Colors.red,
   primaryColor: Colors.grey[200],
-  accentColor: Colors.redAccent,
+  accentColor: Colors.redAccent[700],
   scaffoldBackgroundColor: Colors.grey[200],
   textTheme: GoogleFonts.quicksandTextTheme(
     TextTheme(
-      bodyText2: TextStyle(color: Colors.black),
+      bodyText2: TextStyle(color: Colors.black, fontFamily: 'Quicksand'),
     ),
   ),
   appBarTheme: AppBarTheme(

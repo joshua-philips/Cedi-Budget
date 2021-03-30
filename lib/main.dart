@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           builder: (context, notifier, child) {
             return MaterialApp(
               title: 'Cedi Budget',
-              debugShowCheckedModeBanner: false,
+              debugShowCheckedModeBanner: false, 
               theme: notifier.darkTheme ? dark : light,
               home: HomeController(),
               routes: <String, WidgetBuilder>{

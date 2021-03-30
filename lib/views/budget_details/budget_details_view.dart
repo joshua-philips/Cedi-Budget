@@ -174,13 +174,13 @@ class BudgetDetailsView extends StatelessWidget {
       icon: Icon(
         Icons.delete,
         size: 30,
-        color: Colors.red,
+        color: Theme.of(context).accentColor,
       ),
       label: Text(
         'Delete budget',
         style: TextStyle(
           fontSize: 20,
-          color: Colors.red,
+          color: Theme.of(context).accentColor,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -210,7 +210,7 @@ class BudgetDetailsView extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        color: Colors.red,
+                        color: Theme.of(context).accentColor,
                       ),
                     ),
                     SizedBox(height: 5),
@@ -234,7 +234,7 @@ class BudgetDetailsView extends StatelessWidget {
                             style: TextStyle(
                               fontWeight: FontWeight.w900,
                               fontSize: 20,
-                              color: Colors.red,
+                              color: Theme.of(context).accentColor,
                             ),
                           ),
                           onPressed: () async {
