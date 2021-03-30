@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 
 import '../my_account/update_user_account_info_view.dart';
+import 'change_password_view.dart';
 
 class MyAccountView extends StatelessWidget {
   @override
@@ -18,12 +19,11 @@ class MyAccountView extends StatelessWidget {
       body: Center(
         child: Container(
           height: MediaQuery.of(context).size.height,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SingleChildScrollView(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  SizedBox(height: 5),
                   displayUserInformation(context, auth),
                   TextButton.icon(
                     style: TextButton.styleFrom(
@@ -38,6 +38,25 @@ class MyAccountView extends StatelessWidget {
                     icon: Icon(Icons.account_circle),
                     label: Text(
                       'Update Account Info',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                      primary: Theme.of(context).accentColor,
+                    ),
+                    onPressed: () {
+                       Route route = MaterialPageRoute(
+                        builder: (context) => ChangePasswordView(),
+                      );
+                      Navigator.push(context, route);
+                    },
+                    icon: Icon(Icons.lock_rounded),
+                    label: Text(
+                      'Change Password',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -85,7 +104,7 @@ class MyAccountView extends StatelessWidget {
 
   Widget displayUserInformation(context, AuthService auth) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

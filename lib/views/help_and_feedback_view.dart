@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/lorem.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
+import 'package:groceries_budget_app/widgets/success_alert.dart';
 
 class HelpAndFeedback extends StatefulWidget {
   @override
@@ -93,7 +94,11 @@ class _HelpAndFeedbackState extends State<HelpAndFeedback> {
                   final uid = MyProvider.of(context).auth.getCurrentUID();
                   if (_feedbackController.text.trim().isNotEmpty) {
                     String suggestion = _feedbackController.text;
-                    successAlert(context);
+                    successAlertDialog(
+                      context,
+                      'Thank You',
+                      'Your feedback and suggestions have been sent to the developers. Expect to hear from us soon',
+                    );
                     setState(() {
                       _feedbackController.clear();
                     });
@@ -104,25 +109,6 @@ class _HelpAndFeedbackState extends State<HelpAndFeedback> {
                 },
               ),
             ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  successAlert(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Thank you!'),
-        content: Text(
-            'Your feedback and suggestions have been sent to the developers. Expect to hear from us soon'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('OK'),
           ),
         ],
       ),

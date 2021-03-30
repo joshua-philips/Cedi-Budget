@@ -30,22 +30,25 @@ class _NavigationViewState extends State<NavigationView> {
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: InkWell(
-              child: Row(
-                children: [
-                  Icon(Icons.account_circle),
-                  SizedBox(width: 5),
-                  Text(
-                    '${MyProvider.of(context).auth.getCurrentUser().displayName ?? ''}',
-                    style: TextStyle(
-                      color: Theme.of(context)
-                          .appBarTheme
-                          .textTheme
-                          .headline6
-                          .color,
-                      fontWeight: FontWeight.w500,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Row(
+                  children: [
+                    Icon(Icons.account_circle),
+                    SizedBox(width: 5),
+                    Text(
+                      '${MyProvider.of(context).auth.getCurrentUser().displayName ?? ''}',
+                      style: TextStyle(
+                        color: Theme.of(context)
+                            .appBarTheme
+                            .textTheme
+                            .headline6
+                            .color,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               onTap: () {
                 showModalBottomSheet(

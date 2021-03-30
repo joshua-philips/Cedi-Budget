@@ -6,7 +6,7 @@ import 'package:groceries_budget_app/views/budget_details/deposit_view.dart';
 import 'package:groceries_budget_app/views/budget_details/edit_budget_amount.dart';
 import 'package:groceries_budget_app/widgets/calculator_widget.dart';
 import 'package:groceries_budget_app/widgets/items_card_list.dart';
-import 'package:groceries_budget_app/widgets/large_selected_dates.dart';
+import 'package:groceries_budget_app/widgets/selected_dates.dart';
 import 'package:groceries_budget_app/widgets/total_budget_card.dart';
 import 'package:groceries_budget_app/widgets/total_days_text.dart';
 
@@ -33,24 +33,27 @@ class BudgetDetailsView extends StatelessWidget {
               elevation: 0,
               actions: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
+                  padding: const EdgeInsets.only(right: 10.0),
                   child: InkWell(
-                    child: Row(
-                      children: [
-                        Icon(Icons.format_list_bulleted),
-                        SizedBox(width: 5),
-                        Text(
-                          'Edit Budget & Items',
-                          style: TextStyle(
-                            color: Theme.of(context)
-                                .appBarTheme
-                                .textTheme
-                                .headline6
-                                .color,
-                            fontWeight: FontWeight.w500,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        children: [
+                          Icon(Icons.format_list_bulleted),
+                          SizedBox(width: 5),
+                          Text(
+                            'Edit Budget & Items',
+                            style: TextStyle(
+                              color: Theme.of(context)
+                                  .appBarTheme
+                                  .textTheme
+                                  .headline6
+                                  .color,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     onTap: () {
                       Route route = MaterialPageRoute(
@@ -137,6 +140,7 @@ class BudgetDetailsView extends StatelessWidget {
                       },
                     ),
                   ),
+                  // TODO: Add graph and chart
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
                     child: CalculatorWidget(budget: budget),

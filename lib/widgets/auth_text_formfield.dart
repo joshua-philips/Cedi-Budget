@@ -44,3 +44,45 @@ class AuthTextFormField extends StatelessWidget {
     );
   }
 }
+
+class UpdateTextFormField extends StatelessWidget {
+  final TextEditingController controller;
+  final String helperText;
+  final String label;
+  final bool obscureText;
+  final FormFieldValidator<String> validator;
+  final bool autofocus;
+
+  UpdateTextFormField({
+    @required this.controller,
+    this.validator,
+    this.helperText,
+    this.obscureText,
+    this.autofocus,
+    this.label,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: TextFormField(
+        style: TextStyle(color: Colors.black),
+        controller: controller,
+        cursorColor: Colors.redAccent,
+        autofocus: autofocus != null ? autofocus : false,
+        obscureText: obscureText != null ? obscureText : false,
+        decoration: InputDecoration(
+          helperText: helperText ?? '',
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        validator: validator,
+      ),
+    );
+  }
+}

@@ -243,7 +243,7 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
         actions: [
           TextButton.icon(
             style: TextButton.styleFrom(
-              padding: EdgeInsets.only(right: 25),
+              padding: EdgeInsets.only(right: 25, left: 25),
               primary: Theme.of(context).accentColor,
             ),
             onPressed: () {

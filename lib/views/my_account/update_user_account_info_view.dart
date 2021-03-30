@@ -3,6 +3,7 @@ import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/views/my_account/my_account_view.dart';
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
+import 'package:groceries_budget_app/widgets/auth_text_formfield.dart';
 import 'package:groceries_budget_app/widgets/snackbar.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 
@@ -15,8 +16,6 @@ class UpdateUserAccountInfoView extends StatefulWidget {
 class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = new GlobalKey<FormState>();
-  TextEditingController _newPasswordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
 
   @override
@@ -36,7 +35,6 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          color: Theme.of(context).scaffoldBackgroundColor,
           height: MediaQuery.of(context).size.height,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -54,34 +52,13 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
                         UpdateTextFormField(
                           controller: _nameController,
                           helperText: 'Name',
-                        ),
-                        UpdateTextFormField(
-                          controller: _newPasswordController,
                           validator: (val) {
-                            if (val.length < 6) {
-                              return 'Password must have 6 or more characters';
-                            } else if (val != _confirmPasswordController.text) {
-                              return 'Passwords do not match';
+                            if (val.length < 2) {
+                              return 'Name must have 2+ characters';
                             } else {
                               return null;
                             }
                           },
-                          helperText: 'New Password',
-                          obscureText: true,
-                        ),
-                        UpdateTextFormField(
-                          controller: _confirmPasswordController,
-                          validator: (val) {
-                            if (val.length < 6) {
-                              return 'Password must have 6 or more characters';
-                            } else if (val != _newPasswordController.text) {
-                              return 'Passwords do not match';
-                            } else {
-                              return null;
-                            }
-                          },
-                          helperText: 'Confirm Password',
-                          obscureText: true,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 50),
@@ -105,14 +82,13 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
                             ),
                             onPressed: () async {
                               if (formKey.currentState.validate()) {
-                                print('clicked');
                                 showLoadingSnackBar(context);
                                 String returnedString = await changeUserInfo();
                                 ScaffoldMessenger.of(context)
                                     .hideCurrentSnackBar();
 
                                 if (returnedString == 'Success') {
-                                  showMessageSnackBar(context, returnedString);
+                                  showMessageSnackBar(context, 'Info Updated');
                                   Navigator.pop(context);
                                   Navigator.pop(context);
                                   Navigator.of(context).push(
@@ -142,54 +118,11 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
   Future<String> changeUserInfo() async {
     AuthService auth = MyProvider.of(context).auth;
     try {
-      await auth.updateUserInfo(
-          _nameController.text, _newPasswordController.text);
+      await auth.updateUserInfo(_nameController.text);
       return 'Success';
     } catch (e) {
       print(e);
       return e.message;
     }
-  }
-}
-
-class UpdateTextFormField extends StatelessWidget {
-  final TextEditingController controller;
-  final String helperText;
-  final String label;
-  final bool obscureText;
-  final FormFieldValidator<String> validator;
-  final bool autofocus;
-
-  UpdateTextFormField({
-    @required this.controller,
-    this.validator,
-    this.helperText,
-    this.obscureText,
-    this.autofocus,
-    this.label,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: TextFormField(
-        style: TextStyle(color: Colors.black),
-        controller: controller,
-        cursorColor: Colors.redAccent,
-        autofocus: autofocus != null ? autofocus : false,
-        obscureText: obscureText != null ? obscureText : false,
-        decoration: InputDecoration(
-          helperText: helperText ?? '',
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-        validator: validator,
-      ),
-    );
   }
 }

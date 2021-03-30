@@ -68,11 +68,16 @@ class AuthService {
   }
 
   /// Update User's information
-  Future<void> updateUserInfo(String name, String newPassword) async {
-    if (name != null || name != '') {
-      await _firebaseAuth.currentUser.updateProfile(displayName: name);
-    }
+  Future<void> updateUserInfo(String name) async {
+    await _firebaseAuth.currentUser.updateProfile(displayName: name);
+  }
 
-    return await _firebaseAuth.currentUser.updatePassword(newPassword);
+  /// Change the user's password
+  Future<void> changePassword(String oldPassword, String newPassword) async {
+    String email = _firebaseAuth.currentUser.email;
+
+    await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: oldPassword);
+    await _firebaseAuth.currentUser.updatePassword(newPassword);
   }
 }

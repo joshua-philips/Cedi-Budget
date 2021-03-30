@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
-import 'package:groceries_budget_app/widgets/large_selected_dates.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
+import 'package:groceries_budget_app/widgets/selected_dates.dart';
 import 'package:groceries_budget_app/widgets/total_days_text.dart';
 import 'new_budget_amount_view.dart';
 

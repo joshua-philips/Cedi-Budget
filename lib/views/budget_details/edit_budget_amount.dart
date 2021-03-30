@@ -303,7 +303,7 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
           TextButton.icon(
             style: TextButton.styleFrom(
               primary: Theme.of(context).accentColor,
-              padding: EdgeInsets.only(right: 25),
+              padding: EdgeInsets.only(right: 25, left: 25),
             ),
             onPressed: () {
               setState(() {
