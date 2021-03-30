@@ -122,7 +122,7 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
                     ),
                     IconButton(
                       icon: Icon(Icons.remove_circle),
-                      color: Colors.red,
+                      color: Theme.of(context).accentColor,
                       iconSize: 40,
                       onPressed: () async {
                         setState(() {

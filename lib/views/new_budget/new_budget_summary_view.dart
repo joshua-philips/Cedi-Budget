@@ -5,6 +5,7 @@ import 'package:groceries_budget_app/widgets/items_card_list.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/selected_dates.dart';
 import 'package:groceries_budget_app/widgets/snackbar.dart';
+import 'package:groceries_budget_app/widgets/total_budget_card.dart';
 
 import '../../my_provider.dart';
 
@@ -49,27 +50,7 @@ class NewBudgetSummaryView extends StatelessWidget {
                           ? ItemsCardList(budget: budget)
                           : Container(),
                       SizedBox(height: 20),
-                      Card(
-                        color: Theme.of(context).brightness != Brightness.dark
-                            ? Colors.green[400]
-                            : Theme.of(context).cardColor,
-                        child: ListTile(
-                          title: Text(
-                            'Total:',
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          trailing: Text(
-                            'GH¢' + budget.amount.toStringAsFixed(0),
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
+                      TotalBudgetCard(budget: budget),
                       SizedBox(height: 30),
                       RoundedButton(
                         color: Theme.of(context).accentColor,

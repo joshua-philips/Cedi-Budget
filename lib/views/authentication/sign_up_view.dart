@@ -125,7 +125,8 @@ class _SignUpViewState extends State<SignUpView> {
                           onPressed: () async {
                             String returnedString = await googleSignIn();
                             if (returnedString != 'Success') {
-                              showMessageSnackBar(context, returnedString);
+                              showMessageSnackBar(context,
+                                  'Error signing in with Google. Please try again');
                             } else {
                               Navigator.popUntil(
                                   context, (_) => !Navigator.canPop(context));

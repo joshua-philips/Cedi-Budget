@@ -56,6 +56,7 @@ class _EditNotesViewState extends State<EditNotesView> {
             'Edit Budget Notes',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
+          Spacer(),
           TextButton(
             child: Container(
               decoration: BoxDecoration(

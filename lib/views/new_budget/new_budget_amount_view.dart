@@ -46,8 +46,9 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
     _itemPrice4.addListener(_setTotalAmount);
     _itemPrice5.addListener(_setTotalAmount);
 
-    _switchButtonText =
-        _amountState == amountType.simple ? 'Build Budget' : 'Simple Budget';
+    _switchButtonText = _amountState == amountType.simple
+        ? 'Input each item'
+        : 'Input total only';
   }
 
   _setTotalAmount() {
@@ -78,7 +79,7 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
         Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: Text(
-            'Enter your total budget for the period',
+            'Input total budget for the period',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 20,
@@ -102,7 +103,7 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
         Padding(
           padding: const EdgeInsets.only(bottom: 10),
           child: Text(
-            'Enter cost of each item',
+            'Input cost of each item',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -243,6 +244,7 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
           TextButton.icon(
             style: TextButton.styleFrom(
               padding: EdgeInsets.only(right: 25),
+              primary: Theme.of(context).accentColor,
             ),
             onPressed: () {
               setState(() {
@@ -251,8 +253,8 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
                     : amountType.simple;
 
                 _switchButtonText = _amountState == amountType.simple
-                    ? 'Build Budget'
-                    : 'Simple Budget';
+                    ? 'Input each item'
+                    : 'Input total only';
               });
             },
             icon: Icon(

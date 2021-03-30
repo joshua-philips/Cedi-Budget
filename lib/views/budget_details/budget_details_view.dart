@@ -7,6 +7,7 @@ import 'package:groceries_budget_app/views/budget_details/edit_budget_amount.dar
 import 'package:groceries_budget_app/widgets/calculator_widget.dart';
 import 'package:groceries_budget_app/widgets/items_card_list.dart';
 import 'package:groceries_budget_app/widgets/large_selected_dates.dart';
+import 'package:groceries_budget_app/widgets/total_budget_card.dart';
 import 'package:groceries_budget_app/widgets/total_days_text.dart';
 
 import '../../my_provider.dart';
@@ -125,7 +126,16 @@ class BudgetDetailsView extends StatelessWidget {
                       : Container(),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: totalBudgetCard(context),
+                    child: InkWell(
+                      child: TotalBudgetCard(budget: budget),
+                      onTap: () {
+                        Route route = MaterialPageRoute(
+                          builder: (context) =>
+                              EditBudgetAmountView(budget: budget),
+                        );
+                        Navigator.push(context, route);
+                      },
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
@@ -273,30 +283,6 @@ class BudgetDetailsView extends StatelessWidget {
           },
         );
       },
-    );
-  }
-
-  Widget totalBudgetCard(BuildContext context) {
-    return Card(
-      color: Theme.of(context).brightness != Brightness.dark
-          ? Colors.green[400]
-          : Theme.of(context).cardColor,
-      child: ListTile(
-        title: Text(
-          'Total:',
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        trailing: Text(
-          'GH¢' + budget.amount.toStringAsFixed(0),
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
     );
   }
 

@@ -88,7 +88,7 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         RoundedButton(
-          color: Colors.deepPurpleAccent,
+          color: Colors.deepPurple,
           child: Padding(
             padding: const EdgeInsets.only(
               left: 30,

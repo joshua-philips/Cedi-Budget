@@ -26,6 +26,9 @@ class MyAccountView extends StatelessWidget {
                   SizedBox(height: 5),
                   displayUserInformation(context, auth),
                   TextButton.icon(
+                    style: TextButton.styleFrom(
+                      primary: Theme.of(context).accentColor,
+                    ),
                     onPressed: () {
                       Route route = MaterialPageRoute(
                         builder: (context) => UpdateUserAccountInfoView(),
@@ -45,7 +48,7 @@ class MyAccountView extends StatelessWidget {
                   Divider(),
                   SizedBox(height: 10),
                   RoundedButton(
-                    color: Colors.red,
+                    color: Theme.of(context).accentColor,
                     child: Padding(
                       padding: const EdgeInsets.only(
                         left: 30,

@@ -81,21 +81,6 @@ class _SettingsViewState extends State<SettingsView> {
               child: InkWell(
                 onTap: () {
                   Route route = MaterialPageRoute(
-                    builder: (context) => AboutView(),
-                  );
-                  Navigator.of(context).push(route);
-                },
-                child: ListTile(
-                  title: Text('About'),
-                  subtitle: Text('www.organisationname.com'),
-                  leading: Icon(Icons.info),
-                ),
-              ),
-            ),
-            Card(
-              child: InkWell(
-                onTap: () {
-                  Route route = MaterialPageRoute(
                       builder: (context) => AllTimeDataView());
                   Navigator.of(context).push(route);
                 },
@@ -103,6 +88,21 @@ class _SettingsViewState extends State<SettingsView> {
                   title: Text('All-Time User Budget Data'),
                   subtitle: Text('Financial statisics'),
                   leading: Icon(Icons.analytics),
+                ),
+              ),
+            ),
+            Card(
+              child: InkWell(
+                onTap: () {
+                  Route route = MaterialPageRoute(
+                    builder: (context) => AboutView(),
+                  );
+                  Navigator.of(context).push(route);
+                },
+                child: ListTile(
+                  title: Text('About'),
+                  subtitle: Text('www.cedibudget.com'),
+                  leading: Icon(Icons.info),
                 ),
               ),
             ),

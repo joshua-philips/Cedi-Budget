@@ -58,7 +58,7 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              title: Text('Edit Budget - Date'),
+              title: Text('Change Dates'),
               actions: [AppBarHomeButton()],
             ),
             SliverList(
@@ -98,7 +98,7 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         RoundedButton(
-          color: Colors.deepPurpleAccent,
+          color: Colors.deepPurple,
           child: Padding(
             padding: const EdgeInsets.only(
               left: 30,

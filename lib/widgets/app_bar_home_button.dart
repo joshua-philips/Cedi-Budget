@@ -7,7 +7,7 @@ class AppBarHomeButton extends StatelessWidget {
     return IconButton(
       tooltip: 'Home',
       padding: EdgeInsets.only(right: 10),
-      icon: Icon(Icons.home),
+      icon: Icon(Icons.home_filled),
       onPressed: () {
         Navigator.of(context).popUntil((route) => route.isFirst);
       },

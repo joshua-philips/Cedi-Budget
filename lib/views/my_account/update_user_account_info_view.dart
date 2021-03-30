@@ -86,7 +86,7 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
                         Padding(
                           padding: const EdgeInsets.only(top: 50),
                           child: RoundedButton(
-                            color: Colors.red,
+                            color: Theme.of(context).accentColor,
                             child: Padding(
                               padding: const EdgeInsets.only(
                                 left: 50,

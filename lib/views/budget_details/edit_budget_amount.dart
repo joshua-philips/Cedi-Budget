@@ -57,10 +57,10 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
 
     if (widget.budget.hasItems) {
       _amountState = amountType.complex;
-      _switchButtonText = 'Simple Budget';
+      _switchButtonText = 'Input total only';
     } else {
       _amountState = amountType.simple;
-      _switchButtonText = 'Build Budget';
+      _switchButtonText = 'Input each item';
     }
   }
 
@@ -302,6 +302,7 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
         actions: [
           TextButton.icon(
             style: TextButton.styleFrom(
+              primary: Theme.of(context).accentColor,
               padding: EdgeInsets.only(right: 25),
             ),
             onPressed: () {
@@ -311,8 +312,8 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
                     : amountType.simple;
 
                 _switchButtonText = _amountState == amountType.simple
-                    ? 'Build Budget'
-                    : 'Simple Budget';
+                    ? 'Input each item'
+                    : 'Input total only';
               });
             },
             icon: Icon(

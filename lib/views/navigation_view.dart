@@ -100,10 +100,10 @@ class _NavigationViewState extends State<NavigationView> {
                               },
                             ),
                             SizedBox(height: 5),
-                            Divider(),
+                            Divider(thickness: 1.5),
                             SizedBox(height: 5),
                             RoundedButton(
-                              color: Colors.deepPurpleAccent,
+                              color: Colors.deepPurple,
                               child: Text(
                                 'Cancel',
                                 style: TextStyle(
