@@ -4,7 +4,7 @@ import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 import 'package:groceries_budget_app/widgets/items_card_list.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/selected_dates.dart';
-import 'package:groceries_budget_app/widgets/snackbar.dart';
+import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 import 'package:groceries_budget_app/widgets/total_budget_card.dart';
 
 import '../../my_provider.dart';
@@ -71,20 +71,18 @@ class NewBudgetSummaryView extends StatelessWidget {
                           ),
                         ),
                         onPressed: () async {
-                          showLoadingSnackBar(context);
-                          // Save data to firebase
+                          showLoadingDialog(context);
                           final String uid =
                               MyProvider.of(context).auth.getCurrentUID();
                           try {
                             await MyProvider.of(context)
                                 .database
                                 .saveBudgetToFirestore(budget, uid);
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                            hideLoadingDialog(context);
                             Navigator.of(context)
                                 .popUntil((route) => route.isFirst);
                           } catch (e) {
                             print(e);
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
                             showMessageSnackBar(context, e.message);
                           }
                         },

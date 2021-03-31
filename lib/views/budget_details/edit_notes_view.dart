@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/views/budget_details/budget_details_view.dart';
-import 'package:groceries_budget_app/widgets/snackbar.dart';
+import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 
 import '../../my_provider.dart';
@@ -94,6 +94,7 @@ class _EditNotesViewState extends State<EditNotesView> {
               width: 2,
             ),
           ),
+          border: InputBorder.none,
         ),
         autofocus: true,
         textCapitalization: TextCapitalization.sentences,
@@ -121,7 +122,7 @@ class _EditNotesViewState extends State<EditNotesView> {
         ),
       ),
       onPressed: () async {
-        showLoadingSnackBar(context);
+        showLoadingDialog(context);
         widget.budget.notes = _notesController.text;
 
         final uid = MyProvider.of(context).auth.getCurrentUID();
@@ -129,10 +130,10 @@ class _EditNotesViewState extends State<EditNotesView> {
           await MyProvider.of(context)
               .database
               .updateNotes(uid, _notesController.text.trim(), widget.budget);
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          hideLoadingDialog(context);
         } catch (e) {
           print(e.message);
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          hideLoadingDialog(context);
           showMessageSnackBar(context, e.message);
         }
         Route route = MaterialPageRoute(

@@ -4,7 +4,7 @@ import 'package:groceries_budget_app/widgets/auth_text_formfield.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
-import 'package:groceries_budget_app/widgets/snackbar.dart';
+import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 
 import 'password_reset_view.dart';
 
@@ -15,13 +15,11 @@ class SignInView extends StatefulWidget {
 
 class _SignInViewState extends State<SignInView> {
   final formKey = new GlobalKey<FormState>();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
       backgroundColor: Colors.red[900],
       appBar: AppBar(
         backgroundColor: Colors.red[900],
@@ -93,11 +91,9 @@ class _SignInViewState extends State<SignInView> {
                             ),
                             onPressed: () async {
                               if (formKey.currentState.validate()) {
-                                print('clicked');
-                                showLoadingSnackBar(context);
+                                showLoadingDialog(context);
                                 String returnedString = await signIn();
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
+                                hideLoadingDialog(context);
                                 if (returnedString != 'Success') {
                                   showMessageSnackBar(context, returnedString);
                                 } else {
@@ -129,9 +125,10 @@ class _SignInViewState extends State<SignInView> {
                     ),
                   ),
                 ),
-                SizedBox(height: 40),
+                SizedBox(height: 50),
                 Divider(
-                  color: Colors.redAccent,
+                  color: Colors.white,
+                  thickness: 1,
                 ),
                 SizedBox(height: 20),
                 GoogleAuthButton(

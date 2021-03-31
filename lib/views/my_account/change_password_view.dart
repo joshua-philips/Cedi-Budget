@@ -3,8 +3,8 @@ import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 import 'package:groceries_budget_app/widgets/auth_text_formfield.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
-import 'package:groceries_budget_app/widgets/snackbar.dart';
-import 'package:groceries_budget_app/widgets/success_alert.dart';
+import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
+import 'package:groceries_budget_app/widgets/alert_dialog.dart';
 
 import '../../my_provider.dart';
 
@@ -104,12 +104,11 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                             ),
                             onPressed: () async {
                               if (formKey.currentState.validate()) {
-                                showLoadingSnackBar(context);
+                                showLoadingDialog(context);
                                 String returnedString = await changePassword();
                                 if (returnedString == 'Success') {
-                                  ScaffoldMessenger.of(context)
-                                      .hideCurrentSnackBar();
-                                  successAlertDialog(context, 'Success!',
+                                  hideLoadingDialog(context);
+                                  showAlertDialog(context, 'Success!',
                                       'Password succesfully changed');
                                   setState(() {
                                     _confirmPasswordController.clear();
@@ -117,8 +116,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                                     _oldPasswordController.clear();
                                   });
                                 } else {
-                                  ScaffoldMessenger.of(context)
-                                      .hideCurrentSnackBar();
+                                  hideLoadingDialog(context);
                                   showMessageSnackBar(context, returnedString);
                                 }
                               }

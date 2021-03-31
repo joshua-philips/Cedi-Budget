@@ -4,7 +4,7 @@ import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/views/my_account/my_account_view.dart';
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 import 'package:groceries_budget_app/widgets/auth_text_formfield.dart';
-import 'package:groceries_budget_app/widgets/snackbar.dart';
+import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 
 class UpdateUserAccountInfoView extends StatefulWidget {
@@ -82,13 +82,13 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
                             ),
                             onPressed: () async {
                               if (formKey.currentState.validate()) {
-                                showLoadingSnackBar(context);
+                                showLoadingDialog(context);
                                 String returnedString = await changeUserInfo();
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
+                                hideLoadingDialog(context);
 
                                 if (returnedString == 'Success') {
-                                  showMessageSnackBar(context, 'Info Updated');
+                                  showMessageSnackBar(
+                                      context, 'User info updated');
                                   Navigator.pop(context);
                                   Navigator.pop(context);
                                   Navigator.of(context).push(

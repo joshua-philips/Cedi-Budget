@@ -16,6 +16,23 @@ void showLoadingSnackBar(BuildContext context) {
   );
 }
 
+void showLoadingDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) => Dialog(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      child: SpinKitWave(
+        color: Colors.white,
+      ),
+    ),
+  );
+}
+
+void hideLoadingDialog(BuildContext context) {
+  Navigator.of(context).pop();
+}
+
 void showMessageSnackBar(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(

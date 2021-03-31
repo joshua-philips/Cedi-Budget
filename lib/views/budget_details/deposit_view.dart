@@ -4,7 +4,7 @@ import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/views/budget_details/budget_details_view.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
-import 'package:groceries_budget_app/widgets/snackbar.dart';
+import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 
 class DepositView extends StatefulWidget {
   final Budget budget;
@@ -34,13 +34,13 @@ class _DepositViewState extends State<DepositView> {
               child: Text(
                 'GH¢$_amount',
                 style: TextStyle(
-                  fontSize: 80,
+                  fontSize: 60,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15),
+              padding: const EdgeInsets.only(top: 5),
               child: Text(
                 _error,
                 textAlign: TextAlign.center,
@@ -101,6 +101,31 @@ class _DepositViewState extends State<DepositView> {
     );
   }
 
+  Widget _negativeBtn() {
+    return TextButton(
+      child: Text(
+        '-',
+        style: TextStyle(
+          fontSize: 40,
+          color: Theme.of(context).textTheme.bodyText2.color,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      onPressed: () {
+        setState(() {
+          if (_amount == '0') {
+            _amount = '-';
+          } else if (_amount.length == 7) {
+            _amount = _amount;
+            HapticFeedback.heavyImpact();
+          } else {
+            _amount = '-' + _amount;
+          }
+        });
+      },
+    );
+  }
+
   Widget _decimalBtn() {
     return TextButton(
       child: Text(
@@ -114,7 +139,7 @@ class _DepositViewState extends State<DepositView> {
       onPressed: () {
         setState(() {
           if (_amount == '0') {
-            _amount = '.';
+            _amount += '.';
           } else if (_amount.length == 7) {
             _amount = _amount;
             HapticFeedback.heavyImpact();
@@ -181,7 +206,7 @@ class _DepositViewState extends State<DepositView> {
                 (widget.budget.amountUsed + widget.budget.amountSaved))) {
       setState(() {
         _error =
-            "This will take you over your allocated budget of GH¢${widget.budget.amount.floor()}\nLimit: GH¢${widget.budget.amount - widget.budget.amountSaved - widget.budget.amountSaved}";
+            "Goes over budget allocation GH¢${widget.budget.amount.floor()}\nLimit: GH¢${widget.budget.amount - widget.budget.amountSaved - widget.budget.amountSaved}";
       });
     } else if (type != 'spent' &&
         double.parse(_amount) >
@@ -197,7 +222,7 @@ class _DepositViewState extends State<DepositView> {
         _error = '';
         widget.budget.updateLedger(_amount, type);
       });
-      showLoadingSnackBar(context);
+      showLoadingDialog(context);
 
       await MyProvider.of(context).database.addToLedger(uid, widget.budget);
       await MyProvider.of(context)
@@ -206,7 +231,7 @@ class _DepositViewState extends State<DepositView> {
       await MyProvider.of(context)
           .database
           .updateAmountUsed(uid, widget.budget);
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      hideLoadingDialog(context);
       Navigator.of(context).popUntil((route) => route.isFirst);
       Navigator.push(
         context,
@@ -228,9 +253,11 @@ class _DepositViewState extends State<DepositView> {
       keyboard.add(_numberBtn('${index + 1}'));
     });
 
-    keyboard.add(_decimalBtn());
+    keyboard.add(_negativeBtn());
     keyboard.add(_numberBtn('0'));
     keyboard.add(_deleteBtn());
+    keyboard.add(_numberBtn(''));
+    keyboard.add(_decimalBtn());
 
     return keyboard;
   }

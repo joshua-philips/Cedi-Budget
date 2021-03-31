@@ -297,7 +297,7 @@ class BudgetDetailsView extends StatelessWidget {
   Widget notesCard(BuildContext context) {
     return Card(
       color: Theme.of(context).brightness != Brightness.dark
-          ? Colors.amber[100]
+          ? Colors.white
           : Theme.of(context).cardColor,
       child: InkWell(
         child: Column(

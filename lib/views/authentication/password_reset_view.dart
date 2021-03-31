@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/widgets/auth_text_formfield.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
-import 'package:groceries_budget_app/widgets/snackbar.dart';
+import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 
 class PasswordResetView extends StatefulWidget {
   @override
@@ -11,12 +11,10 @@ class PasswordResetView extends StatefulWidget {
 
 class _PasswordResetViewState extends State<PasswordResetView> {
   final formKey = new GlobalKey<FormState>();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController _emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
       backgroundColor: Colors.red[900],
       appBar: AppBar(
         backgroundColor: Colors.red[900],
@@ -81,10 +79,9 @@ class _PasswordResetViewState extends State<PasswordResetView> {
                             ),
                             onPressed: () async {
                               if (formKey.currentState.validate()) {
-                                showLoadingSnackBar(context);
+                                showLoadingDialog(context);
                                 String returnedString = await sendResetEmail();
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
+                                hideLoadingDialog(context);
                                 showMessageSnackBar(context, returnedString);
                               }
                             },

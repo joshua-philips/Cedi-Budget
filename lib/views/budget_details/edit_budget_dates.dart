@@ -5,7 +5,7 @@ import 'package:groceries_budget_app/views/budget_details/budget_details_view.da
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/selected_dates.dart';
-import 'package:groceries_budget_app/widgets/snackbar.dart';
+import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 import 'package:groceries_budget_app/widgets/total_days_text.dart';
 
 class EditBudgetDatesView extends StatefulWidget {
@@ -19,7 +19,6 @@ class EditBudgetDatesView extends StatefulWidget {
 class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
   DateTime _startDate;
   DateTime _endDate;
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -53,7 +52,6 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
       body: Center(
         child: CustomScrollView(
           slivers: [
@@ -139,7 +137,7 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
             ),
           ),
           onPressed: () async {
-            showLoadingSnackBar(context);
+            showLoadingDialog(context);
             widget.budget.startDate = _startDate;
             widget.budget.endDate = _endDate;
             final uid = MyProvider.of(context).auth.getCurrentUID();
@@ -151,11 +149,11 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
               await MyProvider.of(context)
                   .database
                   .updateDates(uid, widget.budget);
-              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              hideLoadingDialog(context);
               Navigator.of(context).popUntil((route) => route.isFirst);
               Navigator.of(context).push(route);
             } catch (e) {
-              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              hideLoadingDialog(context);
               showMessageSnackBar(context, e.message);
             }
           },

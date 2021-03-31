@@ -5,7 +5,7 @@ import 'package:groceries_budget_app/views/budget_details/budget_details_view.da
 import 'package:groceries_budget_app/widgets/item_text_field.dart';
 import 'package:groceries_budget_app/widgets/money_text_field.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
-import 'package:groceries_budget_app/widgets/snackbar.dart';
+import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 
 enum amountType { simple, complex }
 
@@ -292,12 +292,9 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
     return budgetItemsAndPrices;
   }
 
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
       appBar: AppBar(
         actions: [
           TextButton.icon(
@@ -368,7 +365,7 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
   }
 
   finish() async {
-    showLoadingSnackBar(context);
+    showLoadingDialog(context);
     widget.budget.amount = _amountTotal.toDouble();
     widget.budget.items = changeItemsToMap();
     final uid = MyProvider.of(context).auth.getCurrentUID();
@@ -379,11 +376,11 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
       await MyProvider.of(context)
           .database
           .updateAmountAndItems(uid, widget.budget);
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      hideLoadingDialog(context);
       Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.push(context, route);
     } catch (e) {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      hideLoadingDialog(context);
       showMessageSnackBar(context, e.message);
     }
   }

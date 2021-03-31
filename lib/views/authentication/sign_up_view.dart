@@ -4,7 +4,7 @@ import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/widgets/auth_text_formfield.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
-import 'package:groceries_budget_app/widgets/snackbar.dart';
+import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 
 class SignUpView extends StatefulWidget {
   @override
@@ -97,12 +97,9 @@ class _SignUpViewState extends State<SignUpView> {
                             ),
                             onPressed: () async {
                               if (formKey.currentState.validate()) {
-                                print('clicked');
-                                showLoadingSnackBar(context);
+                                showLoadingDialog(context);
                                 String returnedString = await signUp();
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
-
+                                hideLoadingDialog(context);
                                 if (returnedString != 'Success') {
                                   showMessageSnackBar(context, returnedString);
                                 } else {
@@ -115,9 +112,10 @@ class _SignUpViewState extends State<SignUpView> {
                             },
                           ),
                         ),
-                        SizedBox(height: 40),
+                        SizedBox(height: 50),
                         Divider(
-                          color: Colors.redAccent,
+                          color: Colors.white,
+                          thickness: 1,
                         ),
                         SizedBox(height: 20),
                         GoogleAuthButton(
