@@ -95,12 +95,23 @@ class BudgetDetailsView extends StatelessWidget {
                                     ),
                                   ),
                                   onPressed: () {
-                                    Route route = MaterialPageRoute(
-                                      builder: (context) => EditBudgetDatesView(
-                                        budget: budget,
-                                      ),
-                                    );
-                                    Navigator.of(context).push(route);
+                                    showModalBottomSheet(
+                                        context: context,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(15),
+                                            topRight: Radius.circular(15),
+                                          ),
+                                        ),
+                                        builder: (context) => Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.9,
+                                              child: EditBudgetDatesView(
+                                                budget: budget,
+                                              ),
+                                            ));
                                   },
                                 ),
                               ],

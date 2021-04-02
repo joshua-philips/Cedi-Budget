@@ -23,22 +23,8 @@ void showLoadingDialog(BuildContext context) {
     builder: (context) => Dialog(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          SpinKitRing(
-            color: Colors.white,
-          ),
-          SizedBox(height: 20),
-          Text(
-            'Loading...',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-            ),
-          ),
-        ],
+      child: SpinKitRing(
+        color: Colors.white,
       ),
     ),
   );

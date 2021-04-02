@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/views/budget_details/budget_details_view.dart';
-import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/selected_dates.dart';
 import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
@@ -51,42 +50,45 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              title: Text('Change Dates'),
-              actions: [AppBarHomeButton()],
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  Card(
-                    margin: EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        LargeSelectedDates(
-                          budget: widget.budget,
-                        ),
-                        Divider(),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [TotalDaysText(budget: widget.budget)],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 30),
-                  buildButtons(context, widget.budget),
-                ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Text(
+              'Change Dates',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ],
-        ),
+          ),
+          Card(
+            margin: EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: SelectedDates(
+                    budget: widget.budget,
+                  ),
+                ),
+                Divider(),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [TotalDaysText(budget: widget.budget)],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 2),
+          buildButtons(context, widget.budget),
+        ],
       ),
     );
   }
@@ -96,44 +98,27 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         RoundedButton(
-          color: Colors.deepPurple,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 30,
-              right: 30,
-              top: 10,
-              bottom: 10,
-            ),
-            child: Text(
-              'Change Date Range',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+          color: Colors.green[900],
+          child: Text(
+            'Change Date Range',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
           onPressed: () async {
             await displayDateRangePicker(context);
           },
         ),
-        SizedBox(height: 20),
         RoundedButton(
           color: Theme.of(context).accentColor,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 30,
-              right: 30,
-              top: 10,
-              bottom: 10,
-            ),
-            child: Text(
-              'Finish',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+          child: Text(
+            'Finish',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
           onPressed: () async {
@@ -156,6 +141,23 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
               hideLoadingDialog(context);
               showMessageSnackBar(context, e.message);
             }
+          },
+        ),
+        SizedBox(height: 2),
+        Divider(thickness: 1.5),
+        SizedBox(height: 2),
+        RoundedButton(
+          color: Colors.deepPurple,
+          child: Text(
+            'Cancel',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
           },
         ),
       ],

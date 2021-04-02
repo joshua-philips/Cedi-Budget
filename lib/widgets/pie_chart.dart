@@ -15,7 +15,8 @@ class PieChartCard extends StatelessWidget {
       'Balance': budget.amount - budget.amountUsed - budget.amountSaved,
     };
     List<Color> colorList = [
-      Theme.of(context).accentColor,
+      // Theme.of(context).accentColor,
+      Colors.pink[600],
       Colors.green,
       Colors.deepPurple,
     ];
