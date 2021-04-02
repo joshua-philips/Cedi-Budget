@@ -268,13 +268,26 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          IconButton(
-            padding: EdgeInsets.only(right: 10),
-            tooltip: 'Save',
-            icon: Icon(Icons.save),
-            onPressed: () {
-              continueToSummary();
-            },
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: InkWell(
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8, right: 8),
+                    child: Text(
+                      'Summary',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyText2.color,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              onTap: () {
+                continueToSummary();
+              },
+            ),
           ),
         ],
       ),

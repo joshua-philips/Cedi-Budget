@@ -75,9 +75,8 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
                     budget: widget.budget,
                   ),
                 ),
-                Divider(),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
+                  padding: const EdgeInsets.only(bottom: 8.0, top: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [TotalDaysText(budget: widget.budget)],
@@ -114,7 +113,7 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
         RoundedButton(
           color: Theme.of(context).accentColor,
           child: Text(
-            'Finish',
+            'Update',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,

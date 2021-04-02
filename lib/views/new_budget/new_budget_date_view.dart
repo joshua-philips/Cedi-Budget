@@ -72,7 +72,7 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 15),
                   buildButtons(context, widget.budget),
                 ],
               ),
@@ -88,44 +88,27 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         RoundedButton(
-          color: Colors.deepPurple,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 30,
-              right: 30,
-              top: 10,
-              bottom: 10,
-            ),
-            child: Text(
-              'Change Date Range',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+          color: Colors.green[900],
+          child: Text(
+            'Change Date Range',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
           onPressed: () async {
             await displayDateRangePicker(context);
           },
         ),
-        SizedBox(height: 20),
         RoundedButton(
           color: Theme.of(context).accentColor,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 30,
-              right: 30,
-              top: 10,
-              bottom: 10,
-            ),
-            child: Text(
-              'Continue',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+          child: Text(
+            'Continue',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
           ),
           onPressed: () {
@@ -135,6 +118,23 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
               builder: (context) => NewBudgetAmountView(budget: widget.budget),
             );
             Navigator.of(context).push(route);
+          },
+        ),
+        SizedBox(height: 2),
+        Divider(thickness: 1.5),
+        SizedBox(height: 2),
+        RoundedButton(
+          color: Colors.deepPurple,
+          child: Text(
+            'Cancel',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
           },
         ),
       ],

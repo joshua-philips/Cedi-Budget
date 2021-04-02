@@ -324,13 +324,26 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          IconButton(
-            padding: EdgeInsets.only(right: 10),
-            tooltip: 'Save',
-            icon: Icon(Icons.save),
-            onPressed: () {
-              finish();
-            },
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: InkWell(
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8, right: 8),
+                    child: Text(
+                      'Save',
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyText2.color,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              onTap: () {
+                finish();
+              },
+            ),
           ),
         ],
       ),
