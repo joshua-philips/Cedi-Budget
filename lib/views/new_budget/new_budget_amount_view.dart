@@ -19,7 +19,7 @@ class NewBudgetAmountView extends StatefulWidget {
 class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
   amountType _amountState = amountType.simple;
   String _switchButtonText;
-  var _amountTotal = 0;
+  double _amountTotal = 0;
 
   TextEditingController _amountController = TextEditingController();
   // Items
@@ -52,22 +52,23 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
   }
 
   _setTotalAmount() {
-    var total = 0;
+    double total = 0;
     if (_amountState == amountType.simple) {
-      total =
-          _amountController.text == '' ? 0 : int.parse(_amountController.text);
+      total = _amountController.text == ''
+          ? 0
+          : double.parse(_amountController.text);
       setState(() {
         _amountTotal = total;
       });
     } else {
-      total += _itemPrice1.text == '' ? 0 : int.parse(_itemPrice1.text);
-      total += _itemPrice2.text == '' ? 0 : int.parse(_itemPrice2.text);
-      total += _itemPrice3.text == '' ? 0 : int.parse(_itemPrice3.text);
-      total += _itemPrice4.text == '' ? 0 : int.parse(_itemPrice4.text);
-      total += _itemPrice5.text == '' ? 0 : int.parse(_itemPrice5.text);
+      total += _itemPrice1.text == '' ? 0 : double.parse(_itemPrice1.text);
+      total += _itemPrice2.text == '' ? 0 : double.parse(_itemPrice2.text);
+      total += _itemPrice3.text == '' ? 0 : double.parse(_itemPrice3.text);
+      total += _itemPrice4.text == '' ? 0 : double.parse(_itemPrice4.text);
+      total += _itemPrice5.text == '' ? 0 : double.parse(_itemPrice5.text);
       setState(() {
         _amountTotal = total;
-        _amountController.text = _amountTotal.toString();
+        _amountController.text = _amountTotal.toStringAsFixed(2);
       });
     }
   }
@@ -190,7 +191,7 @@ class _NewBudgetAmountViewState extends State<NewBudgetAmountView> {
         Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 10),
           child: Text(
-            'Total: GH¢$_amountTotal',
+            'Total: GH¢${_amountTotal.toStringAsFixed(2)}',
             style: TextStyle(fontSize: 25),
           ),
         ),

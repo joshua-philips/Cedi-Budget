@@ -21,7 +21,7 @@ class EditBudgetAmountView extends StatefulWidget {
 class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
   amountType _amountState;
   String _switchButtonText;
-  var _amountTotal;
+  double _amountTotal;
   List<String> items;
   List<double> prices;
 
@@ -43,7 +43,7 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
   @override
   void initState() {
     super.initState();
-    _amountTotal = widget.budget.amount.floor();
+    _amountTotal = widget.budget.amount;
     _amountController.text = _amountTotal.toString();
 
     initializeItemsFields();
@@ -70,63 +70,64 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
 
     if (items.length == 5) {
       _item1.text = items[0];
-      _itemPrice1.text = prices[0].toStringAsFixed(0);
+      _itemPrice1.text = prices[0].toStringAsFixed(2);
       _item2.text = items[1];
-      _itemPrice2.text = prices[1].toStringAsFixed(0);
+      _itemPrice2.text = prices[1].toStringAsFixed(2);
       _item3.text = items[2];
-      _itemPrice3.text = prices[2].toStringAsFixed(0);
+      _itemPrice3.text = prices[2].toStringAsFixed(2);
       _item4.text = items[3];
-      _itemPrice4.text = prices[3].toStringAsFixed(0);
+      _itemPrice4.text = prices[3].toStringAsFixed(2);
       _item5.text = items[4];
-      _itemPrice5.text = prices[4].toStringAsFixed(0);
+      _itemPrice5.text = prices[4].toStringAsFixed(2);
     }
     if (items.length == 4) {
       _item1.text = items[0];
-      _itemPrice1.text = prices[0].toStringAsFixed(0);
+      _itemPrice1.text = prices[0].toStringAsFixed(2);
       _item2.text = items[1];
-      _itemPrice2.text = prices[1].toStringAsFixed(0);
+      _itemPrice2.text = prices[1].toStringAsFixed(2);
       _item3.text = items[2];
-      _itemPrice3.text = prices[2].toStringAsFixed(0);
+      _itemPrice3.text = prices[2].toStringAsFixed(2);
       _item4.text = items[3];
-      _itemPrice4.text = prices[3].toStringAsFixed(0);
+      _itemPrice4.text = prices[3].toStringAsFixed(2);
     }
     if (items.length == 3) {
       _item1.text = items[0];
-      _itemPrice1.text = prices[0].toStringAsFixed(0);
+      _itemPrice1.text = prices[0].toStringAsFixed(2);
       _item2.text = items[1];
-      _itemPrice2.text = prices[1].toStringAsFixed(0);
+      _itemPrice2.text = prices[1].toStringAsFixed(2);
       _item3.text = items[2];
-      _itemPrice3.text = prices[2].toStringAsFixed(0);
+      _itemPrice3.text = prices[2].toStringAsFixed(2);
     }
     if (items.length == 2) {
       _item1.text = items[0];
-      _itemPrice1.text = prices[0].toStringAsFixed(0);
+      _itemPrice1.text = prices[0].toStringAsFixed(2);
       _item2.text = items[1];
-      _itemPrice2.text = prices[1].toStringAsFixed(0);
+      _itemPrice2.text = prices[1].toStringAsFixed(2);
     }
     if (items.length == 1) {
       _item1.text = items[0];
-      _itemPrice1.text = prices[0].toStringAsFixed(0);
+      _itemPrice1.text = prices[0].toStringAsFixed(2);
     }
   }
 
   _setTotalAmount() {
-    var total = 0;
+    double total = 0;
     if (_amountState == amountType.simple) {
-      total =
-          _amountController.text == '' ? 0 : int.parse(_amountController.text);
+      total = _amountController.text == ''
+          ? 0
+          : double.parse(_amountController.text);
       setState(() {
         _amountTotal = total;
       });
     } else {
-      total += _itemPrice1.text == '' ? 0 : int.parse(_itemPrice1.text);
-      total += _itemPrice2.text == '' ? 0 : int.parse(_itemPrice2.text);
-      total += _itemPrice3.text == '' ? 0 : int.parse(_itemPrice3.text);
-      total += _itemPrice4.text == '' ? 0 : int.parse(_itemPrice4.text);
-      total += _itemPrice5.text == '' ? 0 : int.parse(_itemPrice5.text);
+      total += _itemPrice1.text == '' ? 0 : double.parse(_itemPrice1.text);
+      total += _itemPrice2.text == '' ? 0 : double.parse(_itemPrice2.text);
+      total += _itemPrice3.text == '' ? 0 : double.parse(_itemPrice3.text);
+      total += _itemPrice4.text == '' ? 0 : double.parse(_itemPrice4.text);
+      total += _itemPrice5.text == '' ? 0 : double.parse(_itemPrice5.text);
       setState(() {
         _amountTotal = total;
-        _amountController.text = _amountTotal.toString();
+        _amountController.text = _amountTotal.toStringAsFixed(2);
       });
     }
   }
@@ -245,7 +246,7 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
         Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 10),
           child: Text(
-            'Total: GH¢$_amountTotal',
+            'Total: GH¢${_amountTotal.toStringAsFixed(2)}',
             style: TextStyle(fontSize: 25),
           ),
         ),

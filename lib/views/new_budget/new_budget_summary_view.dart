@@ -35,7 +35,7 @@ class NewBudgetSummaryView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        'Summary',
+                        'Budget Summary',
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,

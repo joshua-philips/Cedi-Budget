@@ -37,9 +37,6 @@ class MoneyTextField extends StatelessWidget {
         ),
         keyboardType: TextInputType.numberWithOptions(decimal: true),
         textInputAction: TextInputAction.next,
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
-        ],
         autofocus: autofocus != null ? autofocus : false,
       ),
     );

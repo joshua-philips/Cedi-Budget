@@ -19,7 +19,7 @@ class ItemsCardList extends StatelessWidget {
           child: ListTile(
             title: Text(items[index]),
             trailing: Text(
-              'GH¢' + prices[index].toStringAsFixed(0),
+              'GH¢' + prices[index].toStringAsFixed(2),
             ),
           ),
         );
