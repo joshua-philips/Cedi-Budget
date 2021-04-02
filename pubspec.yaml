@@ -37,6 +37,7 @@ dependencies:
   pie_chart: ^5.0.0
   provider: ^5.0.0
   shared_preferences: ^2.0.4
+  percent_indicator: ^3.0.1
 flutter_icons:
   image_path: "assets/icons/ic_launcher.png"
   adaptive_icon_background: "#D32F2F"

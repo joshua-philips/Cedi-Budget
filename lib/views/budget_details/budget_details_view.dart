@@ -4,12 +4,12 @@ import 'package:flutter/rendering.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/views/budget_details/deposit_view.dart';
 import 'package:groceries_budget_app/views/budget_details/edit_budget_amount.dart';
-// import 'package:groceries_budget_app/widgets/calculator_widget.dart';
 import 'package:groceries_budget_app/widgets/pie_chart.dart';
 import 'package:groceries_budget_app/widgets/items_card_list.dart';
 import 'package:groceries_budget_app/widgets/selected_dates.dart';
 import 'package:groceries_budget_app/widgets/total_budget_card.dart';
 import 'package:groceries_budget_app/widgets/total_days_text.dart';
+import 'package:groceries_budget_app/widgets/percent_card.dart';
 
 import '../../my_provider.dart';
 import '../budget_details/edit_notes_view.dart';
@@ -145,10 +145,10 @@ class BudgetDetailsView extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
                     child: PieChartCard(budget: budget),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(left: 8.0, right: 8),
-                  //   child: CalculatorWidget(budget: budget),
-                  // ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8),
+                    child: PercentCard(budget: budget),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
                     child: notesCard(context),
@@ -245,7 +245,7 @@ class BudgetDetailsView extends StatelessWidget {
                       children: [
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: EdgeInsets.only(right: 20),
+                            padding: EdgeInsets.only(right: 10, left: 10),
                           ),
                           child: Text(
                             'Delete',
@@ -267,7 +267,7 @@ class BudgetDetailsView extends StatelessWidget {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: EdgeInsets.only(right: 10),
+                            padding: EdgeInsets.only(right: 10, left: 20),
                           ),
                           child: Text(
                             'Cancel',

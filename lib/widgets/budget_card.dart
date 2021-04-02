@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/views/budget_details/budget_details_view.dart';
 import 'package:groceries_budget_app/widgets/selected_dates.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class BudgetCard extends StatelessWidget {
   final DocumentSnapshot documentSnapshot;
@@ -32,10 +33,25 @@ class BudgetCard extends StatelessWidget {
                   ? SizedBox(height: 20)
                   : buildCardItemsSmallList(context, budget),
               Padding(
-                padding: const EdgeInsets.only(right: 30, top: 10, bottom: 10),
+                padding: const EdgeInsets.only(
+                    left: 20, right: 30, top: 10, bottom: 10),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    CircularPercentIndicator(
+                      radius: 50,
+                      circularStrokeCap: CircularStrokeCap.round,
+                      progressColor: Theme.of(context).accentColor,
+                      percent: calculatePercentUsed(budget),
+                      backgroundWidth: -2,
+                      center: Text(
+                        '${(calculatePercentUsed(budget) * 100).toStringAsFixed(0)}%\nUsed',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 10,
+                        ),
+                      ),
+                    ),
                     Flexible(
                       child: AutoSizeText(
                         'GH¢' + budget.amount.toStringAsFixed(2),
@@ -59,6 +75,10 @@ class BudgetCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  double calculatePercentUsed(Budget budget) {
+    return (budget.amountUsed + budget.amountSaved) / budget.amount;
   }
 
   Widget buildCardItemsSmallList(BuildContext context, Budget budget) {
