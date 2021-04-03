@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/views/my_account/my_account_view.dart';
+import 'package:groceries_budget_app/widgets/custom_navigation_bar.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'budget_history_view.dart';
 import 'home_view.dart';
@@ -132,6 +133,8 @@ class _NavigationViewState extends State<NavigationView> {
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 0,
+        heroTag: 'float',
+        mini: true,
         child: Icon(Icons.add),
         onPressed: () {
           Route route = MaterialPageRoute(
@@ -142,24 +145,31 @@ class _NavigationViewState extends State<NavigationView> {
           Navigator.push(context, route);
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Theme.of(context).accentColor,
+      bottomNavigationBar: CustomBottomNavigationBar(
+        backgroundColor: Theme.of(context).brightness == Brightness.light
+            ? Colors.white
+            : Colors.grey[800],
         currentIndex: _currentNavigationIndex,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+        itemColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        children: [
+          CustomBottomNavigationBarItem(
+            icon: Icons.home,
             label: 'Home',
+            color: Theme.of(context).iconTheme.color,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
+          CustomBottomNavigationBarItem(
+            icon: Icons.history,
             label: 'Budget History',
+            color: Theme.of(context).iconTheme.color,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+          CustomBottomNavigationBarItem(
+            icon: Icons.settings,
             label: 'Settings',
+            color: Theme.of(context).iconTheme.color,
           ),
         ],
-        onTap: (index) {
+        onChange: (index) {
           setState(() {
             _currentNavigationIndex = index;
           });

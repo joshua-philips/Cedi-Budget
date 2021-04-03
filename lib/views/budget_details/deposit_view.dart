@@ -170,6 +170,13 @@ class _DepositViewState extends State<DepositView> {
           }
         });
       },
+      onLongPress: () {
+        HapticFeedback.heavyImpact();
+        setState(() {
+          _amount = '0';
+          _error = '';
+        });
+      },
     );
   }
 

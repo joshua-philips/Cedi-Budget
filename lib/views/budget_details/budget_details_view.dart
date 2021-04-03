@@ -179,6 +179,7 @@ class BudgetDetailsView extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 0,
+        heroTag: 'float',
         child: Text(
           '¢',
           style: TextStyle(
