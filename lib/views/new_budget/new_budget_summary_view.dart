@@ -6,6 +6,7 @@ import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/selected_dates.dart';
 import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 import 'package:groceries_budget_app/widgets/total_budget_card.dart';
+import 'package:groceries_budget_app/widgets/total_days_text.dart';
 
 import '../../my_provider.dart';
 
@@ -22,7 +23,42 @@ class NewBudgetSummaryView extends StatelessWidget {
         slivers: [
           SliverAppBar(
             title: Text('New Budget'),
-            actions: [AppBarHomeButton()],
+            actions: [
+              AppBarHomeButton(),
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: InkWell(
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8, right: 8),
+                        child: Text(
+                          'Finish',
+                          style: TextStyle(
+                            color: Theme.of(context).textTheme.bodyText2.color,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  onTap: () async {
+                    showLoadingDialog(context);
+                    final String uid =
+                        MyProvider.of(context).auth.getCurrentUID();
+                    try {
+                      await MyProvider.of(context)
+                          .database
+                          .saveBudgetToFirestore(budget, uid);
+                      hideLoadingDialog(context);
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                    } catch (e) {
+                      print(e);
+                      showMessageSnackBar(context, e.message);
+                    }
+                  },
+                ),
+              ),
+            ],
             pinned: true,
           ),
           SliverList(
@@ -43,7 +79,13 @@ class NewBudgetSummaryView extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       Divider(),
-                      ListTile(title: SelectedDates(budget: budget)),
+                      ListTile(
+                        title: SelectedDates(budget: budget),
+                        subtitle: Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: TotalDaysText(budget: budget),
+                        ),
+                      ),
                       Divider(),
                       SizedBox(height: 15),
                       budget.hasItems

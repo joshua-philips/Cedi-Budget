@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/views/budget_details/budget_details_view.dart';
+import 'package:groceries_budget_app/widgets/date_field.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
-import 'package:groceries_budget_app/widgets/selected_dates.dart';
 import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 import 'package:groceries_budget_app/widgets/total_days_text.dart';
 
@@ -26,26 +26,15 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
     _endDate = widget.budget.endDate;
   }
 
-  // TODO: Date Range Picker app bar colours
-  Future displayDateRangePicker(BuildContext context) async {
-    DateTimeRange _initialDateRange = DateTimeRange(
-      start: _startDate,
-      end: _endDate,
-    );
-    DateTimeRange pickedRange = await showDateRangePicker(
+  Future<DateTime> displayDatePicker(
+      BuildContext context, DateTime initialDate) async {
+    DateTime newDate = await showDatePicker(
       context: context,
+      initialDate: initialDate,
       firstDate: DateTime.now().subtract(Duration(days: 365 * 50)),
       lastDate: DateTime.now().add(Duration(days: 365 * 50)),
-      initialDateRange: _initialDateRange,
     );
-    if (pickedRange != null) {
-      setState(() {
-        _startDate = pickedRange.start;
-        _endDate = pickedRange.end;
-        widget.budget.startDate = _startDate;
-        widget.budget.endDate = _endDate;
-      });
-    }
+    return newDate ?? initialDate;
   }
 
   @override
@@ -56,7 +45,7 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 8.0),
+            padding: const EdgeInsets.only(top: 15),
             child: Text(
               'Change Dates',
               style: TextStyle(
@@ -65,27 +54,43 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
               ),
             ),
           ),
-          Card(
-            margin: EdgeInsets.all(10),
-            child: Column(
+          DateField(
+            label: 'Start Date',
+            date: _startDate,
+            icon: Icons.arrow_drop_down_rounded,
+            onIconPressed: () async {
+              DateTime selectedDate =
+                  await displayDatePicker(context, _startDate);
+
+              setState(() {
+                _startDate = selectedDate;
+                widget.budget.startDate = _startDate;
+              });
+            },
+          ),
+          DateField(
+            label: 'End Date',
+            date: _endDate,
+            icon: Icons.arrow_drop_down_rounded,
+            onIconPressed: () async {
+              DateTime selectedDate =
+                  await displayDatePicker(context, _endDate);
+
+              setState(() {
+                _endDate = selectedDate;
+                widget.budget.endDate = _endDate;
+              });
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: SelectedDates(
-                    budget: widget.budget,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0, top: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [TotalDaysText(budget: widget.budget)],
-                  ),
-                ),
+                TotalDaysText(budget: widget.budget),
               ],
             ),
           ),
-          SizedBox(height: 2),
+          SizedBox(height: 15),
           buildButtons(context, widget.budget),
         ],
       ),
@@ -96,20 +101,6 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        RoundedButton(
-          color: Colors.green[900],
-          child: Text(
-            'Change Date Range',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          onPressed: () async {
-            await displayDateRangePicker(context);
-          },
-        ),
         RoundedButton(
           color: Theme.of(context).accentColor,
           child: Text(
@@ -142,8 +133,6 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
             }
           },
         ),
-        SizedBox(height: 2),
-        Divider(thickness: 1.5),
         SizedBox(height: 2),
         RoundedButton(
           color: Colors.deepPurple,

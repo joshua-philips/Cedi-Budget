@@ -75,8 +75,11 @@ class BudgetDetailsView extends StatelessWidget {
                     child: Card(
                       child: Column(
                         children: [
-                          LargeSelectedDates(
-                            budget: budget,
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: SelectedDates(
+                              budget: budget,
+                            ),
                           ),
                           Divider(),
                           Padding(
@@ -97,6 +100,7 @@ class BudgetDetailsView extends StatelessWidget {
                                   onPressed: () {
                                     showModalBottomSheet(
                                         context: context,
+                                        isScrollControlled: true,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(15),
@@ -107,7 +111,7 @@ class BudgetDetailsView extends StatelessWidget {
                                               height: MediaQuery.of(context)
                                                       .size
                                                       .height *
-                                                  0.9,
+                                                  0.6,
                                               child: EditBudgetDatesView(
                                                 budget: budget,
                                               ),
