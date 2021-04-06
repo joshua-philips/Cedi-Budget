@@ -18,8 +18,8 @@ class MyAccountView extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-          height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -49,7 +49,7 @@ class MyAccountView extends StatelessWidget {
                       primary: Theme.of(context).accentColor,
                     ),
                     onPressed: () {
-                       Route route = MaterialPageRoute(
+                      Route route = MaterialPageRoute(
                         builder: (context) => ChangePasswordView(),
                       );
                       Navigator.push(context, route);

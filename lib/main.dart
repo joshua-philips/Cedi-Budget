@@ -2,13 +2,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/services/database_service.dart';
 import 'package:groceries_budget_app/services/theme_provider.dart';
-import 'package:groceries_budget_app/views/navigation_view.dart';
 import 'package:provider/provider.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'services/auth_service.dart';
 import 'views/authentication/firstview.dart';
 import 'views/authentication/sign_in_view.dart';
 import 'views/authentication/sign_up_view.dart';
+import 'views/navigation/navigation_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

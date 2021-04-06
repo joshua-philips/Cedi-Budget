@@ -28,6 +28,7 @@ class _DepositViewState extends State<DepositView> {
       body: Padding(
         padding: const EdgeInsets.only(left: 8, right: 8),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             FittedBox(
               fit: BoxFit.fitWidth,
@@ -48,7 +49,7 @@ class _DepositViewState extends State<DepositView> {
             ),
             Container(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: GridView.count(
                   crossAxisCount: 3,
                   shrinkWrap: true,
@@ -153,13 +154,9 @@ class _DepositViewState extends State<DepositView> {
 
   Widget _deleteBtn() {
     return TextButton(
-      child: Text(
-        '<',
-        style: TextStyle(
-          fontSize: 40,
-          color: Theme.of(context).textTheme.bodyText2.color,
-          fontWeight: FontWeight.bold,
-        ),
+      child: Icon(
+        Icons.backspace_rounded,
+        color: Theme.of(context).textTheme.bodyText2.color,
       ),
       onPressed: () {
         setState(() {
@@ -260,11 +257,11 @@ class _DepositViewState extends State<DepositView> {
       keyboard.add(_numberBtn('${index + 1}'));
     });
 
-    keyboard.add(_negativeBtn());
+    keyboard.add(_decimalBtn());
     keyboard.add(_numberBtn('0'));
     keyboard.add(_deleteBtn());
     keyboard.add(_numberBtn(''));
-    keyboard.add(_decimalBtn());
+    keyboard.add(_negativeBtn());
 
     return keyboard;
   }

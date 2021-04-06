@@ -41,6 +41,7 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
         ],
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(

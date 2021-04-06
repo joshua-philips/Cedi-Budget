@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/views/my_account/my_account_view.dart';
+import 'package:groceries_budget_app/views/new_budget/new_budget_date_view.dart';
 import 'package:groceries_budget_app/widgets/custom_navigation_bar.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'budget_history_view.dart';
 import 'home_view.dart';
-import 'new_budget/new_budget_date_view.dart';
 import 'settings_view.dart';
 
 class NavigationView extends StatefulWidget {
@@ -64,6 +64,7 @@ class _NavigationViewState extends State<NavigationView> {
                     height: MediaQuery.of(context).size.height * 0.3,
                     child: Center(
                       child: SingleChildScrollView(
+                        physics: BouncingScrollPhysics(),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -134,7 +135,6 @@ class _NavigationViewState extends State<NavigationView> {
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         heroTag: 'float',
-        mini: true,
         child: Icon(Icons.add),
         onPressed: () {
           Route route = MaterialPageRoute(
@@ -146,9 +146,7 @@ class _NavigationViewState extends State<NavigationView> {
         },
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
-        backgroundColor: Theme.of(context).brightness == Brightness.light
-            ? Colors.white
-            : Colors.grey[800],
+        backgroundColor: Theme.of(context).cardColor,
         currentIndex: _currentNavigationIndex,
         itemColor:
             Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
@@ -160,7 +158,7 @@ class _NavigationViewState extends State<NavigationView> {
           ),
           CustomBottomNavigationBarItem(
             icon: Icons.history,
-            label: 'Budget History',
+            label: 'History',
             color: Theme.of(context).iconTheme.color,
           ),
           CustomBottomNavigationBarItem(

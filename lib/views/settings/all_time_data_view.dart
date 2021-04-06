@@ -52,13 +52,18 @@ class AllTimeDataView extends StatelessWidget {
           savedTotal + Budget.fromSnapshot(snapshot.data[count]).amountSaved;
     }
     return Container(
-      child: Column(
+      child: ListView(
+        physics: BouncingScrollPhysics(),
         children: [
-          Text(
-            'Financial Summary',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
+          ListTile(
+            title: Center(
+              child: Text(
+                'Financial Summary',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           SizedBox(height: 20),

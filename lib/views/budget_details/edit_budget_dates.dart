@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/my_provider.dart';
@@ -5,7 +6,6 @@ import 'package:groceries_budget_app/views/budget_details/budget_details_view.da
 import 'package:groceries_budget_app/widgets/date_field.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
-import 'package:groceries_budget_app/widgets/total_days_text.dart';
 
 class EditBudgetDatesView extends StatefulWidget {
   final Budget budget;
@@ -18,12 +18,14 @@ class EditBudgetDatesView extends StatefulWidget {
 class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
   DateTime _startDate;
   DateTime _endDate;
+  int _totalDays;
 
   @override
   void initState() {
     super.initState();
     _startDate = widget.budget.startDate;
     _endDate = widget.budget.endDate;
+    _totalDays = widget.budget.getTotalDaysofBudget();
   }
 
   Future<DateTime> displayDatePicker(
@@ -40,6 +42,7 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -64,7 +67,7 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
 
               setState(() {
                 _startDate = selectedDate;
-                widget.budget.startDate = _startDate;
+                _totalDays = _endDate.difference(_startDate).inDays;
               });
             },
           ),
@@ -78,7 +81,7 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
 
               setState(() {
                 _endDate = selectedDate;
-                widget.budget.endDate = _endDate;
+                _totalDays = _endDate.difference(_startDate).inDays;
               });
             },
           ),
@@ -86,7 +89,17 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
             padding: const EdgeInsets.only(left: 10),
             child: Row(
               children: [
-                TotalDaysText(budget: widget.budget),
+                Flexible(
+                  child: AutoSizeText(
+                    '${_totalDays.toString()} ${_totalDays == 1 ? 'day' : 'days'}',
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

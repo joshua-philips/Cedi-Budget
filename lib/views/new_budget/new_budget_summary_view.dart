@@ -20,6 +20,7 @@ class NewBudgetSummaryView extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       body: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
             title: Text('New Budget'),

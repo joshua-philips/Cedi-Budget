@@ -8,6 +8,7 @@ class AboutView extends StatelessWidget {
       backgroundColor: Theme.of(context).appBarTheme.color,
       body: SafeArea(
         child: CustomScrollView(
+          physics: BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
               title: Text('Cedi Budget 1.0.0'),

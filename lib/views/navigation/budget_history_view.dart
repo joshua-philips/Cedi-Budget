@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/widgets/budget_card.dart';
-
-import '../my_provider.dart';
 
 class BudgetHistoryView extends StatelessWidget {
   @override
@@ -42,6 +41,7 @@ class BudgetHistoryView extends StatelessWidget {
     return Scrollbar(
       thickness: 2,
       child: ListView.builder(
+        physics: BouncingScrollPhysics(),
         itemCount: snapshot.data.docs.length,
         padding: EdgeInsets.only(top: 10, bottom: 70),
         itemBuilder: (context, int index) {

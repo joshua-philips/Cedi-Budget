@@ -33,6 +33,7 @@ class _SignInViewState extends State<SignInView> {
         child: Padding(
           padding: const EdgeInsets.only(right: 30, left: 30),
           child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Column(
               children: [
                 Padding(

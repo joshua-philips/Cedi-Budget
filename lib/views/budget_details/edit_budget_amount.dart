@@ -351,6 +351,7 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Container(
               child: Column(
                 children: setAmountFields(_amountController) +

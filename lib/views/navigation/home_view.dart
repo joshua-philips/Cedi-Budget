@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/my_provider.dart';
+import 'package:groceries_budget_app/views/new_budget/new_budget_date_view.dart';
 import 'package:groceries_budget_app/widgets/budget_card.dart';
-
-import 'new_budget/new_budget_date_view.dart';
 
 class HomeView extends StatelessWidget {
   @override
@@ -40,6 +39,7 @@ class HomeView extends StatelessWidget {
     return Scrollbar(
       thickness: 2,
       child: ListView.builder(
+        physics: BouncingScrollPhysics(),
         itemCount: snapshot.data.docs.length,
         padding: EdgeInsets.only(top: 10, bottom: 70),
         itemBuilder: (context, int index) {

@@ -33,8 +33,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       height: 70,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
         ),
         color: widget.backgroundColor,
       ),
@@ -60,7 +60,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: widget.currentIndex == index
-                    ? color.withOpacity(0.2)
+                    ? color.withOpacity(0.1)
                     : Colors.transparent,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10),

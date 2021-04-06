@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/services/theme_provider.dart';
-import 'package:groceries_budget_app/views/about_view.dart';
-import 'package:groceries_budget_app/views/all_time_data_view.dart';
-import 'package:groceries_budget_app/views/help_and_feedback_view.dart';
+import 'package:groceries_budget_app/views/my_account/my_account_view.dart';
+import 'package:groceries_budget_app/views/settings/about_view.dart';
+import 'package:groceries_budget_app/views/settings/all_time_data_view.dart';
+import 'package:groceries_budget_app/views/settings/help_and_feedback_view.dart';
 import 'package:provider/provider.dart';
 import 'package:groceries_budget_app/my_provider.dart';
-import 'my_account/my_account_view.dart';
 
 class SettingsView extends StatefulWidget {
   @override
@@ -23,6 +23,7 @@ class _SettingsViewState extends State<SettingsView> {
   Widget build(BuildContext context) {
     AuthService auth = MyProvider.of(context).auth;
     return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Container(
         padding: EdgeInsets.only(top: 5, bottom: 70),
         child: Column(

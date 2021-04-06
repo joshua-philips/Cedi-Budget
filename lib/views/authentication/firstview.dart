@@ -16,6 +16,7 @@ class FirstView extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(40),
             child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               padding: EdgeInsets.only(top: 150),
               dragStartBehavior: DragStartBehavior.down,
               child: Column(

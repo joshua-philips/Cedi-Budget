@@ -27,6 +27,7 @@ class BudgetDetailsView extends StatelessWidget {
       key: _scaffoldKey,
       body: Center(
         child: CustomScrollView(
+          physics: BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
               title: Text('Details'),

@@ -31,6 +31,7 @@ class _EditNotesViewState extends State<EditNotesView> {
       key: _scaffoldKey,
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Container(
             child: Column(
               children: [

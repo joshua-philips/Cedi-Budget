@@ -34,8 +34,8 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
         actions: [AppBarHomeButton()],
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Container(
-          height: MediaQuery.of(context).size.height,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(

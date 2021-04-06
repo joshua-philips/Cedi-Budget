@@ -19,6 +19,7 @@ class _HelpAndFeedbackState extends State<HelpAndFeedback> {
         title: Text('Help & Feedback'),
       ),
       body: ListView(
+        physics: BouncingScrollPhysics(),
         children: [
           ExpansionTile(
             title: Text('Guidelines'),
