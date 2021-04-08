@@ -158,7 +158,7 @@ class _NavigationViewState extends State<NavigationView> {
           ),
           CustomBottomNavigationBarItem(
             icon: Icons.history,
-            label: 'History',
+            label: 'Past Budgets',
             color: Theme.of(context).iconTheme.color,
           ),
           CustomBottomNavigationBarItem(

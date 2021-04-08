@@ -27,51 +27,52 @@ class _DepositViewState extends State<DepositView> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 8, right: 8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Text(
-                'GH¢$_amount',
-                style: TextStyle(
-                  fontSize: 60,
-                  fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(
+                  'GH¢$_amount',
+                  style: TextStyle(
+                    fontSize: 60,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: Text(
-                _error,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: GridView.count(
-                  crossAxisCount: 3,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  childAspectRatio: 1.4,
-                  children: setKeyboard(),
+              Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: Text(
+                  _error,
+                  textAlign: TextAlign.center,
                 ),
               ),
-            ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _actionBtn('spent'),
-                  _actionBtn('saved'),
-                ],
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: GridView.count(
+                    crossAxisCount: 3,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    childAspectRatio: 1.4,
+                    children: setKeyboard(),
+                  ),
+                ),
               ),
-            ),
-            Spacer(),
-          ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _actionBtn('spent'),
+                    _actionBtn('saved'),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -210,7 +211,7 @@ class _DepositViewState extends State<DepositView> {
                 (widget.budget.amountUsed + widget.budget.amountSaved))) {
       setState(() {
         _error =
-            "Goes over budget allocation GH¢${widget.budget.amount.floor()}\nLimit: GH¢${widget.budget.amount - widget.budget.amountSaved - widget.budget.amountSaved}";
+            "Goes over budget allocation GH¢${widget.budget.amount.toStringAsFixed(2)}\nAvailable: GH¢${(widget.budget.amount - (widget.budget.amountUsed + widget.budget.amountSaved)).toStringAsFixed(2)}";
       });
     } else if (type != 'spent' &&
         double.parse(_amount) >
@@ -218,7 +219,7 @@ class _DepositViewState extends State<DepositView> {
                 (widget.budget.amountUsed + widget.budget.amountSaved))) {
       setState(() {
         _error =
-            "Insufficient funds\nLimit: GH¢${widget.budget.amount - widget.budget.amountSaved - widget.budget.amountSaved}";
+            "Insufficient funds\nAvailable: GH¢${(widget.budget.amount - widget.budget.amountUsed - widget.budget.amountSaved).toStringAsFixed(2)}";
       });
     } else {
       String uid = MyProvider.of(context).auth.getCurrentUID();

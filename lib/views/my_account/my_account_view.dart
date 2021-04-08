@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
@@ -139,9 +140,12 @@ class MyAccountView extends StatelessWidget {
           children: [
             Text('member since'),
             SizedBox(height: 10),
-            Text(
-              '${DateFormat('EEE, MMM dd, yyyy').format(auth.getCurrentUser().metadata.creationTime)}',
-              style: TextStyle(fontSize: 35),
+            Flexible(
+              child: AutoSizeText(
+                '${DateFormat('EEE, MMM dd, yyyy').format(auth.getCurrentUser().metadata.creationTime)}',
+                maxLines: 1,
+                style: TextStyle(fontSize: 35),
+              ),
             ),
           ],
         ),
