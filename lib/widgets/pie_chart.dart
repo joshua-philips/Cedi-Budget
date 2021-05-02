@@ -1,52 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
-// import 'package:pie_chart/pie_chart.dart';
-
-// class PieChartCard extends StatelessWidget {
-//   final Budget budget;
-
-//   const PieChartCard({Key key, @required this.budget}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final Map<String, double> dataMap = {
-//       'Spent': budget.amountUsed,
-//       'Saved': budget.amountSaved,
-//       'Balance': budget.amount - budget.amountUsed - budget.amountSaved,
-//     };
-//     List<Color> colorList = [
-//       // Theme.of(context).accentColor,
-//       Colors.pink[600],
-//       Colors.green,
-//       Colors.deepPurple,
-//     ];
-//     return Card(
-//       child: Padding(
-//         padding: const EdgeInsets.all(20.0),
-//         child: PieChart(
-//           dataMap: dataMap,
-//           colorList: colorList,
-//           chartType: ChartType.ring,
-//           ringStrokeWidth: 30,
-//           chartRadius: MediaQuery.of(context).size.width * 0.4,
-//           legendOptions: LegendOptions(
-//             legendTextStyle: TextStyle(fontSize: 20),
-//           ),
-//           chartValuesOptions: ChartValuesOptions(
-//             decimalPlaces: 2,
-//             showChartValueBackground: false,
-//             chartValueStyle: TextStyle(
-//               color: Theme.of(context).textTheme.bodyText2.color,
-//               fontWeight: FontWeight.bold,
-//               fontSize: 15,
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class PieChartCardFL extends StatefulWidget {
   final Budget budget;
@@ -76,19 +30,33 @@ class _PieChartCardFLState extends State<PieChartCardFL> {
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-        height: 200,
-        child: Row(
+        height: 300,
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(
               child: PieChart(
                 PieChartData(
-                  centerSpaceRadius: 40,
-                  sections: getSections(),
+                  centerSpaceRadius: 50,
+                  sections: getSections(touchedIndex),
+                  sectionsSpace: 4,
+                  pieTouchData: PieTouchData(
+                    touchCallback: (pieTouchResponse) {
+                      setState(() {
+                        if (pieTouchResponse.touchInput.down) {
+                          touchedIndex = -1;
+                        } else {
+                          touchedIndex = pieTouchResponse
+                              .touchedSection.touchedSectionIndex;
+                        }
+                      });
+                    },
+                  ),
                 ),
               ),
             ),
-            SizedBox(width: 10),
+            Divider(thickness: 1.5),
+            SizedBox(width: 8),
             buildIndicators(),
           ],
         ),
@@ -104,7 +72,6 @@ class _PieChartCardFLState extends State<PieChartCardFL> {
     for (int count = 0; count < 3; count++) {
       indicators.add(
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
               width: size,
@@ -115,33 +82,55 @@ class _PieChartCardFLState extends State<PieChartCardFL> {
               ),
             ),
             SizedBox(width: 10),
-            Text(indicatorText[count]),
+            Text(
+              indicatorText[count],
+              style: TextStyle(fontSize: 20),
+            ),
           ],
         ),
       );
     }
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: indicators,
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, bottom: 5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: indicators,
+      ),
     );
   }
 
-  List<PieChartSectionData> getSections() {
+  List<PieChartSectionData> getSections(int touchedIndex) {
     return [
       PieChartSectionData(
         color: Colors.pink[600],
-        title: '${dataMap.values.elementAt(0).toStringAsFixed(2)}',
-        radius: 50,
+        title:
+            '¢${dataMap.values.elementAt(0).toStringAsFixed(2)}\n${touchedIndex == 0 ? dataMap.keys.elementAt(0) : ''}',
+        titleStyle: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+        ),
+        radius: touchedIndex == 0 ? 90 : 70,
       ),
       PieChartSectionData(
         color: Colors.green,
-        title: '${dataMap.values.elementAt(1).toStringAsFixed(2)}',
-        radius: 50,
+        title:
+            '¢${dataMap.values.elementAt(1).toStringAsFixed(2)}\n${touchedIndex == 1 ? dataMap.keys.elementAt(1) : ''}',
+        titleStyle: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+        ),
+        radius: touchedIndex == 1 ? 90 : 70,
       ),
       PieChartSectionData(
         color: Colors.deepPurple,
-        title: '${dataMap.values.elementAt(2).toStringAsFixed(2)}',
-        radius: 50,
+        title:
+            '¢${dataMap.values.elementAt(2).toStringAsFixed(2)}\n${touchedIndex == 2 ? dataMap.keys.elementAt(2) : ''}',
+        titleStyle: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+        ),
+        radius: touchedIndex == 2 ? 90 : 70,
       ),
     ];
   }

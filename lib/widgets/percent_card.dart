@@ -8,7 +8,7 @@ class PercentCard extends StatelessWidget {
   const PercentCard({Key key, @required this.budget}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final progressColor = Theme.of(context).accentColor;
+    final progressColor = Colors.blue[700]; // Theme.of(context).accentColor;
     return Card(
       child: Padding(
         padding: const EdgeInsets.only(
@@ -26,6 +26,7 @@ class PercentCard extends StatelessWidget {
             ),
             LinearPercentIndicator(
               lineHeight: 30,
+              linearStrokeCap: LinearStrokeCap.butt,
               progressColor: progressColor,
               percent: calculatePercent(
                   (budget.amountSaved + budget.amountUsed), budget.amount),
@@ -46,6 +47,7 @@ class PercentCard extends StatelessWidget {
             ),
             LinearPercentIndicator(
               lineHeight: 30,
+              linearStrokeCap: LinearStrokeCap.butt,
               progressColor: Colors.pink[600],
               percent: calculatePercent(budget.amountUsed, budget.amount),
               padding: EdgeInsets.symmetric(horizontal: 20),
@@ -63,6 +65,7 @@ class PercentCard extends StatelessWidget {
             ),
             LinearPercentIndicator(
               lineHeight: 30,
+              linearStrokeCap: LinearStrokeCap.butt,
               progressColor: Colors.green,
               percent: calculatePercent(budget.amountSaved, budget.amount),
               padding: EdgeInsets.symmetric(horizontal: 20),
