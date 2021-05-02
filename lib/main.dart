@@ -55,9 +55,7 @@ class HomeController extends StatelessWidget {
           return signedIn ? NavigationView() : FirstView();
         }
         return Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
+          body: Center(),
         );
       },
     );
