@@ -159,7 +159,7 @@ class BudgetDetailsView extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: PieChartCard(budget: budget),
+                    child: PieChartCardFL(budget: budget),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
