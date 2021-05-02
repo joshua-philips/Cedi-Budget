@@ -221,6 +221,18 @@ class _DepositViewState extends State<DepositView> {
         _error =
             "Insufficient funds\nAvailable: GH¢${(widget.budget.amount - widget.budget.amountUsed - widget.budget.amountSaved).toStringAsFixed(2)}";
       });
+    } else if (type == 'spent' &&
+        (widget.budget.amountUsed + double.parse(_amount)) < 0) {
+      setState(() {
+        _error =
+            "Amount sums to less than 0\nSpent: GH¢${widget.budget.amountUsed.toStringAsFixed(2)}";
+      });
+    } else if (type == 'saved' &&
+        (widget.budget.amountSaved + double.parse(_amount)) < 0) {
+      setState(() {
+        _error =
+            "Amount sums to less than 0\nSaved: GH¢${widget.budget.amountSaved.toStringAsFixed(2)}";
+      });
     } else {
       String uid = MyProvider.of(context).auth.getCurrentUID();
       setState(() {
