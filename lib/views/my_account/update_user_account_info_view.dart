@@ -3,7 +3,7 @@ import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/views/my_account/my_account_view.dart';
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
-import 'package:groceries_budget_app/widgets/auth_text_formfield.dart';
+import 'package:groceries_budget_app/widgets/form_fields.dart';
 import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 

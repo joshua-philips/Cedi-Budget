@@ -1,9 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
-import 'package:groceries_budget_app/widgets/money_text_field.dart';
-
 import '../my_provider.dart';
+import 'form_fields.dart';
 
 class CalculatorWidget extends StatefulWidget {
   final Budget budget;

@@ -1,12 +1,13 @@
 import 'package:auth_buttons/auth_buttons.dart';
 import 'package:flutter/material.dart';
-import 'package:groceries_budget_app/widgets/auth_text_formfield.dart';
+import 'package:groceries_budget_app/widgets/form_fields.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 
 import 'password_reset_view.dart';
+import 'sign_up_view.dart';
 
 class SignInView extends StatefulWidget {
   @override
@@ -25,6 +26,26 @@ class _SignInViewState extends State<SignInView> {
         backgroundColor: Colors.red[900],
         elevation: 0,
         bottomOpacity: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: TextButton(
+              onPressed: () {
+                Route route =
+                    MaterialPageRoute(builder: (context) => SignUpView());
+                Navigator.of(context).pushReplacement(route);
+              },
+              child: Text(
+                'Register',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -49,7 +70,7 @@ class _SignInViewState extends State<SignInView> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                    top: 50,
+                    top: 30,
                     right: 10,
                     left: 10,
                   ),
@@ -126,10 +147,10 @@ class _SignInViewState extends State<SignInView> {
                     ),
                   ),
                 ),
-                SizedBox(height: 50),
-                Divider(
-                  color: Colors.white,
-                  thickness: 1,
+                SizedBox(height: 20),
+                Text(
+                  'OR',
+                  style: TextStyle(color: Colors.white),
                 ),
                 SizedBox(height: 20),
                 GoogleAuthButton(
