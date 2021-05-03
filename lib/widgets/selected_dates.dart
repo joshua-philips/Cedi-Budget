@@ -142,3 +142,56 @@ class LargeSelectedDates extends StatelessWidget {
     );
   }
 }
+
+class FullDates extends StatelessWidget {
+  final Budget budget;
+
+  const FullDates({Key key, @required this.budget}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    Color dateColor = Theme.of(context).textTheme.bodyText2.color;
+    return Padding(
+      padding: EdgeInsets.only(top: 0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                '${DateFormat('MMM, d yyyy').format(budget.startDate).toString()}',
+                maxLines: 1,
+                style: TextStyle(
+                  color: dateColor,
+                  fontSize: 40,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Spacer(),
+              budget.endDate.isBefore(DateTime.now())
+                  ? Icon(Icons.hourglass_full_outlined, size: 30)
+                  : Container(),
+            ],
+          ),
+          SizedBox(height: 8),
+          Row(
+            children: [
+              Text(
+                'to',
+                style: TextStyle(color: dateColor, fontSize: 20),
+              ),
+            ],
+          ),
+          SizedBox(height: 5),
+          Row(
+            children: [
+              Text(
+                '${DateFormat('EEEE, MMM d, yyyy').format(budget.endDate).toString()}',
+                style: TextStyle(color: dateColor, fontSize: 25),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}

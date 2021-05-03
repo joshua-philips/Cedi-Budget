@@ -51,8 +51,8 @@ class _NewBudgetDateViewState extends State<NewBudgetDateView> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: SelectedDates(budget: widget.budget),
+                      padding: const EdgeInsets.only(top: 15, left: 10),
+                      child: FullDates(budget: widget.budget),
                     ),
                     Divider(),
                     Padding(

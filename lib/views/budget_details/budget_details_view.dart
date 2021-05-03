@@ -77,8 +77,9 @@ class BudgetDetailsView extends StatelessWidget {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: SelectedDates(
+                            padding: const EdgeInsets.only(
+                                top: 8.0, left: 15, right: 8),
+                            child: FullDates(
                               budget: budget,
                             ),
                           ),

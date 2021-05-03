@@ -27,7 +27,10 @@ class BudgetCard extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(top: 10),
-                child: SelectedDates(budget: budget),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: FullDates(budget: budget),
+                ),
               ),
               budget.hasItems != true
                   ? SizedBox(height: 20)
