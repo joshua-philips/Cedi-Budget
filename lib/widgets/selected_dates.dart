@@ -158,7 +158,7 @@ class FullDates extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               Text(
-                '${DateFormat('MMM, d yyyy').format(budget.startDate).toString()}',
+                '${DateFormat('MMM d, yyyy').format(budget.startDate).toString()}',
                 maxLines: 1,
                 style: TextStyle(
                   color: dateColor,
