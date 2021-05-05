@@ -37,7 +37,7 @@ class BudgetCard extends StatelessWidget {
                   : buildCardItemsSmallList(context, budget),
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 20, right: 30, top: 10, bottom: 10),
+                    left: 20, right: 20, top: 10, bottom: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

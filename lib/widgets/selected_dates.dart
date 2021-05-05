@@ -168,7 +168,7 @@ class FullDates extends StatelessWidget {
               ),
               Spacer(),
               budget.endDate.isBefore(DateTime.now())
-                  ? Icon(Icons.hourglass_full_outlined, size: 30)
+                  ? Icon(Icons.check_box_outlined, size: 30)
                   : Container(),
             ],
           ),
