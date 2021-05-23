@@ -6,7 +6,6 @@ import 'package:groceries_budget_app/views/settings/about_view.dart';
 import 'package:groceries_budget_app/views/settings/all_time_data_view.dart';
 import 'package:groceries_budget_app/views/settings/help_and_feedback_view.dart';
 import 'package:provider/provider.dart';
-import 'package:groceries_budget_app/my_provider.dart';
 
 class SettingsView extends StatefulWidget {
   @override
@@ -21,7 +20,7 @@ class _SettingsViewState extends State<SettingsView> {
 
   @override
   Widget build(BuildContext context) {
-    AuthService auth = MyProvider.of(context).auth;
+    AuthService auth = context.read<AuthService>();
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Container(

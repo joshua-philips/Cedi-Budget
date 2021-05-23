@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:groceries_budget_app/models/budget.dart';
-import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/views/budget_details/budget_details_view.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
+import 'package:provider/provider.dart';
+import 'package:groceries_budget_app/services/auth_service.dart';
+import 'package:groceries_budget_app/services/database_service.dart';
 
 class DepositView extends StatefulWidget {
   final Budget budget;
@@ -234,19 +236,19 @@ class _DepositViewState extends State<DepositView> {
             "Amount sums to less than 0\nSaved: GH¢${widget.budget.amountSaved.toStringAsFixed(2)}";
       });
     } else {
-      String uid = MyProvider.of(context).auth.getCurrentUID();
+      String uid = context.read<AuthService>().getCurrentUser().uid;
       setState(() {
         _error = '';
         widget.budget.updateLedger(_amount, type);
       });
       showLoadingDialog(context);
 
-      await MyProvider.of(context).database.addToLedger(uid, widget.budget);
-      await MyProvider.of(context)
-          .database
+      await context.read<DatabaseService>().addToLedger(uid, widget.budget);
+      await context
+          .read<DatabaseService>()
           .updateAmountSaved(uid, widget.budget);
-      await MyProvider.of(context)
-          .database
+      await context
+          .read<DatabaseService>()
           .updateAmountUsed(uid, widget.budget);
       hideLoadingDialog(context);
       Navigator.of(context).popUntil((route) => route.isFirst);

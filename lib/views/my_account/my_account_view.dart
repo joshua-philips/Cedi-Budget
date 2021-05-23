@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:intl/intl.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
+import 'package:provider/provider.dart';
 
 import '../my_account/update_user_account_info_view.dart';
 import 'change_password_view.dart';
@@ -11,7 +11,7 @@ import 'change_password_view.dart';
 class MyAccountView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final AuthService auth = MyProvider.of(context).auth;
+    final AuthService auth = context.watch<AuthService>();
     return Scaffold(
       appBar: AppBar(
         title: Text('My Account'),

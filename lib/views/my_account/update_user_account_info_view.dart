@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/views/my_account/my_account_view.dart';
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
 import 'package:groceries_budget_app/widgets/form_fields.dart';
 import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
+import 'package:provider/provider.dart';
 
 class UpdateUserAccountInfoView extends StatefulWidget {
   @override
@@ -116,7 +116,7 @@ class _UpdateUserAccountInfoViewState extends State<UpdateUserAccountInfoView> {
   }
 
   Future<String> changeUserInfo() async {
-    AuthService auth = MyProvider.of(context).auth;
+    final AuthService auth = context.read<AuthService>();
     try {
       await auth.updateUserInfo(_nameController.text);
       return 'Success';

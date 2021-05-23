@@ -1,11 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
-import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/views/budget_details/budget_details_view.dart';
 import 'package:groceries_budget_app/widgets/date_field.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
+import 'package:provider/provider.dart';
+import 'package:groceries_budget_app/services/auth_service.dart';
+import 'package:groceries_budget_app/services/database_service.dart';
 
 class EditBudgetDatesView extends StatefulWidget {
   final Budget budget;
@@ -128,14 +130,14 @@ class _EditBudgetDatesViewState extends State<EditBudgetDatesView> {
             showLoadingDialog(context);
             widget.budget.startDate = _startDate;
             widget.budget.endDate = _endDate;
-            final uid = MyProvider.of(context).auth.getCurrentUID();
+            final uid = context.read<AuthService>().getCurrentUser().uid;
             Route route = MaterialPageRoute(
                 builder: (context) => BudgetDetailsView(
                       budget: widget.budget,
                     ));
             try {
-              await MyProvider.of(context)
-                  .database
+              await context
+                  .read<DatabaseService>()
                   .updateDates(uid, widget.budget);
               hideLoadingDialog(context);
               Navigator.of(context).popUntil((route) => route.isFirst);

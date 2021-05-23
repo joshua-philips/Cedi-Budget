@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
-import '../my_provider.dart';
 import 'form_fields.dart';
+import 'package:provider/provider.dart';
+import 'package:groceries_budget_app/services/auth_service.dart';
+import 'package:groceries_budget_app/services/database_service.dart';
 
 class CalculatorWidget extends StatefulWidget {
   final Budget budget;
@@ -27,6 +29,8 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final uid = context.read<AuthService>().getCurrentUser().uid;
+    final DatabaseService databaseService = context.read<DatabaseService>();
     return Card(
       color: Theme.of(context).brightness == Brightness.light
           ? Colors.purple[100]
@@ -110,13 +114,10 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
                           widget.budget.amountUsed = _amountUsed.toDouble();
                         });
 
-                        final uid = MyProvider.of(context).auth.getCurrentUID();
-                        await MyProvider.of(context)
-                            .database
-                            .updateAmountUsed(uid, widget.budget);
-                        await MyProvider.of(context)
-                            .database
-                            .updateAmountSaved(uid, widget.budget);
+                        await databaseService.updateAmountUsed(
+                            uid, widget.budget);
+                        await databaseService.updateAmountSaved(
+                            uid, widget.budget);
                       },
                     ),
                     IconButton(
@@ -132,13 +133,10 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
                           widget.budget.amountSaved = _amountSaved.toDouble();
                           widget.budget.amountUsed = _amountUsed.toDouble();
                         });
-                        final uid = MyProvider.of(context).auth.getCurrentUID();
-                        await MyProvider.of(context)
-                            .database
-                            .updateAmountUsed(uid, widget.budget);
-                        await MyProvider.of(context)
-                            .database
-                            .updateAmountSaved(uid, widget.budget);
+                        await databaseService.updateAmountUsed(
+                            uid, widget.budget);
+                        await databaseService.updateAmountSaved(
+                            uid, widget.budget);
                       },
                     ),
                   ],
@@ -165,7 +163,8 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
   }
 
   ElevatedButton generateAddMoneyBtn(int amount) {
-    final uid = MyProvider.of(context).auth.getCurrentUID();
+    final uid = context.read<AuthService>().getCurrentUser().uid;
+    final DatabaseService databaseService = context.read<DatabaseService>();
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         primary: Colors.green,
@@ -182,12 +181,8 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
           widget.budget.amountUsed = _amountUsed.toDouble();
         });
 
-        await MyProvider.of(context)
-            .database
-            .updateAmountUsed(uid, widget.budget);
-        await MyProvider.of(context)
-            .database
-            .updateAmountSaved(uid, widget.budget);
+        await databaseService.updateAmountUsed(uid, widget.budget);
+        await databaseService.updateAmountSaved(uid, widget.budget);
       },
     );
   }

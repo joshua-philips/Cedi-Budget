@@ -5,7 +5,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:groceries_budget_app/services/database_service.dart';
 import 'package:groceries_budget_app/services/theme_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:groceries_budget_app/my_provider.dart';
 import 'services/auth_service.dart';
 import 'views/authentication/firstview.dart';
 import 'views/authentication/sign_in_view.dart';
@@ -103,27 +102,33 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MyProvider(
-      auth: AuthService(),
-      database: DatabaseService(),
-      child: ChangeNotifierProvider(
-        create: (_) => ThemeNotifier(),
-        child: Consumer<ThemeNotifier>(
-          builder: (context, notifier, child) {
-            return MaterialApp(
-              title: 'Cedi Budget',
-              debugShowCheckedModeBanner: false,
-              theme: notifier.darkTheme ? dark : light,
-              home: HomeController(),
-              routes: <String, WidgetBuilder>{
-                '/home': (BuildContext context) => HomeController(),
-                '/signUp': (BuildContext context) => SignUpView(),
-                '/signIn': (BuildContext context) => SignInView(),
-              },
-            );
-          },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ThemeNotifier>(
+          create: (_) => ThemeNotifier(),
         ),
-      ),
+        Provider<AuthService>(
+          create: (_) => AuthService(),
+        ),
+        Provider<DatabaseService>(
+          create: (_) => DatabaseService(),
+        )
+      ],
+      builder: (context, child) {
+        return Consumer<ThemeNotifier>(builder: (context, notifier, child) {
+          return MaterialApp(
+            title: 'Cedi Budget',
+            debugShowCheckedModeBanner: false,
+            theme: notifier.darkTheme ? dark : light,
+            home: HomeController(),
+            routes: <String, WidgetBuilder>{
+              '/home': (BuildContext context) => HomeController(),
+              '/signUp': (BuildContext context) => SignUpView(),
+              '/signIn': (BuildContext context) => SignInView(),
+            },
+          );
+        });
+      },
     );
   }
 
@@ -137,7 +142,7 @@ class HomeController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: MyProvider.of(context).auth.onAuthStateChanged,
+      stream: context.watch<AuthService>().onAuthStateChanged,
       builder: (context, AsyncSnapshot<String> snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           final bool signedIn = snapshot.hasData;

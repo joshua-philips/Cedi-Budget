@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/lorem.dart';
-import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/alert_dialog.dart';
+import 'package:provider/provider.dart';
+import 'package:groceries_budget_app/services/auth_service.dart';
+import 'package:groceries_budget_app/services/database_service.dart';
 
 class HelpAndFeedback extends StatefulWidget {
   @override
@@ -14,6 +16,8 @@ class _HelpAndFeedbackState extends State<HelpAndFeedback> {
 
   @override
   Widget build(BuildContext context) {
+    final String uid = context.read<AuthService>().getCurrentUser().uid;
+    final DatabaseService databaseService = context.read<DatabaseService>();
     return Scaffold(
       appBar: AppBar(
         title: Text('Help & Feedback'),
@@ -92,7 +96,6 @@ class _HelpAndFeedbackState extends State<HelpAndFeedback> {
                   ),
                 ),
                 onPressed: () async {
-                  final uid = MyProvider.of(context).auth.getCurrentUID();
                   if (_feedbackController.text.trim().isNotEmpty) {
                     String suggestion = _feedbackController.text;
                     showAlertDialog(
@@ -103,9 +106,7 @@ class _HelpAndFeedbackState extends State<HelpAndFeedback> {
                     setState(() {
                       _feedbackController.clear();
                     });
-                    await MyProvider.of(context)
-                        .database
-                        .uploadFeeback(uid, suggestion);
+                    await databaseService.uploadFeeback(uid, suggestion);
                   }
                 },
               ),

@@ -7,8 +7,9 @@ import 'package:groceries_budget_app/widgets/selected_dates.dart';
 import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 import 'package:groceries_budget_app/widgets/total_budget_card.dart';
 import 'package:groceries_budget_app/widgets/total_days_text.dart';
-
-import '../../my_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:groceries_budget_app/services/auth_service.dart';
+import 'package:groceries_budget_app/services/database_service.dart';
 
 class NewBudgetSummaryView extends StatelessWidget {
   final Budget budget;
@@ -17,6 +18,8 @@ class NewBudgetSummaryView extends StatelessWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    final String uid = context.read<AuthService>().getCurrentUser().uid;
+    final DatabaseService databaseService = context.read<DatabaseService>();
     return Scaffold(
       key: _scaffoldKey,
       body: CustomScrollView(
@@ -44,12 +47,9 @@ class NewBudgetSummaryView extends StatelessWidget {
                   ),
                   onTap: () async {
                     showLoadingDialog(context);
-                    final String uid =
-                        MyProvider.of(context).auth.getCurrentUID();
+
                     try {
-                      await MyProvider.of(context)
-                          .database
-                          .saveBudgetToFirestore(budget, uid);
+                      await databaseService.saveBudgetToFirestore(budget, uid);
                       hideLoadingDialog(context);
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     } catch (e) {
@@ -115,12 +115,10 @@ class NewBudgetSummaryView extends StatelessWidget {
                         ),
                         onPressed: () async {
                           showLoadingDialog(context);
-                          final String uid =
-                              MyProvider.of(context).auth.getCurrentUID();
+
                           try {
-                            await MyProvider.of(context)
-                                .database
-                                .saveBudgetToFirestore(budget, uid);
+                            await databaseService.saveBudgetToFirestore(
+                                budget, uid);
                             hideLoadingDialog(context);
                             Navigator.of(context)
                                 .popUntil((route) => route.isFirst);

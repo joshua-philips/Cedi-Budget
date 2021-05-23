@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
-import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/widgets/app_bar_home_button.dart';
+import 'package:provider/provider.dart';
+import 'package:groceries_budget_app/services/auth_service.dart';
+import 'package:groceries_budget_app/services/database_service.dart';
 
 class AllTimeDataView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final String uid = MyProvider.of(context).auth.getCurrentUID();
+    final String uid = context.read<AuthService>().getCurrentUser().uid;
+    final DatabaseService databaseService = context.read<DatabaseService>();
     return Scaffold(
       appBar: AppBar(
         title: Text('All-Time Budget Data'),
@@ -16,7 +19,7 @@ class AllTimeDataView extends StatelessWidget {
       ),
       body: Container(
         child: FutureBuilder(
-          future: MyProvider.of(context).database.getAllBudgets(uid),
+          future: databaseService.getAllBudgets(uid),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {

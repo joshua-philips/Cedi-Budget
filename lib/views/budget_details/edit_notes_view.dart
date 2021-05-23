@@ -3,8 +3,8 @@ import 'package:groceries_budget_app/models/budget.dart';
 import 'package:groceries_budget_app/views/budget_details/budget_details_view.dart';
 import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
-
-import '../../my_provider.dart';
+import 'package:groceries_budget_app/services/auth_service.dart';
+import 'package:groceries_budget_app/services/database_service.dart';
 
 class EditNotesView extends StatefulWidget {
   final Budget budget;
@@ -104,6 +104,8 @@ class _EditNotesViewState extends State<EditNotesView> {
   }
 
   Widget buildSubmitButton(context) {
+    final uid = AuthService().getCurrentUID();
+    final databaseService = DatabaseService();
     return RoundedButton(
       color: Theme.of(context).accentColor,
       child: Padding(
@@ -126,11 +128,9 @@ class _EditNotesViewState extends State<EditNotesView> {
         showLoadingDialog(context);
         widget.budget.notes = _notesController.text;
 
-        final uid = MyProvider.of(context).auth.getCurrentUID();
         try {
-          await MyProvider.of(context)
-              .database
-              .updateNotes(uid, _notesController.text.trim(), widget.budget);
+          await databaseService.updateNotes(
+              uid, _notesController.text.trim(), widget.budget);
           hideLoadingDialog(context);
         } catch (e) {
           print(e.message);

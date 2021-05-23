@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
-import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/views/budget_details/budget_details_view.dart';
 import 'package:groceries_budget_app/widgets/form_fields.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
+import 'package:provider/provider.dart';
+import 'package:groceries_budget_app/services/auth_service.dart';
+import 'package:groceries_budget_app/services/database_service.dart';
 
 enum amountType { simple, complex }
 
@@ -382,13 +384,13 @@ class _EditBudgetAmountViewState extends State<EditBudgetAmountView> {
     showLoadingDialog(context);
     widget.budget.amount = _amountTotal.toDouble();
     widget.budget.items = changeItemsToMap();
-    final uid = MyProvider.of(context).auth.getCurrentUID();
+    final uid = context.read<AuthService>().getCurrentUser().uid;
     Route route = MaterialPageRoute(
       builder: (context) => BudgetDetailsView(budget: widget.budget),
     );
     try {
-      await MyProvider.of(context)
-          .database
+      await context
+          .read<DatabaseService>()
           .updateAmountAndItems(uid, widget.budget);
       hideLoadingDialog(context);
       Navigator.popUntil(context, (route) => route.isFirst);

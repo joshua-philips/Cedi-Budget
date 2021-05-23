@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:groceries_budget_app/my_provider.dart';
+import 'package:groceries_budget_app/services/auth_service.dart';
 import 'package:groceries_budget_app/widgets/form_fields.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
+import 'package:provider/provider.dart';
 
 class PasswordResetView extends StatefulWidget {
   @override
@@ -102,8 +103,7 @@ class _PasswordResetViewState extends State<PasswordResetView> {
   }
 
   Future<String> sendResetEmail() async {
-    final auth = MyProvider.of(context).auth;
-
+    final AuthService auth = context.read<AuthService>();
     try {
       await auth.sendPasswordResetEmail(_emailController.text.trim());
       return 'Password reset email sent';

@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:groceries_budget_app/models/budget.dart';
+import 'package:groceries_budget_app/services/auth_service.dart';
+import 'package:groceries_budget_app/services/database_service.dart';
 import 'package:groceries_budget_app/views/budget_details/deposit_view.dart';
 import 'package:groceries_budget_app/views/budget_details/edit_budget_amount.dart';
 import 'package:groceries_budget_app/widgets/pie_chart.dart';
@@ -10,8 +12,8 @@ import 'package:groceries_budget_app/widgets/selected_dates.dart';
 import 'package:groceries_budget_app/widgets/total_budget_card.dart';
 import 'package:groceries_budget_app/widgets/total_days_text.dart';
 import 'package:groceries_budget_app/widgets/percent_card.dart';
+import 'package:provider/provider.dart';
 
-import '../../my_provider.dart';
 import '../budget_details/edit_notes_view.dart';
 import 'edit_budget_dates.dart';
 
@@ -274,10 +276,13 @@ class BudgetDetailsView extends StatelessWidget {
                             ),
                           ),
                           onPressed: () async {
-                            final uid =
-                                MyProvider.of(context).auth.getCurrentUID();
-                            await MyProvider.of(context)
-                                .database
+                            final String uid = context
+                                .read<AuthService>()
+                                .getCurrentUser()
+                                .uid;
+
+                            await context
+                                .read<DatabaseService>()
                                 .deleteBudget(uid, budget);
                             Navigator.of(context)
                                 .popUntil((route) => route.isFirst);

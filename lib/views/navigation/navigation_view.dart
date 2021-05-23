@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/models/budget.dart';
-import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/views/my_account/my_account_view.dart';
 import 'package:groceries_budget_app/views/new_budget/new_budget_date_view.dart';
 import 'package:groceries_budget_app/widgets/custom_navigation_bar.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
+import 'package:provider/provider.dart';
+import 'package:groceries_budget_app/services/auth_service.dart';
 import 'budget_history_view.dart';
 import 'home_view.dart';
 import 'settings_view.dart';
@@ -38,7 +39,7 @@ class _NavigationViewState extends State<NavigationView> {
                     Icon(Icons.account_circle),
                     SizedBox(width: 5),
                     Text(
-                      '${MyProvider.of(context).auth.getCurrentUser().displayName ?? ''}',
+                      '${context.watch<AuthService>().getCurrentUser().displayName ?? ''}',
                       style: TextStyle(
                         color: Theme.of(context)
                             .appBarTheme
@@ -97,7 +98,7 @@ class _NavigationViewState extends State<NavigationView> {
                               ),
                               onPressed: () async {
                                 try {
-                                  await MyProvider.of(context).auth.signOut();
+                                  await context.read<AuthService>().signOut();
                                 } catch (e) {
                                   print(e);
                                 }

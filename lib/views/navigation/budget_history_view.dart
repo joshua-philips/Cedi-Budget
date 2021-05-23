@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/widgets/budget_card.dart';
+import 'package:provider/provider.dart';
+import 'package:groceries_budget_app/services/auth_service.dart';
+import 'package:groceries_budget_app/services/database_service.dart';
 
 class BudgetHistoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final String uid = MyProvider.of(context).auth.getCurrentUID();
+    final String uid = context.read<AuthService>().getCurrentUser().uid;
     return Container(
       child: StreamBuilder(
-        stream: MyProvider.of(context).database.getPastBudgetsStream(uid),
+        stream: context.watch<DatabaseService>().getPastBudgetsStream(uid),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.data.docs.length != 0) {

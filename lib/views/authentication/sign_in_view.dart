@@ -2,9 +2,9 @@ import 'package:auth_buttons/auth_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:groceries_budget_app/widgets/form_fields.dart';
 import 'package:groceries_budget_app/services/auth_service.dart';
-import 'package:groceries_budget_app/my_provider.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
+import 'package:provider/provider.dart';
 
 import 'password_reset_view.dart';
 import 'sign_up_view.dart';
@@ -121,8 +121,6 @@ class _SignInViewState extends State<SignInView> {
                                 } else {
                                   Navigator.popUntil(context,
                                       (_) => !Navigator.canPop(context));
-                                  Navigator.of(context)
-                                      .pushReplacementNamed('/home');
                                 }
                               }
                             },
@@ -163,7 +161,6 @@ class _SignInViewState extends State<SignInView> {
                     } else {
                       Navigator.popUntil(
                           context, (_) => !Navigator.canPop(context));
-                      Navigator.of(context).pushReplacementNamed('/home');
                     }
                   },
                 ),
@@ -176,7 +173,7 @@ class _SignInViewState extends State<SignInView> {
   }
 
   Future<String> googleSignIn() async {
-    final auth = MyProvider.of(context).auth;
+    final AuthService auth = context.read<AuthService>();
 
     try {
       await auth.signInWithGoogle();
@@ -188,7 +185,7 @@ class _SignInViewState extends State<SignInView> {
   }
 
   Future<String> signIn() async {
-    final AuthService auth = MyProvider.of(context).auth;
+    final AuthService auth = context.read<AuthService>();
 
     try {
       await auth.signInWithEmailAndPassword(

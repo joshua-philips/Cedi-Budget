@@ -5,8 +5,7 @@ import 'package:groceries_budget_app/widgets/form_fields.dart';
 import 'package:groceries_budget_app/widgets/rounded_button.dart';
 import 'package:groceries_budget_app/widgets/snackbar_and_loading.dart';
 import 'package:groceries_budget_app/widgets/alert_dialog.dart';
-
-import '../../my_provider.dart';
+import 'package:provider/provider.dart';
 
 class ChangePasswordView extends StatefulWidget {
   @override
@@ -136,7 +135,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
   }
 
   Future<String> changePassword() async {
-    AuthService auth = MyProvider.of(context).auth;
+    AuthService auth = context.read<AuthService>();
     try {
       await auth.changePassword(
           _oldPasswordController.text, _newPasswordController.text);
